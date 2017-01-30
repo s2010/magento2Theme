@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/magento2Theme/vendor/magento/module-search/view/frontend/web/form-mini.js

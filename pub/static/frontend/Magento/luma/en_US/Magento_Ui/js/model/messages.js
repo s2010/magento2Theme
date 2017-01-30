@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/magento2Theme/vendor/magento/module-ui/view/frontend/web/js/model/messages.js
