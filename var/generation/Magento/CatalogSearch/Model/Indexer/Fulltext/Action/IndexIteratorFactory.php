@@ -2,7 +2,8 @@
 namespace Magento\CatalogSearch\Model\Indexer\Fulltext\Action;
 
 /**
- * Factory class for @see \Magento\CatalogSearch\Model\Indexer\Fulltext\Action\IndexIterator
+ * Factory class for @see
+ * \Magento\CatalogSearch\Model\Indexer\Fulltext\Action\IndexIterator
  */
 class IndexIteratorFactory
 {

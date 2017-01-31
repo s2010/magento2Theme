@@ -22,13 +22,6 @@ class Links extends Block
     protected $link = '//a[contains(text(), "%s")]';
 
     /**
-     * Locator value for Authorization link.
-     *
-     * @var string
-     */
-    protected $authorizationLink = '.authorization-link a';
-
-    /**
      * Locator value for welcome message.
      *
      * @var string
@@ -129,15 +122,5 @@ class Links extends Block
     public function waitWelcomeMessage()
     {
         $this->waitForElementVisible($this->welcomeMessage);
-    }
-
-    /**
-     * Verify if authorization link is present or not.
-     *
-     * @return bool
-     */
-    public function isAuthorizationVisible()
-    {
-        return $this->_rootElement->find($this->authorizationLink)->isVisible();
     }
 }

@@ -40,9 +40,9 @@ class Settings extends Tab
      * @param SimpleElement|null $element
      * @return $this
      */
-    public function setFieldsData(array $fields, SimpleElement $element = null)
+    public function fillFormTab(array $fields, SimpleElement $element = null)
     {
-        parent::setFieldsData($fields, $element);
+        parent::fillFormTab($fields, $element);
         $this->clickContinue();
 
         return $this;

@@ -5,8 +5,6 @@
  */
 namespace Magento\TestFramework\Inspection;
 
-use Magento\Framework\Component\ComponentRegistrar;
-
 class WordsFinderTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -17,7 +15,7 @@ class WordsFinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorException($configFile, $baseDir)
     {
-        new \Magento\TestFramework\Inspection\WordsFinder($configFile, $baseDir, new ComponentRegistrar());
+        new \Magento\TestFramework\Inspection\WordsFinder($configFile, $baseDir);
     }
 
     public function constructorExceptionDataProvider()
@@ -42,8 +40,7 @@ class WordsFinderTest extends \PHPUnit_Framework_TestCase
     {
         $wordsFinder = new \Magento\TestFramework\Inspection\WordsFinder(
             $configFiles,
-            __DIR__ . '/_files/words_finder',
-            new ComponentRegistrar()
+            __DIR__ . '/_files/words_finder'
         );
         $actual = $wordsFinder->findWords($file);
         $this->assertEquals($expected, $actual);

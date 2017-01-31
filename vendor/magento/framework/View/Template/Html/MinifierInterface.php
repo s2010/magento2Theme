@@ -6,11 +6,6 @@
 
 namespace Magento\Framework\View\Template\Html;
 
-/**
- * HTML minifier
- *
- * @api
- */
 interface MinifierInterface
 {
     /**

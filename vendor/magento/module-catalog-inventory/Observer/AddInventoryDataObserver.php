@@ -34,7 +34,10 @@ class AddInventoryDataObserver implements ObserverInterface
     {
         $product = $observer->getEvent()->getProduct();
         if ($product instanceof \Magento\Catalog\Model\Product) {
-            $this->stockHelper->assignStatusToProduct($product);
+            $this->stockHelper->assignStatusToProduct(
+                $product,
+                $product->getStockStatus()
+            );
         }
     }
 }

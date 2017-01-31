@@ -24,7 +24,7 @@ class EnabledTest extends \PHPUnit_Framework_TestCase
      */
     protected $paymentConfigMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->paymentConfigMock = $this->getMock('\Magento\Payment\Model\Config', [], [], '', false);
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);

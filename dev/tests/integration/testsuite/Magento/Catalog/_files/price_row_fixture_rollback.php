@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-use Magento\Framework\Exception\NoSuchEntityException;
 
 /** @var \Magento\Framework\Registry $registry */
 $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
@@ -13,15 +12,9 @@ $registry->unregister('isSecureArea');
 $registry->register('isSecureArea', true);
 
 
-$repository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-    'Magento\Catalog\Model\ProductRepository'
-);
-try {
-    $product = $repository->get('simple', false, null, true);
-    $product->delete();
-} catch (NoSuchEntityException $e) {
-    //Entity already deleted
-}
+/** @var $product \Magento\Catalog\Model\Product */
+$product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Product');
+$product->load(1)->delete();
 
 /** @var $category \Magento\Catalog\Model\Category */
 $category = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Category');

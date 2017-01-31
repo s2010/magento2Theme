@@ -185,13 +185,13 @@ class ChangelogTest extends \PHPUnit_Framework_TestCase
         $this->model->create();
     }
 
-    public function testCreateWithExistingTable()
+    public function testCreateWithException()
     {
         $changelogTableName = 'viewIdtest_cl';
         $this->mockIsTableExists($changelogTableName, true);
         $this->mockGetTableName();
 
-        $this->connectionMock->expects($this->never())->method('createTable');
+        $this->setExpectedException('Exception', "Table {$changelogTableName} already exist");
         $this->model->setViewId('viewIdtest');
         $this->model->create();
     }

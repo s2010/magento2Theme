@@ -18,7 +18,7 @@ class TotalsProcessorTest extends \PHPUnit_Framework_TestCase
      */
     protected $scopeConfigMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->scopeConfigMock = $this->getMock(
             '\Magento\Framework\App\Config\ScopeConfigInterface',

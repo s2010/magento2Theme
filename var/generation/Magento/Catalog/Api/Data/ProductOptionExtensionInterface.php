@@ -2,7 +2,8 @@
 namespace Magento\Catalog\Api\Data;
 
 /**
- * ExtensionInterface class for @see \Magento\Catalog\Api\Data\ProductOptionInterface
+ * ExtensionInterface class for @see
+ * \Magento\Catalog\Api\Data\ProductOptionInterface
  */
 interface ProductOptionExtensionInterface extends \Magento\Framework\Api\ExtensionAttributesInterface
 {
@@ -34,18 +35,22 @@ interface ProductOptionExtensionInterface extends \Magento\Framework\Api\Extensi
     public function getDownloadableOption();
 
     /**
-     * @param \Magento\Downloadable\Api\Data\DownloadableOptionInterface $downloadableOption
+     * @param \Magento\Downloadable\Api\Data\DownloadableOptionInterface
+     * $downloadableOption
      * @return $this
      */
-    public function setDownloadableOption(\Magento\Downloadable\Api\Data\DownloadableOptionInterface $downloadableOption);
+    public function setDownloadableOption($downloadableOption);
 
     /**
-     * @return \Magento\ConfigurableProduct\Api\Data\ConfigurableItemOptionValueInterface[]|null
+     * @return
+     * \Magento\ConfigurableProduct\Api\Data\ConfigurableItemOptionValueInterface[]|null
      */
     public function getConfigurableItemOptions();
 
     /**
-     * @param \Magento\ConfigurableProduct\Api\Data\ConfigurableItemOptionValueInterface[] $configurableItemOptions
+     * @param
+     * \Magento\ConfigurableProduct\Api\Data\ConfigurableItemOptionValueInterface[]
+     * $configurableItemOptions
      * @return $this
      */
     public function setConfigurableItemOptions($configurableItemOptions);

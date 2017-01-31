@@ -21,7 +21,7 @@ class AttributeProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected $object;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->eavConfig = $this->getMockBuilder('Magento\Eav\Model\Config')
             ->disableOriginalConstructor()

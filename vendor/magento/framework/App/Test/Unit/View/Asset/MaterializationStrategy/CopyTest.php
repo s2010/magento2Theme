@@ -15,7 +15,7 @@ class CopyTest extends \PHPUnit_Framework_TestCase
      */
     private $copyPublisher;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->copyPublisher = new Copy;
     }

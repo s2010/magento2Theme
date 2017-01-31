@@ -51,7 +51,7 @@ class RelationTest extends \PHPUnit_Framework_TestCase
      */
     protected $itemMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->itemResourceMock = $this->getMockBuilder('Magento\Sales\Model\ResourceModel\Order\Shipment\Item')
             ->disableOriginalConstructor()
@@ -111,7 +111,7 @@ class RelationTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessRelations()
     {
-        $this->shipmentMock->expects($this->exactly(3))
+        $this->shipmentMock->expects($this->once())
             ->method('getId')
             ->willReturn('shipment-id-value');
         $this->shipmentMock->expects($this->exactly(2))

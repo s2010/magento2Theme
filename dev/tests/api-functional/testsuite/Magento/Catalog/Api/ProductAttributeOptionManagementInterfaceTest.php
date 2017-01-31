@@ -69,6 +69,7 @@ class ProductAttributeOptionManagementInterfaceTest extends WebapiAbstract
 
         $optionData = [
             AttributeOptionInterface::LABEL => 'new color',
+            AttributeOptionInterface::VALUE => 'grey',
             AttributeOptionInterface::SORT_ORDER => 100,
             AttributeOptionInterface::IS_DEFAULT => true,
             AttributeOptionInterface::STORE_LABELS => [

@@ -5,17 +5,13 @@
  */
 namespace Magento\Framework\App\PageCache;
 
-use Magento\Framework\App\ObjectManager;
-
 /**
  * Builtin cache processor
  */
 class Kernel
 {
     /**
-     * @var \Magento\PageCache\Model\Cache\Type
-     *
-     * @deprecated
+     * @var Cache
      */
     protected $cache;
 
@@ -28,11 +24,6 @@ class Kernel
      * @var \Magento\Framework\App\Request\Http
      */
     protected $request;
-
-    /**
-     * @var \Magento\PageCache\Model\Cache\Type
-     */
-    private $fullPageCache;
 
     /**
      * @param Cache $cache
@@ -57,7 +48,7 @@ class Kernel
     public function load()
     {
         if ($this->request->isGet() || $this->request->isHead()) {
-            return unserialize($this->getCache()->load($this->identifier->getValue()));
+            return unserialize($this->cache->load($this->identifier->getValue()));
         }
         return false;
     }
@@ -84,21 +75,8 @@ class Kernel
                 if (!headers_sent()) {
                     header_remove('Set-Cookie');
                 }
-                $this->getCache()->save(serialize($response), $this->identifier->getValue(), $tags, $maxAge);
+                $this->cache->save(serialize($response), $this->identifier->getValue(), $tags, $maxAge);
             }
         }
-    }
-
-    /**
-     * TODO: Workaround to support backwards compatibility, will rework to use Dependency Injection in MAGETWO-49547
-     *
-     * @return \Magento\PageCache\Model\Cache\Type
-     */
-    private function getCache()
-    {
-        if (!$this->fullPageCache) {
-            $this->fullPageCache = ObjectManager::getInstance()->get('\Magento\PageCache\Model\Cache\Type');
-        }
-        return $this->fullPageCache;
     }
 }

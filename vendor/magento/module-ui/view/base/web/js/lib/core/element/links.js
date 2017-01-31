@@ -51,10 +51,10 @@ define([
         }
 
         if (owner.component !== target.component) {
-            value = data.inversionValue ? !utils.copy(value) : utils.copy(value);
+            value = utils.copy(value);
         }
 
-        component.set(property, value, owner);
+        component.set(property, value);
 
         if (linked) {
             linked.mute = false;
@@ -148,11 +148,6 @@ define([
 
     function transfer(owner, data) {
         var args = _.toArray(arguments);
-
-        if (data.target.substr(0,1) === '!') {
-            data.target = data.target.substr(1);
-            data.inversionValue = true;
-        }
 
         if (owner.name === data.target) {
             args.unshift(owner);

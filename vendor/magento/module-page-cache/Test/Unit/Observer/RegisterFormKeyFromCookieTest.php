@@ -44,7 +44,7 @@ class RegisterFormKeyFromCookieTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up all mocks and data for test
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->cookieFormKey = $this->getMockBuilder(
             'Magento\Framework\App\PageCache\FormKey'

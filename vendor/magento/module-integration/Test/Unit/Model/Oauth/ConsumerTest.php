@@ -63,7 +63,7 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase
      */
     protected $validDataArray;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->contextMock = $this->getMock(
             'Magento\Framework\Model\Context',

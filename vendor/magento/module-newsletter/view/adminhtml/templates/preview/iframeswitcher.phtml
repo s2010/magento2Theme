@@ -42,8 +42,8 @@ function unBlockPreview() {
     jQuery('body').trigger('hideLoadingPopup');
 }
 
-jQuery(document).ready(preview);
-jQuery(previewIframe).ready(unBlockPreview);
+Event.observe(window, 'load', preview);
+Event.observe(previewIframe, 'load', unBlockPreview);
 
 jQuery("#preview_iframe").load(function() {
     jQuery(this).height(jQuery(this).contents().find("html").height() );

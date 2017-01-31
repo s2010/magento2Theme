@@ -32,7 +32,7 @@ class FlagFactory
      */
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
-        $instanceName = Flag::class
+        $instanceName = 'Magento\Framework\Flag'
     ) {
         $this->_objectManager = $objectManager;
         $this->_instanceName = $instanceName;

@@ -4,18 +4,12 @@
  * See COPYING.txt for license details.
  */
 
-use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\TestFramework\Helper\Bootstrap;
-
 require 'product_configurable.php';
 /** @var $attribute \Magento\Catalog\Model\ResourceModel\Eav\Attribute */
 
-$productRepository = Bootstrap::getObjectManager()
-    ->create(ProductRepositoryInterface::class);
-
 /** @var $product \Magento\Catalog\Model\Product */
-$product = $productRepository->get('configurable');
-
+$product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Product');
+$product->load(1);
 /* Create simple products per each option */
 /** @var $options \Magento\Eav\Model\ResourceModel\Entity\Attribute\Option\Collection */
 $options = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
@@ -24,14 +18,7 @@ $options = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
 $option = $options->setAttributeFilter($attribute->getId())->getFirstItem();
 
 $requestInfo = new \Magento\Framework\DataObject(
-    [
-        'product' => $product->getId(),
-        'selected_configurable_option' => 1,
-        'qty' => 1,
-        'super_attribute' => [
-            $attribute->getId() => $option->getId()
-        ]
-    ]
+    ['qty' => 1, 'super_attribute' => [$attribute->getId() => $option->getId()]]
 );
 
 /** @var $cart \Magento\Checkout\Model\Cart */

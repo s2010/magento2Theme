@@ -32,7 +32,7 @@ class GridToCsvTest extends \PHPUnit_Framework_TestCase
      */
     protected $fileFactory;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->context = $this->getMockBuilder('Magento\Backend\App\Action\Context')
             ->disableOriginalConstructor()

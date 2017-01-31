@@ -28,7 +28,7 @@ class UiComponentTest extends \PHPUnit_Framework_TestCase
      */
     protected $context;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->helper = $this->getMockBuilder('Magento\Framework\View\Layout\ScheduledStructure\Helper')
             ->setMethods(['scheduleStructure'])

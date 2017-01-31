@@ -14,9 +14,12 @@ namespace Magento\Newsletter\Controller\Adminhtml;
 abstract class Queue extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
+     * Check if user has enough privileges
      *
-     * @see _isAllowed()
+     * @return bool
      */
-    const ADMIN_RESOURCE = 'Magento_Newsletter::queue';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Newsletter::queue');
+    }
 }

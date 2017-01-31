@@ -12,7 +12,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
      */
     protected $_messageMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_messageMock = $this->getMock(
             '\Magento\Framework\Mail\Message',

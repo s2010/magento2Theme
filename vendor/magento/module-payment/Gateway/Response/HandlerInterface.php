@@ -5,11 +5,6 @@
  */
 namespace Magento\Payment\Gateway\Response;
 
-/**
- * Interface HandlerInterface
- * @package Magento\Payment\Gateway\Response
- * @api
- */
 interface HandlerInterface
 {
     /**

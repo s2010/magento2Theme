@@ -4,8 +4,6 @@
  * See COPYING.txt for license details.
  */
 
-use Magento\Sales\Model\Order\Payment;
-
 // @codingStandardsIgnoreFile
 
 require 'default_rollback.php';
@@ -22,15 +20,8 @@ $billingAddress->setAddressType('billing');
 $shippingAddress = clone $billingAddress;
 $shippingAddress->setId(null)->setAddressType('shipping');
 
-/** @var Payment $payment */
-$payment = $objectManager->create(Payment::class);
-$payment->setMethod('checkmo')
-    ->setAdditionalInformation([
-        'token_metadata' => [
-            'token' => 'f34vjw',
-            'customer_id' => 1
-        ]
-    ]);
+$payment = $objectManager->create('Magento\Sales\Model\Order\Payment');
+$payment->setMethod('checkmo');
 
 /** @var \Magento\Sales\Model\Order\Item $orderItem */
 $orderItem = $objectManager->create('Magento\Sales\Model\Order\Item');
@@ -50,9 +41,9 @@ $order->setIncrementId(
     $order->getConfig()->getStateDefaultStatus(\Magento\Sales\Model\Order::STATE_PROCESSING)
 )->setSubtotal(
     100
-)->setGrandTotal(
-    100
 )->setBaseSubtotal(
+    100
+)->setGrandTotal(
     100
 )->setBaseGrandTotal(
     100

@@ -370,7 +370,7 @@ class ImagesTest extends \PHPUnit_Framework_TestCase
         $this->directoryWriteMock->expects($this->any())
             ->method('create')
             ->willThrowException(
-                new \Magento\Framework\Exception\FileSystemException(__('Could not create a directory.'))
+                new \Magento\Framework\Exception\FileSystemException(__('Could not create directory.'))
             );
 
         $this->imagesHelper->getCurrentPath();

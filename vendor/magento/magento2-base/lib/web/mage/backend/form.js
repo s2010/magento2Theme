@@ -25,6 +25,13 @@
                         }
                     }
                 },
+                saveAndNew: {
+                    action: {
+                        args: {
+                            back: 'new'
+                        }
+                    }
+                },
                 preview: {
                     target: '_blank'
                 }

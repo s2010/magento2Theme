@@ -20,7 +20,7 @@ class StockRegistryTest extends \PHPUnit_Framework_TestCase
      */
     protected $criteria;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->criteria = $this->getMockBuilder('Magento\CatalogInventory\Api\StockItemCriteriaInterface')
             ->disableOriginalConstructor()

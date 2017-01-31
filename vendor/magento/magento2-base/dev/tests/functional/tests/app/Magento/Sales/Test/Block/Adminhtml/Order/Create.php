@@ -9,7 +9,6 @@ namespace Magento\Sales\Test\Block\Adminhtml\Order;
 use Magento\Mtf\Block\Block;
 use Magento\Mtf\Client\Locator;
 use Magento\Mtf\Fixture\FixtureInterface;
-use Magento\Mtf\Fixture\InjectableFixture;
 
 /**
  * Adminhtml sales order create block.
@@ -115,13 +114,6 @@ class Create extends Block
     protected $header = 'header';
 
     /**
-     * Save credit card check box.
-     *
-     * @var string
-     */
-    protected $vaultCheckbox = '#%s_vault';
-
-    /**
      * Getter for order selected products grid.
      *
      * @return \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items
@@ -129,7 +121,7 @@ class Create extends Block
     public function getItemsBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Items',
             ['element' => $this->_rootElement->find($this->itemsBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -142,7 +134,7 @@ class Create extends Block
     public function getBillingAddressBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Billing\Address::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Billing\Address',
             ['element' => $this->_rootElement->find($this->billingAddressBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -155,7 +147,7 @@ class Create extends Block
     protected function getShippingAddressBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Address::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Address',
             ['element' => $this->_rootElement->find($this->shippingAddressBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -165,10 +157,10 @@ class Create extends Block
      *
      * @return \Magento\Sales\Test\Block\Adminhtml\Order\Create\Billing\Method
      */
-    public function getBillingMethodBlock()
+    protected function getBillingMethodBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Billing\Method::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Billing\Method',
             ['element' => $this->_rootElement->find($this->billingMethodBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -181,7 +173,7 @@ class Create extends Block
     protected function getShippingMethodBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Method::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Shipping\Method',
             ['element' => $this->_rootElement->find($this->shippingMethodBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -194,7 +186,7 @@ class Create extends Block
     protected function getTotalsBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Totals::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Totals',
             ['element' => $this->_rootElement->find($this->totalsBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -207,7 +199,7 @@ class Create extends Block
     public function getTemplateBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Backend\Test\Block\Template::class,
+            'Magento\Backend\Test\Block\Template',
             ['element' => $this->_rootElement->find($this->templateBlock, Locator::SELECTOR_XPATH)]
         );
     }
@@ -220,7 +212,7 @@ class Create extends Block
     public function getGridBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Search\Grid::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Search\Grid',
             ['element' => $this->_rootElement->find($this->gridBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -233,7 +225,7 @@ class Create extends Block
     public function getAccountBlock()
     {
         return $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Form\Account::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Form\Account',
             ['element' => $this->_rootElement->find($this->accountInformationBlock, Locator::SELECTOR_CSS)]
         );
     }
@@ -258,7 +250,7 @@ class Create extends Block
     {
         /** @var \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items $items */
         $items = $this->blockFactory->create(
-            \Magento\Sales\Test\Block\Adminhtml\Order\Create\Items::class,
+            'Magento\Sales\Test\Block\Adminhtml\Order\Create\Items',
             ['element' => $this->_rootElement->find($this->itemsBlock)]
         );
         foreach ($products as $product) {
@@ -288,29 +280,16 @@ class Create extends Block
      */
     public function fillAddresses(FixtureInterface $address, $saveAddress = 'No', $setShippingAddress = true)
     {
-        if ($setShippingAddress) {
-            $this->getShippingAddressBlock()->uncheckSameAsBillingShippingAddress();
-        }
+        $this->getShippingAddressBlock()->uncheckSameAsBillingShippingAddress();
         $this->browser->find($this->header)->hover();
         $this->getBillingAddressBlock()->fill($address);
         $this->getBillingAddressBlock()->saveInAddressBookBillingAddress($saveAddress);
         $this->getTemplateBlock()->waitLoader();
         if ($setShippingAddress) {
+            $this->browser->find($this->header)->hover();
             $this->getShippingAddressBlock()->setSameAsBillingShippingAddress();
             $this->getTemplateBlock()->waitLoader();
         }
-    }
-
-    /**
-     * Fill Shipping Address.
-     *
-     * @param FixtureInterface $shippingAddress
-     * @return void
-     */
-    public function fillShippingAddress(FixtureInterface $shippingAddress)
-    {
-        $this->getShippingAddressBlock()->fill($shippingAddress);
-        $this->getTemplateBlock()->waitLoader();
     }
 
     /**
@@ -330,13 +309,13 @@ class Create extends Block
      * Select payment method.
      *
      * @param array $paymentCode
-     * @param InjectableFixture|null $creditCard
+     * @return void
      */
-    public function selectPaymentMethod(array $paymentCode, InjectableFixture $creditCard = null)
+    public function selectPaymentMethod(array $paymentCode)
     {
         $this->getTemplateBlock()->waitLoader();
         $this->_rootElement->find($this->orderMethodsSelector)->click();
-        $this->getBillingMethodBlock()->selectPaymentMethod($paymentCode, $creditCard);
+        $this->getBillingMethodBlock()->selectPaymentMethod($paymentCode);
         $this->getTemplateBlock()->waitLoader();
     }
 
@@ -358,29 +337,5 @@ class Create extends Block
     public function addSelectedProductsToOrder()
     {
         $this->_rootElement->find($this->addSelectedProducts)->click();
-    }
-
-    /**
-     * Save credit card.
-     *
-     * @param string $paymentMethod
-     * @param string $creditCardSave
-     * @return void
-     */
-    public function saveCreditCard($paymentMethod, $creditCardSave)
-    {
-        $saveCard = sprintf($this->vaultCheckbox, $paymentMethod);
-        $this->_rootElement->find($saveCard, Locator::SELECTOR_CSS, 'checkbox')->setValue($creditCardSave);
-    }
-
-    /**
-     * Select vault payment token radio button
-     * @param string $selector
-     * @return void
-     */
-    public function selectVaultToken($selector)
-    {
-        $selector = '[id^="' . $selector . '"]';
-        $this->_rootElement->find($selector)->click();
     }
 }

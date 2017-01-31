@@ -45,7 +45,7 @@ class ReportTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->context = $this->getMock(
             'Magento\Framework\App\Helper\Context',

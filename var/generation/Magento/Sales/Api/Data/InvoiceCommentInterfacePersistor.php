@@ -51,8 +51,10 @@ class InvoiceCommentInterfacePersistor
     /**
      * Persistor constructor
      *
-     * @param \Magento\Sales\Model\Spi\InvoiceCommentResourceInterface $invoiceCommentInterfaceResource
-     * @param \Magento\Sales\Api\Data\InvoiceCommentInterfaceFactory $invoiceCommentInterfaceFactory
+     * @param \Magento\Sales\Model\Spi\InvoiceCommentResourceInterface
+     * $invoiceCommentInterfaceResource
+     * @param \Magento\Sales\Api\Data\InvoiceCommentInterfaceFactory
+     * $invoiceCommentInterfaceFactory
      * @param \Magento\Framework\App\ResourceConnection $resource
      */
     public function __construct(\Magento\Sales\Model\Spi\InvoiceCommentResourceInterface $invoiceCommentInterfaceResource, \Magento\Sales\Api\Data\InvoiceCommentInterfaceFactory $invoiceCommentInterfaceFactory, \Magento\Framework\App\ResourceConnection $resource)
@@ -94,12 +96,7 @@ class InvoiceCommentInterfacePersistor
      */
     public function registerDeleted(\Magento\Sales\Api\Data\InvoiceCommentInterface $entity)
     {
-        $hash = spl_object_hash($entity);
-        array_push($this->stack, $hash);
-        $this->entitiesPool[$hash] = [
-            'entity' => $entity,
-            'action' => 'removed'
-        ];
+        $hash = spl_object_hash($entity);array_push($this->stack, $hash);$this->entitiesPool[$hash] = [    'entity' => $entity,    'action' => 'removed'];
     }
 
     /**
@@ -111,8 +108,8 @@ class InvoiceCommentInterfacePersistor
     {
         $hash = spl_object_hash($entity);
         $data = [
-             'entity' => $entity,
-             'action' => 'created'
+        'entity' => $entity,
+        'action' => 'created'
         ];
         array_push($this->stack, $hash);
         $this->entitiesPool[$hash] = $data;
@@ -146,13 +143,12 @@ class InvoiceCommentInterfacePersistor
                 $hash = array_pop($this->stack);
                 if (isset($this->entitiesPool[$hash])) {
                     $data = $this->entitiesPool[$hash];
-                    $entity = $data['entity'];
                     if ($data['action'] == 'created') {
-                        $this->invoiceCommentInterfaceResource->save($entity);
-                        $ids[] = $entity->getId();
+                        $this->invoiceCommentInterfaceResource->save($data['entity']);
+                        $ids[] = $data['entity']->getId();
                     } else {
-                        $ids[] = $entity->getId();
-                        $this->invoiceCommentInterfaceResource->delete($entity);
+                        $ids[] = $data['entity']->getId();
+                        $this->invoiceCommentInterfaceResource->delete($data['removed']);
                     }
                 }
                 unset($this->entitiesPool[$hash]);
@@ -174,16 +170,14 @@ class InvoiceCommentInterfacePersistor
     public function doPersistEntity(\Magento\Sales\Api\Data\InvoiceCommentInterface $entity)
     {
         $hash = spl_object_hash($entity);
-        $action = 'created';
         if (isset($this->entitiesPool[$hash])) {
-             $action = $this->entitiesPool[$hash]['action'];
-             $tempStack = $this->stack;
-             array_flip($tempStack);
-             unset($tempStack[$hash]);
-             $this->stack = array_flip($tempStack);
-             unset($this->entitiesPool[$hash]);
+        $tempStack = $this->stack;
+        array_flip($tempStack);
+        unset($tempStack[$hash]);
+        $this->stack = array_flip($tempStack);
+        unset($this->entitiesPool[$hash]);
         }
-        $action == 'created' ? $this->registerNew($entity) : $this->registerDeleted($entity);
+        $this->registerNew($entity);
         return $this->doPersist(1);
     }
 }

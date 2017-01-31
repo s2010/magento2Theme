@@ -53,7 +53,7 @@ class Proxy extends \Magento\Customer\Model\ResourceModel\Customer implements \M
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**
@@ -314,14 +314,6 @@ class Proxy extends \Magento\Customer\Model\ResourceModel\Customer implements \M
     /**
      * {@inheritdoc}
      */
-    public function getLinkField()
-    {
-        return $this->_getSubject()->getLinkField();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getEntityIdField()
     {
         return $this->_getSubject()->getEntityIdField();
@@ -413,46 +405,6 @@ class Proxy extends \Magento\Customer\Model\ResourceModel\Customer implements \M
     public function getDefaultAttributes()
     {
         return $this->_getSubject()->getDefaultAttributes();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterLoad(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->afterLoad($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeSave(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->beforeSave($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterSave(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->afterSave($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeDelete(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->beforeDelete($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterDelete(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->afterDelete($object);
     }
 
     /**

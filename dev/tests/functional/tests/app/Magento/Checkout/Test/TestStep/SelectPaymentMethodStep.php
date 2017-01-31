@@ -7,7 +7,6 @@
 namespace Magento\Checkout\Test\TestStep;
 
 use Magento\Checkout\Test\Page\CheckoutOnepage;
-use Magento\Mtf\Fixture\FixtureFactory;
 use Magento\Mtf\TestStep\TestStepInterface;
 use Magento\Payment\Test\Fixture\CreditCard;
 
@@ -42,22 +41,16 @@ class SelectPaymentMethodStep implements TestStepInterface
      * @constructor
      * @param CheckoutOnepage $checkoutOnepage
      * @param array $payment
-     * @param FixtureFactory $fixtureFactory
-     * @param string $creditCardClass
-     * @param array|CreditCard|null $creditCard
+     * @param CreditCard|null $creditCard
      */
     public function __construct(
         CheckoutOnepage $checkoutOnepage,
         array $payment,
-        FixtureFactory $fixtureFactory,
-        $creditCardClass = 'credit_card',
-        $creditCard = null
+        CreditCard $creditCard = null
     ) {
         $this->checkoutOnepage = $checkoutOnepage;
         $this->payment = $payment;
-        if (isset($creditCard['dataset'])) {
-            $this->creditCard = $fixtureFactory->createByCode($creditCardClass, ['dataset' => $creditCard['dataset']]);
-        }
+        $this->creditCard = $creditCard;
     }
 
     /**

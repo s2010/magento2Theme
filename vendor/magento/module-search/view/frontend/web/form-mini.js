@@ -79,6 +79,9 @@ define([
             }.bind(this));
 
             this.element.on('blur', $.proxy(function () {
+                if (!this.searchLabel.hasClass('active')) {
+                    return;
+                }
 
                 setTimeout($.proxy(function () {
                     if (this.autoComplete.is(':hidden')) {
@@ -291,7 +294,7 @@ define([
 
                     this.responseList.indexList
                         .on('click', function (e) {
-                            this.responseList.selected = $(e.currentTarget);
+                            this.responseList.selected = $(e.target);
                             this.searchForm.trigger('submit');
                         }.bind(this))
                         .on('mouseenter mouseleave', function (e) {

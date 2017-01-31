@@ -7,8 +7,6 @@ namespace Magento\Framework\Setup;
 
 /**
  * DB resource interface
- *
- * @api
  */
 interface SetupInterface
 {
@@ -36,13 +34,6 @@ interface SetupInterface
      */
     public function getTable($tableName);
 
-    /**
-     * Gets table placeholder by table name
-     *
-     * @param string $tableName
-     * @return string
-     */
-    public function getTablePlaceholder($tableName);
 
     /**
      * Checks if table exists

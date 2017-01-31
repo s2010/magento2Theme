@@ -110,7 +110,6 @@ class CatalogRulePrice extends AbstractPrice implements BasePriceProviderInterfa
 
     /**
      * @return Rule
-     * @deprecated
      */
     private function getRuleResource()
     {

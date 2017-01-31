@@ -17,8 +17,7 @@ define([
             fixedClass: '_fixed',
             hiddenClass: '_hidden',
             title: '.page-title-wrapper .page-title',
-            pageMainActions: '.page-main-actions',
-            contains: '[data-role=modal]'
+            pageMainActions: '.page-main-actions'
         },
 
         /**
@@ -28,11 +27,6 @@ define([
         _create: function() {
             var title = $(this.options.title).text(),
                 wrapped = this.element.find('.page-actions-buttons').children();
-
-            if (this.element.parents(this.options.contains).length) {
-                return this;
-            }
-
             this._setVars();
             this._bind();
             this.element.find('script').remove();

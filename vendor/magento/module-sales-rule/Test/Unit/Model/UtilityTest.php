@@ -72,7 +72,7 @@ class UtilityTest extends \PHPUnit_Framework_TestCase
      */
     protected $priceCurrency;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->usageFactory = $this->getMock(
             'Magento\SalesRule\Model\ResourceModel\Coupon\UsageFactory',

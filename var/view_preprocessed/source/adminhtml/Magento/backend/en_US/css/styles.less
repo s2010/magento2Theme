@@ -8,6 +8,7 @@
 
 @import 'source/lib/_lib.less'; // Global lib
 @import (reference) 'source/_extends.less';
+@import 'source/_theme.less'; // Theme variables overrides
 @import 'source/_sources.less'; // Theme
 
 
@@ -17,16 +18,12 @@
 @import '../Magento_AdvancedCheckout/css/source/_module.less';
 @import '../Magento_Backend/css/source/_module.less';
 @import '../Magento_Banner/css/source/_module.less';
-@import '../Magento_Braintree/css/source/_module.less';
 @import '../Magento_Catalog/css/source/_module.less';
-@import '../Magento_CatalogPermissions/css/source/_module.less';
 @import '../Magento_Config/css/source/_module.less';
 @import '../Magento_ConfigurableProduct/css/source/_module.less';
 @import '../Magento_CurrencySymbol/css/source/_module.less';
-@import '../Magento_Customer/css/source/_module.less';
 @import '../Magento_CustomerBalance/css/source/_module.less';
 @import '../Magento_Downloadable/css/source/_module.less';
-@import '../Magento_GiftCard/css/source/_module.less';
 @import '../Magento_GiftRegistry/css/source/_module.less';
 @import '../Magento_GiftWrapping/css/source/_module.less';
 @import '../Magento_Marketplace/css/source/_module.less';
@@ -36,11 +33,8 @@
 @import '../Magento_Rma/css/source/_module.less';
 @import '../Magento_Sales/css/source/_module.less';
 @import '../Magento_Shipping/css/source/_module.less';
-@import '../Magento_Staging/css/source/_module.less';
 @import '../Magento_Tax/css/source/_module.less';
-@import '../Magento_Translation/css/source/_module.less';
 @import '../Magento_Ui/css/source/_module.less';
-@import '../Magento_Vault/css/source/_module.less';
 @import '../Magento_VersionsCms/css/source/_module.less';
 @import '../Magento_VisualMerchandiser/css/source/_module.less';
 
@@ -51,9 +45,7 @@
 .attribute-popup {
     .page-wrapper {
         margin-left: 0;
-        width: 100%;
     }
-
     .menu-wrapper,
     .page-header-hgroup,
     .page-header-actions {
@@ -78,8 +70,3 @@
 
 
 @import 'source/_responsive.less';
-
-
-
-
-@import 'source/_theme.less';

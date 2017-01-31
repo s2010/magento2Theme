@@ -34,7 +34,6 @@ class SampleDataRemoveCommand extends Command
 
     /**
      * @var ArrayInputFactory
-     * @deprecated
      */
     private $arrayInputFactory;
 
@@ -83,7 +82,8 @@ class SampleDataRemoveCommand extends Command
             $commonArgs = ['--working-dir' => $baseDir, '--no-interaction' => 1, '--no-progress' => 1];
             $packages = array_keys($sampleDataPackages);
             $arguments = array_merge(['command' => 'remove', 'packages' => $packages], $commonArgs);
-            $commandInput = new ArrayInput($arguments);
+            /** @var ArrayInput $commandInput */
+            $commandInput = $this->arrayInputFactory->create(['parameters' => $arguments]);
 
             /** @var Application $application */
             $application = $this->applicationFactory->create();

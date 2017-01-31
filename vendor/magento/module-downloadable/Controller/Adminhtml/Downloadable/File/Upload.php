@@ -90,7 +90,11 @@ class Upload extends \Magento\Downloadable\Controller\Adminhtml\Downloadable\Fil
                 throw new \Exception('File can not be moved from temporary folder to the destination folder.');
             }
 
-            unset($result['tmp_name'], $result['path']);
+            /**
+             * Workaround for prototype 1.7 methods "isJSON", "evalJSON" on Windows OS
+             */
+            $result['tmp_name'] = str_replace('\\', '/', $result['tmp_name']);
+            $result['path'] = str_replace('\\', '/', $result['path']);
 
             if (isset($result['file'])) {
                 $relativePath = rtrim($tmpPath, '/') . '/' . ltrim($result['file'], '/');

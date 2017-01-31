@@ -44,7 +44,7 @@ class MediaTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager|\Magento\Swatches\Controller\Ajax\Media */
     protected $controller;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->mediaGallery = [
             'image' => '/m/a/magento.png',

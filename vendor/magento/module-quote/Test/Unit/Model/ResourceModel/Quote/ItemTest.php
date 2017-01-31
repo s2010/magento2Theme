@@ -55,7 +55,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     /**
      * Mock class dependencies
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->resourceMock = $this->getMock('Magento\Framework\App\ResourceConnection', [], [], '', false);
         $this->quoteItemMock = $this->getMock('Magento\Quote\Model\Quote\Item', [], [], '', false);

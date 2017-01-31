@@ -19,7 +19,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     protected $adjustmentsData;
 
-    protected function setUp()
+    public function setUp()
     {
         $adj1 = $this->getMock('Magento\Framework\Pricing\Adjustment\AdjustmentInterface');
         $adj1->expects($this->any())

@@ -22,14 +22,9 @@ class CartTest extends \Magento\TestFramework\TestCase\AbstractController
     public function testConfigureActionWithSimpleProduct()
     {
         /** @var $session \Magento\Checkout\Model\Session  */
-        $session = $this->_objectManager->create(\Magento\Checkout\Model\Session::class);
+        $session = $this->_objectManager->create('Magento\Checkout\Model\Session');
 
-        /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-        $productRepository = $this->_objectManager->create(\Magento\Catalog\Api\ProductRepositoryInterface::class);
-        /** @var $product \Magento\Catalog\Model\Product */
-        $product = $productRepository->get('simple');
-
-        $quoteItem = $this->_getQuoteItemIdByProductId($session->getQuote(), $product->getId());
+        $quoteItem = $this->_getQuoteItemIdByProductId($session->getQuote(), 1);
         $this->assertNotNull($quoteItem, 'Cannot get quote item for simple product');
 
         $this->dispatch(
@@ -55,14 +50,9 @@ class CartTest extends \Magento\TestFramework\TestCase\AbstractController
     public function testConfigureActionWithSimpleProductAndCustomOption()
     {
         /** @var $session \Magento\Checkout\Model\Session  */
-        $session = $this->_objectManager->create(\Magento\Checkout\Model\Session::class);
+        $session = $this->_objectManager->create('Magento\Checkout\Model\Session');
 
-        /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-        $productRepository = $this->_objectManager->create(\Magento\Catalog\Api\ProductRepositoryInterface::class);
-        /** @var $product \Magento\Catalog\Model\Product */
-        $product = $productRepository->get('simple');
-
-        $quoteItem = $this->_getQuoteItemIdByProductId($session->getQuote(), $product->getId());
+        $quoteItem = $this->_getQuoteItemIdByProductId($session->getQuote(), 1);
         $this->assertNotNull($quoteItem, 'Cannot get quote item for simple product with custom option');
 
         $this->dispatch(
@@ -95,14 +85,9 @@ class CartTest extends \Magento\TestFramework\TestCase\AbstractController
     public function testConfigureActionWithBundleProduct()
     {
         /** @var $session \Magento\Checkout\Model\Session  */
-        $session = $this->_objectManager->create(\Magento\Checkout\Model\Session::class);
+        $session = $this->_objectManager->create('Magento\Checkout\Model\Session');
 
-        /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-        $productRepository = $this->_objectManager->create(\Magento\Catalog\Api\ProductRepositoryInterface::class);
-        /** @var $product \Magento\Catalog\Model\Product */
-        $product = $productRepository->get('bundle-product');
-
-        $quoteItem = $this->_getQuoteItemIdByProductId($session->getQuote(), $product->getId());
+        $quoteItem = $this->_getQuoteItemIdByProductId($session->getQuote(), 3);
         $this->assertNotNull($quoteItem, 'Cannot get quote item for bundle product');
 
         $this->dispatch(
@@ -128,14 +113,9 @@ class CartTest extends \Magento\TestFramework\TestCase\AbstractController
     public function testConfigureActionWithDownloadableProduct()
     {
         /** @var $session \Magento\Checkout\Model\Session  */
-        $session = $this->_objectManager->create(\Magento\Checkout\Model\Session::class);
+        $session = $this->_objectManager->create('Magento\Checkout\Model\Session');
 
-        /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-        $productRepository = $this->_objectManager->create(\Magento\Catalog\Api\ProductRepositoryInterface::class);
-        /** @var $product \Magento\Catalog\Model\Product */
-        $product = $productRepository->get('downloadable-product');
-
-        $quoteItem = $this->_getQuoteItemIdByProductId($session->getQuote(), $product->getId());
+        $quoteItem = $this->_getQuoteItemIdByProductId($session->getQuote(), 1);
         $this->assertNotNull($quoteItem, 'Cannot get quote item for downloadable product');
 
         $this->dispatch(
@@ -167,22 +147,17 @@ class CartTest extends \Magento\TestFramework\TestCase\AbstractController
      */
     public function testUpdatePostAction()
     {
-        /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-        $productRepository = $this->_objectManager->create(\Magento\Catalog\Api\ProductRepositoryInterface::class);
-        /** @var $product \Magento\Catalog\Model\Product */
-        $product = $productRepository->get('simple');
-
         /** Preconditions */
         $customerFromFixture = 1;
-        $productId = $product->getId();
+        $productId = 1;
         $originalQuantity = 1;
         $updatedQuantity = 2;
         /** @var $checkoutSession \Magento\Checkout\Model\Session  */
-        $checkoutSession = $this->_objectManager->create(\Magento\Checkout\Model\Session::class);
+        $checkoutSession = $this->_objectManager->create('Magento\Checkout\Model\Session');
         $quoteItem = $this->_getQuoteItemIdByProductId($checkoutSession->getQuote(), $productId);
 
         /** @var \Magento\Framework\Data\Form\FormKey $formKey */
-        $formKey = $this->_objectManager->get(\Magento\Framework\Data\Form\FormKey::class);
+        $formKey = $this->_objectManager->get('Magento\Framework\Data\Form\FormKey');
         $postData = [
             'cart' => [$quoteItem->getId() => ['qty' => $updatedQuantity]],
             'update_cart_action' => 'update_qty',
@@ -190,7 +165,7 @@ class CartTest extends \Magento\TestFramework\TestCase\AbstractController
         ];
         $this->getRequest()->setPostValue($postData);
         /** @var $customerSession \Magento\Customer\Model\Session */
-        $customerSession = $this->_objectManager->create(\Magento\Customer\Model\Session::class);
+        $customerSession = $this->_objectManager->create('Magento\Customer\Model\Session');
         $customerSession->setCustomerId($customerFromFixture);
 
         $this->assertNotNull($quoteItem, 'Cannot get quote item for simple product');
@@ -205,9 +180,9 @@ class CartTest extends \Magento\TestFramework\TestCase\AbstractController
 
         /** Check results */
         /** @var \Magento\Quote\Model\Quote $quote */
-        $quote = $this->_objectManager->create(\Magento\Quote\Model\Quote::class);
+        $quote = $this->_objectManager->create('Magento\Quote\Model\Quote');
         $quote->load($checkoutSession->getQuote()->getId());
-        $quoteItem = $this->_getQuoteItemIdByProductId($quote, $product->getId());
+        $quoteItem = $this->_getQuoteItemIdByProductId($quote, 1);
         $this->assertEquals($updatedQuantity, $quoteItem->getQty(), "Invalid quote item quantity");
     }
 

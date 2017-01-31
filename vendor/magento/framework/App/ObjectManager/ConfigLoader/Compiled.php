@@ -8,9 +8,6 @@ namespace Magento\Framework\App\ObjectManager\ConfigLoader;
 
 use Magento\Framework\ObjectManager\ConfigLoaderInterface;
 
-/**
- * Class Compiled returns configuration cache information
- */
 class Compiled implements ConfigLoaderInterface
 {
     /**
@@ -28,12 +25,8 @@ class Compiled implements ConfigLoaderInterface
         if (isset($this->configCache[$area])) {
             return $this->configCache[$area];
         }
-        $filePath = self::getFilePath($area);
-        if (\file_exists($filePath)) {
-            $this->configCache[$area] = \unserialize(\file_get_contents($filePath));
-            return $this->configCache[$area];
-        }
-        return [];
+        $this->configCache[$area] = \unserialize(\file_get_contents(self::getFilePath($area)));
+        return $this->configCache[$area];
     }
 
     /**

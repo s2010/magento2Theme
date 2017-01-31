@@ -10,8 +10,6 @@ use Magento\Framework\View\RenderInterface;
 
 /**
  * Class RenderFactory
- *
- * @api
  */
 class RenderFactory
 {

@@ -17,7 +17,7 @@ class GenericTest extends \PHPUnit_Framework_TestCase
      */
     protected $_uspsModel;
 
-    protected function setUp()
+    public function setUp()
     {
         $helper = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->_uspsModel = $this->getMockBuilder(

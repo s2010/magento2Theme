@@ -26,7 +26,7 @@ class TitleTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->scopeConfigMock = $this->getMockBuilder('Magento\Framework\App\Config\ScopeConfigInterface')
             ->disableOriginalConstructor()

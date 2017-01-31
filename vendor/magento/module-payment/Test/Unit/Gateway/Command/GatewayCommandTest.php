@@ -11,11 +11,7 @@ use Magento\Payment\Gateway\Http\TransferFactoryInterface;
 use Magento\Payment\Gateway\Request\BuilderInterface;
 use Magento\Payment\Gateway\Response\HandlerInterface;
 use Magento\Payment\Gateway\Validator\ValidatorInterface;
-use Psr\Log\LoggerInterface;
 
-/**
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- */
 class GatewayCommandTest extends \PHPUnit_Framework_TestCase
 {
     /** @var GatewayCommand */
@@ -46,35 +42,33 @@ class GatewayCommandTest extends \PHPUnit_Framework_TestCase
      */
     protected $validatorMock;
 
-    /**
-     * @var LoggerInterface |\PHPUnit_Framework_MockObject_MockObject
-     */
-    private $logger;
-
     protected function setUp()
     {
-        $this->requestBuilderMock = $this->getMock(
-            BuilderInterface::class
-        );
-        $this->transferFactoryMock = $this->getMock(
-            TransferFactoryInterface::class
-        );
-        $this->clientMock = $this->getMock(
-            ClientInterface::class
-        );
-        $this->responseHandlerMock = $this->getMock(
-            HandlerInterface::class
-        );
-        $this->validatorMock = $this->getMock(
-            ValidatorInterface::class
-        );
-        $this->logger = $this->getMock(LoggerInterface::class);
+        $this->requestBuilderMock = $this->getMockBuilder(
+            'Magento\Payment\Gateway\Request\BuilderInterface'
+        )
+            ->getMockForAbstractClass();
+        $this->transferFactoryMock = $this->getMockBuilder(
+            'Magento\Payment\Gateway\Http\TransferFactoryInterface'
+        )
+            ->getMockForAbstractClass();
+        $this->clientMock = $this->getMockBuilder(
+            'Magento\Payment\Gateway\Http\ClientInterface'
+        )
+            ->getMockForAbstractClass();
+        $this->responseHandlerMock = $this->getMockBuilder(
+            'Magento\Payment\Gateway\Response\HandlerInterface'
+        )
+            ->getMockForAbstractClass();
+        $this->validatorMock = $this->getMockBuilder(
+            'Magento\Payment\Gateway\Validator\ValidatorInterface'
+        )
+            ->getMockForAbstractClass();
 
         $this->command = new GatewayCommand(
             $this->requestBuilderMock,
             $this->transferFactoryMock,
             $this->clientMock,
-            $this->logger,
             $this->responseHandlerMock,
             $this->validatorMock
         );
@@ -89,12 +83,12 @@ class GatewayCommandTest extends \PHPUnit_Framework_TestCase
         ];
         $response = ['response_field1' => 'response_value1'];
         $validationResult = $this->getMockBuilder(
-            \Magento\Payment\Gateway\Validator\ResultInterface::class
+            'Magento\Payment\Gateway\Validator\ResultInterface'
         )
             ->getMockForAbstractClass();
 
         $transferO = $this->getMockBuilder(
-            \Magento\Payment\Gateway\Http\TransferInterface::class
+            'Magento\Payment\Gateway\Http\TransferInterface'
         )
             ->getMockForAbstractClass();
 
@@ -130,7 +124,7 @@ class GatewayCommandTest extends \PHPUnit_Framework_TestCase
     public function testExecuteValidationFail()
     {
         $this->setExpectedException(
-            \Magento\Payment\Gateway\Command\CommandException::class
+            'Magento\Payment\Gateway\Command\CommandException'
         );
 
         $commandSubject = ['authorize'];
@@ -139,17 +133,13 @@ class GatewayCommandTest extends \PHPUnit_Framework_TestCase
             'request_field2' => 'request_value2'
         ];
         $response = ['response_field1' => 'response_value1'];
-        $validationFailures = [
-            __('Failure #1'),
-            __('Failure #2'),
-        ];
         $validationResult = $this->getMockBuilder(
-            \Magento\Payment\Gateway\Validator\ResultInterface::class
+            'Magento\Payment\Gateway\Validator\ResultInterface'
         )
             ->getMockForAbstractClass();
 
         $transferO = $this->getMockBuilder(
-            \Magento\Payment\Gateway\Http\TransferInterface::class
+            'Magento\Payment\Gateway\Http\TransferInterface'
         )
             ->getMockForAbstractClass();
 
@@ -176,16 +166,7 @@ class GatewayCommandTest extends \PHPUnit_Framework_TestCase
             ->willReturn(false);
         $validationResult->expects(static::once())
             ->method('getFailsDescription')
-            ->willReturn(
-                $validationFailures
-            );
-
-        $this->logger->expects(static::exactly(count($validationFailures)))
-            ->method('critical')
-            ->withConsecutive(
-                [$validationFailures[0]],
-                [$validationFailures[1]]
-            );
+            ->willReturn([]);
 
         $this->command->execute($commandSubject);
     }

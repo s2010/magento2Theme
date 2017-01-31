@@ -23,7 +23,7 @@ class MethodsMapTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up helper.
      */
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 

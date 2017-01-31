@@ -9,20 +9,6 @@ define([
     'use strict';
 
     return Abstract.extend({
-        defaults: {
-            checked: false,
-            links: {
-                checked: 'value'
-            }
-        },
-
-        /**
-         * @returns {*|void|Element}
-         */
-        initObservable: function () {
-            return this._super()
-                    .observe('checked');
-        },
 
         /**
          * Converts provided value to boolean.

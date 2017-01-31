@@ -54,6 +54,7 @@ abstract class AbstractJob
      */
     protected $objectManager;
 
+
     /**
      * Constructor
      *
@@ -107,12 +108,12 @@ abstract class AbstractJob
      */
     protected function performCleanup()
     {
-        $this->status->add('Cleaning generated files...', \Psr\Log\LogLevel::INFO);
+        $this->status->add('Cleaning generated files...');
         $this->cleanupFiles->clearCodeGeneratedFiles();
-        $this->status->add('Complete!', \Psr\Log\LogLevel::INFO);
-        $this->status->add('Clearing cache...', \Psr\Log\LogLevel::INFO);
+        $this->status->add('Complete!');
+        $this->status->add('Clearing cache...');
         $this->cache->clean();
-        $this->status->add('Complete!', \Psr\Log\LogLevel::INFO);
+        $this->status->add('Complete!');
     }
 
     /**

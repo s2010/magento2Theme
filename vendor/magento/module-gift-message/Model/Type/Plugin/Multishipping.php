@@ -32,7 +32,7 @@ class Multishipping
     /**
      * @param \Magento\Multishipping\Model\Checkout\Type\Multishipping $subject
      * @param array|null $methods
-     * @return void
+     * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function beforeSetShippingMethods(

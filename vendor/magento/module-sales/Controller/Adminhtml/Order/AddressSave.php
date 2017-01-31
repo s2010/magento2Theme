@@ -9,13 +9,6 @@ namespace Magento\Sales\Controller\Adminhtml\Order;
 class AddressSave extends \Magento\Sales\Controller\Adminhtml\Order
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Magento_Sales::actions_edit';
-
-    /**
      * Save order address
      *
      * @return \Magento\Backend\Model\View\Result\Redirect
@@ -48,5 +41,13 @@ class AddressSave extends \Magento\Sales\Controller\Adminhtml\Order
         } else {
             return $resultRedirect->setPath('sales/*/');
         }
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Sales::actions_edit');
     }
 }

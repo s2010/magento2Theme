@@ -147,9 +147,11 @@ class Group extends \Magento\Framework\Model\AbstractExtensibleModel implements
     {
         return $this->getData(self::ATTRIBUTE_SET_ID);
     }
-
     /**
-     * {@inheritdoc}
+     * Set id
+     *
+     * @param string $attributeGroupId
+     * @return $this
      */
     public function setAttributeGroupId($attributeGroupId)
     {
@@ -157,7 +159,10 @@ class Group extends \Magento\Framework\Model\AbstractExtensibleModel implements
     }
 
     /**
-     * {@inheritdoc}
+     * Set name
+     *
+     * @param string $attributeGroupName
+     * @return $this
      */
     public function setAttributeGroupName($attributeGroupName)
     {
@@ -165,7 +170,10 @@ class Group extends \Magento\Framework\Model\AbstractExtensibleModel implements
     }
 
     /**
-     * {@inheritdoc}
+     * Set attribute set id
+     *
+     * @param int $attributeSetId
+     * @return $this
      */
     public function setAttributeSetId($attributeSetId)
     {

@@ -11,6 +11,8 @@ use Magento\Framework\Phrase;
 
 /**
  * Class EmailNotConfirmedExceptionTest
+ *
+ * @package Magento\Framework\Exception
  */
 class EmailNotConfirmedExceptionTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +23,7 @@ class EmailNotConfirmedExceptionTest extends \PHPUnit_Framework_TestCase
     {
         $emailNotConfirmedException = new EmailNotConfirmedException(
             new Phrase(
-                'Email not confirmed',
+                EmailNotConfirmedException::EMAIL_NOT_CONFIRMED,
                 ['consumer_id' => 1, 'resources' => 'record2']
             )
         );

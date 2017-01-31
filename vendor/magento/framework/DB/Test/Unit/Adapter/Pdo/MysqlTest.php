@@ -13,7 +13,7 @@ namespace Magento\Framework\DB\Test\Unit\Adapter\Pdo;
 
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\DB\Select;
-use Magento\Framework\DB\Select\SelectRenderer;
+use Magento\Framework\DB\Query\Generator;
 
 class MysqlTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,11 +37,6 @@ class MysqlTest extends \PHPUnit_Framework_TestCase
     protected $_mockAdapter;
 
     /**
-     * @var \Magento\Framework\DB\SelectFactory|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $selectFactory;
-
-    /**
      * Setup
      */
     protected function setUp()
@@ -49,15 +44,6 @@ class MysqlTest extends \PHPUnit_Framework_TestCase
         $string = $this->getMock('Magento\Framework\Stdlib\StringUtils');
         $dateTime = $this->getMock('Magento\Framework\Stdlib\DateTime');
         $logger = $this->getMockForAbstractClass('Magento\Framework\DB\LoggerInterface');
-        $selectFactory = $this->getMockBuilder('Magento\Framework\DB\SelectFactory')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-//        StringUtils $string,
-//        DateTime $dateTime,
-//        LoggerInterface $logger,
-//        SelectFactory $selectFactory,
-//        array $config = []
         $this->_mockAdapter = $this->getMock(
             'Magento\Framework\DB\Adapter\Pdo\Mysql',
             ['beginTransaction', 'getTransactionLevel'],
@@ -65,7 +51,6 @@ class MysqlTest extends \PHPUnit_Framework_TestCase
                 'string' => $string,
                 'dateTime' => $dateTime,
                 'logger' => $logger,
-                'selectFactory' => $selectFactory,
                 'config' => [
                     'dbname' => 'dbname',
                     'username' => 'user',
@@ -89,13 +74,13 @@ class MysqlTest extends \PHPUnit_Framework_TestCase
                 '_commit',
                 '_rollBack',
                 'query',
-                'fetchRow'
+                'fetchRow',
+                'getQueryGenerator'
             ],
             [
                 'string' => $string,
                 'dateTime' => $dateTime,
                 'logger' => $logger,
-                'selectFactory' => $selectFactory,
                 'config' => [
                     'dbname' => 'not_exists',
                     'username' => 'not_valid',
@@ -173,7 +158,7 @@ class MysqlTest extends \PHPUnit_Framework_TestCase
             );
         }
 
-        $select = new Select($this->_mockAdapter, new SelectRenderer([]));
+        $select = new Select($this->_mockAdapter);
         $select->from('user');
         try {
             $this->_mockAdapter->query($select);
@@ -454,6 +439,35 @@ class MysqlTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($stmtMock));
 
         $this->_adapter->insertOnDuplicate($table, $data, $fields);
+    }
+
+    public function testSelectsByRange()
+    {
+        $queryGenerator = $this->getMock(Generator::class, [], [], '', false, false);
+
+        $resourceProperty = new \ReflectionProperty(
+            get_class($this->_adapter),
+            'queryGenerator'
+        );
+        $resourceProperty->setAccessible(true);
+        $resourceProperty->setValue($this->_adapter, $queryGenerator);
+
+        $tableName = 'test';
+        $field = 'test_id';
+        $select = $this->_adapter->select()->from($tableName); //min = 1; max 180; count: 120
+
+        $data = [
+            $this->_adapter->select()->from($tableName)->where($field . '> ?', 0)->limit(50), //will return 0 ...61
+            $this->_adapter->select()->from($tableName)->where($field . '> ?', 61)->limit(50), //will return 62 ...159
+            $this->_adapter->select()->from($tableName)->where($field . '> ?', 159)->limit(50), //will return 160 ...180
+        ];
+
+        $queryGenerator->expects($this->once())
+            ->method('generate')
+            ->with($field, $select, 50)
+            ->willReturn($data);
+
+        $this->assertEquals($data, $this->_adapter->selectsByRange($field, $select, 50));
     }
 
     /**

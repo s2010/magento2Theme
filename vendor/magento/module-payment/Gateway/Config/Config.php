@@ -19,23 +19,23 @@ class Config implements ConfigInterface
     private $scopeConfig;
 
     /**
-     * @var string|null
+     * @var string
      */
     private $methodCode;
 
     /**
-     * @var string|null
+     * @var string
      */
     private $pathPattern;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
-     * @param string|null $methodCode
+     * @param string $methodCode
      * @param string $pathPattern
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
-        $methodCode = null,
+        $methodCode = '',
         $pathPattern = self::DEFAULT_PATH_PATTERN
     ) {
         $this->scopeConfig = $scopeConfig;
@@ -75,10 +75,6 @@ class Config implements ConfigInterface
      */
     public function getValue($field, $storeId = null)
     {
-        if ($this->methodCode === null || $this->pathPattern === null) {
-            return null;
-        }
-
         return $this->scopeConfig->getValue(
             sprintf($this->pathPattern, $this->methodCode, $field),
             ScopeInterface::SCOPE_STORE,

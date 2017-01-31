@@ -9,9 +9,12 @@ namespace Magento\Sales\Controller\Adminhtml\Order\Edit;
 class ProcessData extends \Magento\Sales\Controller\Adminhtml\Order\Create\ProcessData
 {
     /**
-     * Authorization level of a basic admin session
+     * Acl check for admin
      *
-     * @see _isAllowed()
+     * @return bool
      */
-    const ADMIN_RESOURCE = 'Magento_Sales::actions_edit';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Sales::actions_edit');
+    }
 }

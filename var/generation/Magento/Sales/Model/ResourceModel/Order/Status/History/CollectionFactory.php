@@ -2,7 +2,8 @@
 namespace Magento\Sales\Model\ResourceModel\Order\Status\History;
 
 /**
- * Factory class for @see \Magento\Sales\Model\ResourceModel\Order\Status\History\Collection
+ * Factory class for @see
+ * \Magento\Sales\Model\ResourceModel\Order\Status\History\Collection
  */
 class CollectionFactory
 {

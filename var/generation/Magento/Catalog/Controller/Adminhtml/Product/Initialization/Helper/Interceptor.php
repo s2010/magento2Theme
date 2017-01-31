@@ -2,7 +2,8 @@
 namespace Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper;
 
 /**
- * Interceptor class for @see \Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper
+ * Interceptor class for @see
+ * \Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper
  */
 class Interceptor extends \Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper implements \Magento\Framework\Interception\InterceptorInterface
 {
@@ -12,19 +13,6 @@ class Interceptor extends \Magento\Catalog\Controller\Adminhtml\Product\Initiali
     {
         $this->___init();
         parent::__construct($request, $storeManager, $stockFilter, $productLinks, $jsHelper, $dateFilter);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function initializeFromData(\Magento\Catalog\Model\Product $product, array $productData)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'initializeFromData');
-        if (!$pluginInfo) {
-            return parent::initializeFromData($product, $productData);
-        } else {
-            return $this->___callPlugins('initializeFromData', func_get_args(), $pluginInfo);
-        }
     }
 
     /**

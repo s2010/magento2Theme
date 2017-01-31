@@ -85,8 +85,8 @@ class TaxTest extends \PHPUnit_Framework_TestCase
         $shipping = new \Magento\Framework\DataObject([
             'quote' =>  $quote,
         ]);
-        $productRepository = Bootstrap::getObjectManager()->create('Magento\Catalog\Api\ProductRepositoryInterface');
-        $product = $productRepository->get('simple-with-ftp');
+        $product = Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Product');
+        $product->load(101);
 
         $amount = $this->_model->getProductWeeeAttributes($product, $shipping, null, null, true);
         $this->assertTrue(is_array($amount));

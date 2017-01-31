@@ -68,7 +68,6 @@ class Registration
     public function register()
     {
         $this->_themeCollection->clear();
-
         foreach ($this->_themeCollection as $theme) {
             $this->_registerThemeRecursively($theme);
         }

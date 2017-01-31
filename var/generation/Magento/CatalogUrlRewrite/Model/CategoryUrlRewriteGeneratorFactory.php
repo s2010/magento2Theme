@@ -2,7 +2,8 @@
 namespace Magento\CatalogUrlRewrite\Model;
 
 /**
- * Factory class for @see \Magento\CatalogUrlRewrite\Model\CategoryUrlRewriteGenerator
+ * Factory class for @see
+ * \Magento\CatalogUrlRewrite\Model\CategoryUrlRewriteGenerator
  */
 class CategoryUrlRewriteGeneratorFactory
 {

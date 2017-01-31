@@ -45,13 +45,13 @@ if (file_exists($configCacheFile) && is_readable($configCacheFile)) {
         // Serve file if it's materialized
         if ($mediaDirectory) {
             if (!$isAllowed($relativePath, $allowedResources)) {
-                require_once 'errors/404.php';
+                header('HTTP/1.0 404 Not Found');
                 exit;
             }
             $mediaAbsPath = $mediaDirectory . '/' . $relativePath;
             if (is_readable($mediaAbsPath)) {
                 if (is_dir($mediaAbsPath)) {
-                    require_once 'errors/404.php';
+                    header('HTTP/1.0 404 Not Found');
                     exit;
                 }
                 $transfer = new \Magento\Framework\File\Transfer\Adapter\Http(

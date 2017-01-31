@@ -86,7 +86,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $this->sessionMock = $this->getMockBuilder('Magento\Backend\Model\Session')
             ->disableOriginalConstructor()
-            ->setMethods(['unsCustomerData', 'unsCustomerFormData'])
+            ->setMethods(['unsCustomerData'])
             ->getMock();
 
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
@@ -137,8 +137,6 @@ class IndexTest extends \PHPUnit_Framework_TestCase
             );
         $this->sessionMock->expects($this->once())
             ->method('unsCustomerData');
-        $this->sessionMock->expects($this->once())
-            ->method('unsCustomerFormData');
 
         $this->assertInstanceOf(
             'Magento\Framework\View\Result\Page',

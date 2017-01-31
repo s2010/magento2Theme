@@ -7,8 +7,6 @@ namespace Magento\Framework\View\Element;
 
 /**
  * Magento Block interface
- *
- * @api
  */
 interface RendererInterface
 {

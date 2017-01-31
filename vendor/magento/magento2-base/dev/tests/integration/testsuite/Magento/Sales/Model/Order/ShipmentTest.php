@@ -5,11 +5,6 @@
  */
 namespace Magento\Sales\Model\Order;
 
-/**
- * Class ShipmentTest
- * @magentoAppIsolation enabled
- * @package Magento\Sales\Model\Order
- */
 class ShipmentTest extends \PHPUnit_Framework_TestCase
 {
     /**

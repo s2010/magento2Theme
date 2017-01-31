@@ -171,28 +171,34 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
             ->getMock();
     }
 
+    /**
+     * @covers \Magento\Fedex\Model\Carrier::setRequest
+     */
     public function testSetRequestWithoutCity()
     {
-        $requestMock = $this->getMockBuilder(\Magento\Quote\Model\Quote\Address\RateRequest::class)
+        $request = $this->getMockBuilder(RateRequest::class)
             ->disableOriginalConstructor()
             ->setMethods(['getDestCity'])
             ->getMock();
-        $requestMock->expects($this->once())
+        $request->expects($this->once())
             ->method('getDestCity')
             ->willReturn(null);
-        $this->model->setRequest($requestMock);
+        $this->model->setRequest($request);
     }
 
+    /**
+     * @covers \Magento\Fedex\Model\Carrier::setRequest
+     */
     public function testSetRequestWithCity()
     {
-        $requestMock = $this->getMockBuilder(\Magento\Quote\Model\Quote\Address\RateRequest::class)
+        $request = $this->getMockBuilder(RateRequest::class)
             ->disableOriginalConstructor()
             ->setMethods(['getDestCity'])
             ->getMock();
-        $requestMock->expects($this->exactly(2))
+        $request->expects(static::exactly(2))
             ->method('getDestCity')
             ->willReturn('Small Town');
-        $this->model->setRequest($requestMock);
+        $this->model->setRequest($request);
     }
 
     /**
@@ -325,26 +331,26 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
                     'WebAuthenticationDetail' => [
                         'UserCredential' => [
                             'Key' => 'testKey',
-                            'Password' => 'testPassword'
-                        ]
+                            'Password' => 'testPassword',
+                        ],
                     ],
                     'ClientDetail' => [
                         'AccountNumber' => 4121213,
-                        'MeterNumber' => 'testMeterNumber'
-                    ]
+                        'MeterNumber' => 'testMeterNumber',
+                    ],
                 ],
                 ['Key', 'Password', 'MeterNumber'],
                 [
                     'WebAuthenticationDetail' => [
                         'UserCredential' => [
                             'Key' => '****',
-                            'Password' => '****'
-                        ]
+                            'Password' => '****',
+                        ],
                     ],
                     'ClientDetail' => [
                         'AccountNumber' => 4121213,
-                        'MeterNumber' => '****'
-                    ]
+                        'MeterNumber' => '****',
+                    ],
                 ],
             ],
         ];
@@ -387,11 +393,8 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Magento\Fedex\Model\Carrier::getTracking
-     * @param string $shipTimestamp
-     * @param string $expectedDate
-     * @dataProvider shipDateDataProvider
      */
-    public function testGetTracking($shipTimestamp, $expectedDate)
+    public function testGetTracking()
     {
         $tracking = '123456789012';
 
@@ -401,7 +404,7 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
         $response->CompletedTrackDetails = new \stdClass();
 
         $trackDetails = new \stdClass();
-        $trackDetails->ShipTimestamp = $shipTimestamp;
+        $trackDetails->ShipTimestamp = '2016-08-05T14:06:35+00:00';
         $trackDetails->DeliverySignatureName = 'signature';
 
         $trackDetails->StatusDetail = new \stdClass();
@@ -441,6 +444,7 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
             'signedby',
             'status',
             'service',
+            'shippeddate',
             'deliverydate',
             'deliverytime',
             'deliverylocation',
@@ -452,23 +456,7 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
 
         static::assertEquals('2016-08-10', $current['deliverydate']);
         static::assertEquals('10:20:26', $current['deliverytime']);
-        static::assertEquals($expectedDate, $current['shippeddate']);
-    }
-
-    /**
-     * Get list of variations for testing ship date
-     * @return array
-     */
-    public function shipDateDataProvider()
-    {
-        return [
-            ['shipTimestamp' => '2016-08-05T14:06:35+00:00', 'expectedDate' => '2016-08-05'],
-            ['shipTimestamp' => '2016-08-05T14:06:35', 'expectedDate' => null],
-            ['shipTimestamp' => '2016-08-05 14:06:35', 'expectedDate' => null],
-            ['shipTimestamp' => '2016-08-05 14:06:35+00:00', 'expectedDate' => null],
-            ['shipTimestamp' => '2016-08-05', 'expectedDate' => null],
-            ['shipTimestamp' => '2016/08/05', 'expectedDate' => null],
-        ];
+        static::assertEquals('2016-08-05', $current['shippeddate']);
     }
 
     /**

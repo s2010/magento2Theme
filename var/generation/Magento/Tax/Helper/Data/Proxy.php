@@ -53,7 +53,7 @@ class Proxy extends \Magento\Tax\Helper\Data implements \Magento\Framework\Objec
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**

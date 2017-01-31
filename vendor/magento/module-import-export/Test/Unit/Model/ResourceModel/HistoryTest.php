@@ -25,7 +25,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->historyResourceModel = $this->getMock(
             'Magento\ImportExport\Model\ResourceModel\History',

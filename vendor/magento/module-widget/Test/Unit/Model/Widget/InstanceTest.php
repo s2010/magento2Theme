@@ -40,7 +40,7 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
      */
     protected $_directoryMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_widgetModelMock = $this->getMockBuilder(
             'Magento\Widget\Model\Widget'

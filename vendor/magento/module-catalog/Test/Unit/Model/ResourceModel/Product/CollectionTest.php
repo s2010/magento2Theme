@@ -39,19 +39,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     private $entityMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $metadataPoolMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $galleryReadHandlerMock;
-
-    /**
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
-    protected function setUp()
+    public function setUp()
     {
         $entityFactory = $this->getMock('Magento\Framework\Data\Collection\EntityFactory', [], [], '', false);
         $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')
@@ -123,15 +113,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->galleryResourceMock = $this->getMockBuilder(
-            \Magento\Catalog\Model\ResourceModel\Product\Gallery::class
-        )->disableOriginalConstructor()->getMock();
-
-        $this->metadataPoolMock = $this->getMockBuilder(
-            \Magento\Framework\EntityManager\MetadataPool::class
-        )->disableOriginalConstructor()->getMock();
-
-        $this->galleryReadHandlerMock = $this->getMockBuilder(
-            \Magento\Catalog\Model\Product\Gallery\ReadHandler::class
+            \Magento\Catalog\Model\ResourceModel\Product\Attribute\Backend\Media::class
         )->disableOriginalConstructor()->getMock();
 
         $storeManager->expects($this->any())->method('getId')->willReturn(1);
@@ -144,25 +126,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->entityMock->expects($this->any())->method('getTable')->willReturnArgument(0);
         $this->connectionMock->expects($this->atLeastOnce())->method('select')->willReturn($this->selectMock);
         $helper = new ObjectManager($this);
-
-        $this->prepareObjectManager([
-            [
-                'Magento\Catalog\Model\ResourceModel\Product\Collection\ProductLimitation',
-                $this->getMock('Magento\Catalog\Model\ResourceModel\Product\Collection\ProductLimitation')
-            ],
-            [
-                \Magento\Catalog\Model\ResourceModel\Product\Gallery::class,
-                $this->galleryResourceMock
-            ],
-            [
-                \Magento\Framework\EntityManager\MetadataPool::class,
-                $this->metadataPoolMock
-            ],
-            [
-                \Magento\Catalog\Model\Product\Gallery\ReadHandler::class,
-                $this->galleryReadHandlerMock
-            ]
-        ]);
         $this->collection = $helper->getObject(
             'Magento\Catalog\Model\ResourceModel\Product\Collection',
             [
@@ -189,6 +152,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             ]
         );
         $this->collection->setConnection($this->connectionMock);
+
+        $reflection = new \ReflectionClass(get_class($this->collection));
+        $reflectionProperty = $reflection->getProperty('mediaGalleryResource');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($this->collection, $this->galleryResourceMock);
     }
 
     public function testAddProductCategoriesFilter()
@@ -221,8 +189,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     {
         $attributeId = 42;
         $itemId = 4242;
-        $linkField = 'entity_id';
-        $mediaGalleriesMock = [[$linkField => $itemId]];
+        $mediaGalleriesMock = [['entity_id' => $itemId]];
         $itemMock = $this->getMockBuilder(\Magento\Catalog\Model\Product::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -232,7 +199,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $selectMock = $this->getMockBuilder(\Magento\Framework\DB\Select::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $metadataMock = $this->getMockBuilder(\Magento\Framework\EntityManager\EntityMetadataInterface::class)
+        $backendMock = $this->getMockBuilder(\Magento\Catalog\Model\Product\Attribute\Backend\Media::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->collection->addItem($itemMock);
@@ -245,32 +212,14 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $attributeMock->expects($this->once())->method('getAttributeId')->willReturn($attributeId);
         $this->entityMock->expects($this->once())->method('getAttribute')->willReturn($attributeMock);
         $itemMock->expects($this->atLeastOnce())->method('getId')->willReturn($itemId);
-        $selectMock->expects($this->once())->method('where')->with('entity.' . $linkField . ' IN (?)', [$itemId]);
-        $this->metadataPoolMock->expects($this->once())->method('getMetadata')->willReturn($metadataMock);
-        $metadataMock->expects($this->once())->method('getLinkField')->willReturn($linkField);
+        $selectMock->expects($this->once())->method('where')->with('entity.entity_id IN (?)', [$itemId]);
 
         $this->connectionMock->expects($this->once())->method('fetchAll')->with($selectMock)->willReturn(
             [['entity_id' => $itemId]]
         );
-        $this->galleryReadHandlerMock->expects($this->once())->method('addMediaDataToProduct')
-            ->with($itemMock, $mediaGalleriesMock);
+        $attributeMock->expects($this->once())->method('getBackend')->willReturn($backendMock);
+        $backendMock->expects($this->once())->method('addMediaDataToProduct')->with($itemMock, $mediaGalleriesMock);
 
         $this->assertSame($this->collection, $this->collection->addMediaGalleryData());
-    }
-
-    /**
-     * @param $map
-     */
-    private function prepareObjectManager($map)
-    {
-        $objectManagerMock = $this->getMock('Magento\Framework\ObjectManagerInterface');
-        $objectManagerMock->expects($this->any())->method('getInstance')->willReturnSelf();
-        $objectManagerMock->expects($this->any())
-            ->method('get')
-            ->will($this->returnValueMap($map));
-        $reflectionClass = new \ReflectionClass('Magento\Framework\App\ObjectManager');
-        $reflectionProperty = $reflectionClass->getProperty('_instance');
-        $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($objectManagerMock);
     }
 }

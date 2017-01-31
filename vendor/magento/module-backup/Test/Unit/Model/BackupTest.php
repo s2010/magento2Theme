@@ -38,7 +38,7 @@ class BackupTest extends \PHPUnit_Framework_TestCase
      */
     protected $directoryMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->filesystemMock = $this->getMockBuilder('Magento\Framework\Filesystem')
             ->disableOriginalConstructor()

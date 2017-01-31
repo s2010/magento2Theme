@@ -77,8 +77,7 @@ angular.module('readiness-check', [])
             visible: false,
             processed: false,
             expanded: false,
-            isRequestError: false,
-            isRequestWarning: false
+            isRequestError: false
         };
         $scope.extensions = {
             visible: false,

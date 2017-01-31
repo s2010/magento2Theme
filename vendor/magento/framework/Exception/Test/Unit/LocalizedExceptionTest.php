@@ -10,6 +10,8 @@ use Magento\Framework\Phrase;
 
 /**
  * Class LocalizedExceptionTest
+ *
+ * @package Magento\Framework\Exception
  */
 class LocalizedExceptionTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +24,7 @@ class LocalizedExceptionTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->defaultRenderer = \Magento\Framework\Phrase::getRenderer();
         $rendererMock = $this->getMockBuilder('Magento\Framework\Phrase\Renderer\Placeholder')

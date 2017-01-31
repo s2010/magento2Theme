@@ -104,7 +104,7 @@ class Error implements \Magento\TestModule3\Service\V1\ErrorInterface
             foreach ($wrappedErrorParameters as $error) {
                 $exception->addError(
                     __(
-                        'Invalid value of "%value" provided for the %fieldName field.',
+                        InputException::INVALID_FIELD_VALUE,
                         ['fieldName' => $error->getFieldName(), 'value' => $error->getValue()]
                     )
                 );

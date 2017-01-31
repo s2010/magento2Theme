@@ -2,7 +2,8 @@
 namespace Magento\Developer\Model\TemplateEngine\Decorator;
 
 /**
- * Factory class for @see \Magento\Developer\Model\TemplateEngine\Decorator\DebugHints
+ * Factory class for @see
+ * \Magento\Developer\Model\TemplateEngine\Decorator\DebugHints
  */
 class DebugHintsFactory
 {

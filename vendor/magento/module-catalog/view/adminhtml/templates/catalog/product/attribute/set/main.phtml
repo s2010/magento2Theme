@@ -8,14 +8,6 @@
 
 ?>
 <div class="attribute-set">
-
-    <div class="admin__data-grid-loading-mask"
-         data-role="spinner">
-        <div class="spinner">
-            <span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span>
-        </div>
-    </div>
     <div class="edit-attribute-set attribute-set-col">
         <?php echo $block->getSetFormHtml() ?>
         <script>
@@ -46,7 +38,7 @@
             <span class="title"><?php /* @escapeNotVerified */ echo __('Unassigned Attributes') ?></span>
         </div>
         <div id="tree-div2" class="attribute-set-tree"></div>
-        <script id="ie-deferred-loader" defer="defer" src="//:"></script>
+        <script id="ie-deferred-loader" defer="defer" src=""></script>
         <script>
             define("tree-panel",
                 [
@@ -313,13 +305,8 @@
                         },
 
                         save : function() {
-                            var block;
-
                             if ($('messages')) {
                                 $('messages').update();
-                            } else {
-                                block = jQuery('<div/>').attr('id', 'messages');
-                                jQuery('.page-main-actions').after(block);
                             }
                             TreePanels.rebuildTrees();
                             if(!jQuery('#set-prop-form').valid()) {
@@ -436,7 +423,6 @@
                 jQuery(function() {
                     initVars();
                     TreePanels.init();
-                    jQuery("[data-role='spinner']").hide();
                 });
                 //]]>
 

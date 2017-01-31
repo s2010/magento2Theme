@@ -68,7 +68,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->store = $this->getMockBuilder('Magento\Store\Model\Store')
             ->disableOriginalConstructor()

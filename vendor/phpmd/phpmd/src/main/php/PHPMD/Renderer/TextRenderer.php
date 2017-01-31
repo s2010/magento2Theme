@@ -65,6 +65,7 @@ class TextRenderer extends AbstractRenderer
     public function renderReport(Report $report)
     {
         $writer = $this->getWriter();
+        $writer->write(PHP_EOL);
 
         foreach ($report->getRuleViolations() as $violation) {
             $writer->write($violation->getFileName());

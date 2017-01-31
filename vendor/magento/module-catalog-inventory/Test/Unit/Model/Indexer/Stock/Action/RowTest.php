@@ -18,7 +18,7 @@ class RowTest extends \PHPUnit_Framework_TestCase
      */
     protected $_model;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new ObjectManager($this);
         $this->_model = $objectManager->getObject('Magento\CatalogInventory\Model\Indexer\Stock\Action\Row');

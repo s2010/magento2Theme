@@ -14,7 +14,7 @@ class BillingTest extends \PHPUnit_Framework_TestCase
      */
     protected $testable;
 
-    protected function setUp()
+    public function setUp()
     {
         $logger = $this->getMockBuilder('Psr\Log\LoggerInterface')->getMock();
         /** @var \Psr\Log\LoggerInterface $logger */

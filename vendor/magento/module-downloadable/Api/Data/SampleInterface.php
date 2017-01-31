@@ -9,7 +9,6 @@ use \Magento\Downloadable\Api\Data\File\ContentInterface;
 
 /**
  * @codeCoverageIgnore
- * @api
  */
 interface SampleInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 {

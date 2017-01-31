@@ -35,7 +35,7 @@ class Alerts extends \Magento\Backend\Block\Widget\Tab
             $accordion->addItem(
                 'price',
                 [
-                    'title' => __('Price Alert Subscriptions'),
+                    'title' => __('We saved the price alert subscription.'),
                     'content' => $this->getLayout()->createBlock(
                         'Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Alerts\Price'
                     )->toHtml() . '<br />',
@@ -47,7 +47,7 @@ class Alerts extends \Magento\Backend\Block\Widget\Tab
             $accordion->addItem(
                 'stock',
                 [
-                    'title' => __('Stock Alert Subscriptions'),
+                    'title' => __('We saved the stock notification.'),
                     'content' => $this->getLayout()->createBlock(
                         'Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Alerts\Stock'
                     ),

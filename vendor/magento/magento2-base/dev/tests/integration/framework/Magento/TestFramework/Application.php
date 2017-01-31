@@ -6,6 +6,8 @@
 namespace Magento\TestFramework;
 
 use Magento\Framework\Autoload\AutoloaderInterface;
+use Magento\Framework\Filesystem;
+use Magento\Framework\Filesystem\DriverInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\Config\ConfigOptionsListConstants;
@@ -425,7 +427,7 @@ class Application
          * @see \Magento\Setup\Mvc\Bootstrap\InitParamListener::BOOTSTRAP_PARAM
          */
         $this->_shell->execute(
-            PHP_BINARY . ' -f %s setup:uninstall -vvv -n --magento-init-params=%s',
+            'php -f %s setup:uninstall -n --magento-init-params=%s',
             [BP . '/bin/magento', $this->getInitParamsQuery()]
         );
     }
@@ -458,18 +460,15 @@ class Application
 
         // run install script
         $this->_shell->execute(
-            PHP_BINARY . ' -f %s setup:install -vvv ' . implode(' ', array_keys($installParams)),
+            'php -f %s setup:install ' . implode(' ', array_keys($installParams)),
             array_merge([BP . '/bin/magento'], array_values($installParams))
         );
 
         // enable only specified list of caches
         $initParamsQuery = $this->getInitParamsQuery();
+        $this->_shell->execute('php -f %s cache:disable --bootstrap=%s', [BP . '/bin/magento', $initParamsQuery]);
         $this->_shell->execute(
-            PHP_BINARY . ' -f %s cache:disable -vvv --bootstrap=%s',
-            [BP . '/bin/magento', $initParamsQuery]
-        );
-        $this->_shell->execute(
-            PHP_BINARY . ' -f %s cache:enable -vvv %s %s %s %s --bootstrap=%s',
+            'php -f %s cache:enable %s %s %s %s --bootstrap=%s',
             [
                 BP . '/bin/magento',
                 \Magento\Framework\App\Cache\Type\Config::TYPE_IDENTIFIER,
@@ -494,7 +493,7 @@ class Application
     private function copyAppConfigFiles()
     {
         $globalConfigFiles = Glob::glob(
-            $this->_globalConfigDir . '/{di.xml,*/di.xml,vendor_path.php}',
+            $this->_globalConfigDir . '/{di.xml,vendor_path.php}',
             Glob::GLOB_BRACE
         );
         foreach ($globalConfigFiles as $file) {
@@ -557,6 +556,7 @@ class Application
         /** @var $objectManager \Magento\TestFramework\ObjectManager */
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
         $objectManager->clearCache();
+
         \Magento\Framework\Data\Form::setElementRenderer(null);
         \Magento\Framework\Data\Form::setFieldsetRenderer(null);
         \Magento\Framework\Data\Form::setFieldsetElementRenderer(null);

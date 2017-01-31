@@ -82,7 +82,6 @@
                 items: templateData,
                 escape: $.mage.escapeHTML
             }, this.options.translateForm.data);
-            this.data = data;
 
             return $(this.tmpl({
                 data: data
@@ -95,7 +94,6 @@
          * @protected
          */
         _onEdit: function(e) {
-            this.target = e.target;
             this.element.html(this._prepareContent($(e.target).data('translate')));
             this.open(e);
         },
@@ -124,17 +122,9 @@
             }).complete($.proxy(this._formSubmitComplete, this));
         },
 
-        _formSubmitComplete: function(response) {
+        _formSubmitComplete: function() {
             this.close();
             this.formIsSubmitted = false;
-            this._updatePlaceholder(response.responseJSON[this.data.items[0]['original']])
-        },
-
-        _updatePlaceholder: function(newValue) {
-            var target = jQuery(this.target);
-            target.data('translate')[0]['shown'] = newValue;
-            target.data('translate')[0]['translated'] = newValue;
-            target.html(newValue);
         },
 
         /**

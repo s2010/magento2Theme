@@ -7,8 +7,6 @@ namespace Magento\Framework\Stdlib;
 
 /**
  * Magento methods to work with string
- *
- * @api
  */
 class StringUtils
 {

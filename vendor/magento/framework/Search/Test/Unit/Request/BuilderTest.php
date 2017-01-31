@@ -94,7 +94,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Magento\Framework\Search\Request\NonExistingRequestNameException
+     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Request name 'rn' doesn't exist.
      */
     public function testCreateInvalidArgumentException()

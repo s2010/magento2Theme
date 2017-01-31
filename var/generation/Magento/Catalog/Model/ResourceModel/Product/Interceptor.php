@@ -225,6 +225,19 @@ class Interceptor extends \Magento\Catalog\Model\ResourceModel\Product implement
     /**
      * {@inheritdoc}
      */
+    public function getAssignedImages($product, $storeIds)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getAssignedImages');
+        if (!$pluginInfo) {
+            return parent::getAssignedImages($product, $storeIds);
+        } else {
+            return $this->___callPlugins('getAssignedImages', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function countAll()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'countAll');
@@ -251,32 +264,6 @@ class Interceptor extends \Magento\Catalog\Model\ResourceModel\Product implement
     /**
      * {@inheritdoc}
      */
-    public function load($object, $entityId, $attributes = array())
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'load');
-        if (!$pluginInfo) {
-            return parent::load($object, $entityId, $attributes);
-        } else {
-            return $this->___callPlugins('load', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function save(\Magento\Framework\Model\AbstractModel $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'save');
-        if (!$pluginInfo) {
-            return parent::save($object);
-        } else {
-            return $this->___callPlugins('save', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultStoreId()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getDefaultStoreId');
@@ -297,6 +284,19 @@ class Interceptor extends \Magento\Catalog\Model\ResourceModel\Product implement
             return parent::getAttributeRawValue($entityId, $attribute, $store);
         } else {
             return $this->___callPlugins('getAttributeRawValue', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function load($object, $entityId, $attributes = array())
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'load');
+        if (!$pluginInfo) {
+            return parent::load($object, $entityId, $attributes);
+        } else {
+            return $this->___callPlugins('load', func_get_args(), $pluginInfo);
         }
     }
 
@@ -550,19 +550,6 @@ class Interceptor extends \Magento\Catalog\Model\ResourceModel\Product implement
     /**
      * {@inheritdoc}
      */
-    public function getLinkField()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getLinkField');
-        if (!$pluginInfo) {
-            return parent::getLinkField();
-        } else {
-            return $this->___callPlugins('getLinkField', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getEntityIdField()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getEntityIdField');
@@ -654,6 +641,19 @@ class Interceptor extends \Magento\Catalog\Model\ResourceModel\Product implement
     /**
      * {@inheritdoc}
      */
+    public function save(\Magento\Framework\Model\AbstractModel $object)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'save');
+        if (!$pluginInfo) {
+            return parent::save($object);
+        } else {
+            return $this->___callPlugins('save', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function saveAttribute(\Magento\Framework\DataObject $object, $attributeCode)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'saveAttribute');
@@ -674,71 +674,6 @@ class Interceptor extends \Magento\Catalog\Model\ResourceModel\Product implement
             return parent::getDefaultAttributes();
         } else {
             return $this->___callPlugins('getDefaultAttributes', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterLoad(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterLoad');
-        if (!$pluginInfo) {
-            return parent::afterLoad($object);
-        } else {
-            return $this->___callPlugins('afterLoad', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeSave(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'beforeSave');
-        if (!$pluginInfo) {
-            return parent::beforeSave($object);
-        } else {
-            return $this->___callPlugins('beforeSave', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterSave(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterSave');
-        if (!$pluginInfo) {
-            return parent::afterSave($object);
-        } else {
-            return $this->___callPlugins('afterSave', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeDelete(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'beforeDelete');
-        if (!$pluginInfo) {
-            return parent::beforeDelete($object);
-        } else {
-            return $this->___callPlugins('beforeDelete', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterDelete(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterDelete');
-        if (!$pluginInfo) {
-            return parent::afterDelete($object);
-        } else {
-            return $this->___callPlugins('afterDelete', func_get_args(), $pluginInfo);
         }
     }
 

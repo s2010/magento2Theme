@@ -10,13 +10,6 @@ use Magento\Backend\App\Action;
 class View extends \Magento\Sales\Controller\Adminhtml\Order
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Magento_Sales::actions_view';
-
-    /**
      * View order detail
      *
      * @return \Magento\Backend\Model\View\Result\Page|\Magento\Backend\Model\View\Result\Redirect
@@ -40,5 +33,13 @@ class View extends \Magento\Sales\Controller\Adminhtml\Order
         }
         $resultRedirect->setPath('sales/*/');
         return $resultRedirect;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Sales::actions_view');
     }
 }

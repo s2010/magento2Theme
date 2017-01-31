@@ -4,6 +4,8 @@
  * See COPYING.txt for license details.
  */
 -->
-<each args="data: elems, as: 'element'">
-    <render if="hasTemplate()"/>
-</each>
+<!-- ko foreach: { data: elems, as: 'element' } -->
+    <!-- ko if: hasTemplate() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+<!-- /ko -->

@@ -51,7 +51,6 @@ class ApiDataFixture
      */
     public function startTest(\PHPUnit_Framework_TestCase $test)
     {
-        \Magento\TestFramework\Helper\Bootstrap::getInstance()->reinitialize();
         /** Apply method level fixtures if thy are available, apply class level fixtures otherwise */
         $this->_applyFixtures($this->_getFixtures('method', $test) ?: $this->_getFixtures('class', $test));
     }
@@ -62,9 +61,6 @@ class ApiDataFixture
     public function endTest()
     {
         $this->_revertFixtures();
-        /** @var $objectManager \Magento\TestFramework\ObjectManager */
-        $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        $objectManager->get(\Magento\Eav\Model\Entity\AttributeCache::class)->clear();
     }
 
     /**

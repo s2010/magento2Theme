@@ -18,7 +18,7 @@ class VideoEntryTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->modelObject =
             $this->getMock(

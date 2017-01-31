@@ -8,35 +8,37 @@
 
 namespace Magento\ConfigurableProduct\Model\Product;
 
-use Magento\TestFramework\Helper\Bootstrap;
-use Magento\Catalog\Api\ProductRepositoryInterface;
-
 /**
  * @magentoAppIsolation enabled
  * @magentoDataFixture Magento/ConfigurableProduct/_files/product_configurable.php
  */
 class VariationHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var \Magento\ConfigurableProduct\Model\Product\VariationHandler */
-    private $_model;
+    /**
+     * Object under test
+     *
+     * @var \Magento\ConfigurableProduct\Model\Product\VariationHandler
+     */
+    protected $_model;
 
-    /** @var \Magento\Catalog\Model\Product */
-    private $_product;
-
-    /** @var \Magento\CatalogInventory\Api\StockRegistryInterface */
-    private $stockRegistry;
+    /**
+     * @var \Magento\Catalog\Model\Product
+     */
+    protected $_product;
 
     protected function setUp()
     {
-        $productRepository = Bootstrap::getObjectManager()->create(ProductRepositoryInterface::class);
-        $this->_product = $productRepository->get('configurable');
+        $this->_product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
+            'Magento\Catalog\Model\Product'
+        );
+        $this->_product->load(1);
+        // fixture
 
-        $this->_model = Bootstrap::getObjectManager()->create(
+        $this->_model = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
             'Magento\ConfigurableProduct\Model\Product\VariationHandler'
         );
         // prevent fatal errors by assigning proper "singleton" of type instance to the product
         $this->_product->setTypeInstance($this->_model);
-        $this->stockRegistry = Bootstrap::getObjectManager()->get('Magento\CatalogInventory\Api\StockRegistryInterface');
     }
 
     /**
@@ -50,9 +52,8 @@ class VariationHandlerTest extends \PHPUnit_Framework_TestCase
         $generatedProducts = $this->_model->generateSimpleProducts($this->_product, $productsData);
         $this->assertEquals(3, count($generatedProducts));
         foreach ($generatedProducts as $productId) {
-            $stockItem = $this->stockRegistry->getStockItem($productId);
             /** @var $product \Magento\Catalog\Model\Product */
-            $product = Bootstrap::getObjectManager()->create(
+            $product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
                 'Magento\Catalog\Model\Product'
             );
             $product->load($productId);
@@ -60,7 +61,6 @@ class VariationHandlerTest extends \PHPUnit_Framework_TestCase
             $this->assertNotNull($product->getSku());
             $this->assertNotNull($product->getPrice());
             $this->assertNotNull($product->getWeight());
-            $this->assertEquals('1', $stockItem->getIsInStock());
         }
     }
 
@@ -71,12 +71,14 @@ class VariationHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGenerateSimpleProductsWithPartialData($productsData)
     {
+        $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
+        /** @var \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry */
+        $stockRegistry = $objectManager->get('Magento\CatalogInventory\Api\StockRegistryInterface');
         $this->_product->setNewVariationsAttributeSetId(4);
         $generatedProducts = $this->_model->generateSimpleProducts($this->_product, $productsData);
-        $parentStockItem = $this->stockRegistry->getStockItem($this->_product->getId());
         foreach ($generatedProducts as $productId) {
-            $stockItem = $this->stockRegistry->getStockItem($productId);
-            $this->assertEquals($parentStockItem->getManageStock(), $stockItem->getManageStock());
+            $stockItem = $stockRegistry->getStockItem($productId);
+            $this->assertEquals('0', $stockItem->getManageStock());
             $this->assertEquals('1', $stockItem->getIsInStock());
         }
     }

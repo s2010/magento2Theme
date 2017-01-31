@@ -23,7 +23,7 @@ class ImageContentValidatorTest extends \PHPUnit_Framework_TestCase
      */
     protected $objectManager;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->imageContentValidator = $this->objectManager->getObject('Magento\Framework\Api\ImageContentValidator');

@@ -7,9 +7,6 @@ namespace Magento\Framework\App;
 
 use Magento\Framework\App\Config\ReinitableConfigInterface;
 
-/**
- * @inheritdoc
- */
 class ReinitableConfig extends MutableScopeConfig implements ReinitableConfigInterface
 {
     /**
@@ -18,7 +15,6 @@ class ReinitableConfig extends MutableScopeConfig implements ReinitableConfigInt
     public function reinit()
     {
         $this->_scopePool->clean();
-        $this->clean();
         return $this;
     }
 }

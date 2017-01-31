@@ -2,7 +2,8 @@
 namespace Magento\Indexer\Model\ResourceModel\Indexer\State;
 
 /**
- * Factory class for @see \Magento\Indexer\Model\ResourceModel\Indexer\State\Collection
+ * Factory class for @see
+ * \Magento\Indexer\Model\ResourceModel\Indexer\State\Collection
  */
 class CollectionFactory
 {

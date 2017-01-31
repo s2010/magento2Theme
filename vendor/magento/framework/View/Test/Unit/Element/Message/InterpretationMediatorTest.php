@@ -26,7 +26,7 @@ class InterpretationMediatorTest extends \PHPUnit_Framework_TestCase
      */
     private $interpretationMediator;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->interpretationStrategy = $this->getMockBuilder(
             'Magento\Framework\View\Element\Message\InterpretationStrategy'

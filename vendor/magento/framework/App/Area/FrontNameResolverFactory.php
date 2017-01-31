@@ -7,9 +7,6 @@
  */
 namespace Magento\Framework\App\Area;
 
-/**
- * @api
- */
 class FrontNameResolverFactory
 {
     /**

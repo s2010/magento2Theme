@@ -5,10 +5,6 @@
  */
 namespace Magento\Bundle\Model\ResourceModel;
 
-use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Framework\EntityManager\MetadataPool;
-use Magento\Framework\App\ObjectManager;
-
 /**
  * Bundle Option Resource Model
  *
@@ -20,11 +16,6 @@ class Option extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      * @var \Magento\Bundle\Model\Option\Validator
      */
     private $validator;
-
-    /**
-     * @var MetadataPool
-     */
-    private $metadataPool;
 
     /**
      * @param \Magento\Framework\Model\ResourceModel\Db\Context $context
@@ -48,18 +39,6 @@ class Option extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     protected function _construct()
     {
         $this->_init('catalog_product_bundle_option', 'option_id');
-    }
-
-    /**
-     * @param int $optionId
-     * @return int
-     */
-    public function removeOptionSelections($optionId)
-    {
-        return $this->getConnection()->delete(
-            $this->getTable('catalog_product_bundle_selection'),
-            ['option_id =?' => $optionId]
-        );
     }
 
     /**
@@ -136,7 +115,6 @@ class Option extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
             'option_title_default.title'
         );
         $bind = ['store_id' => $storeId, 'product_id' => $productId];
-        $linkField = $this->getMetadataPool()->getMetadata(ProductInterface::class)->getLinkField();
         $select = $connection->select()
             ->from(
                 ['opt' => $this->getMainTable()],
@@ -152,13 +130,8 @@ class Option extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
                 'option_title_store.option_id = opt.option_id AND option_title_store.store_id = :store_id',
                 ['title' => $title]
             )
-            ->join(
-                ['e' => $this->getTable('catalog_product_entity')],
-                "e.$linkField = opt.parent_id",
-                []
-            )
             ->where(
-                'e.entity_id=:product_id'
+                'opt.parent_id=:product_id'
             );
         if (!($searchData = $connection->fetchCol($select, $bind))) {
             $searchData = [];
@@ -173,17 +146,5 @@ class Option extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     public function getValidationRulesBeforeSave()
     {
         return $this->validator;
-    }
-
-    /**
-     * Get MetadataPool instance
-     * @return MetadataPool
-     */
-    private function getMetadataPool()
-    {
-        if (!$this->metadataPool) {
-            $this->metadataPool = ObjectManager::getInstance()->get(MetadataPool::class);
-        }
-        return $this->metadataPool;
     }
 }

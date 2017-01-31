@@ -44,7 +44,6 @@ class PaymentAdapterTest extends \PHPUnit_Framework_TestCase
         $this->creditmemoMock = $this->getMockBuilder(\Magento\Sales\Api\Data\CreditmemoInterface::class)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-
         $this->invoiceMock = $this->getMockBuilder(\Magento\Sales\Api\Data\InvoiceInterface::class)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();

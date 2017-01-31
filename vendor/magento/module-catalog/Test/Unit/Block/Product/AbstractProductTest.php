@@ -42,7 +42,7 @@ class AbstractProductTest extends \PHPUnit_Framework_TestCase
      * Set up mocks and tested class
      * Child class is used as the tested class is declared abstract
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->productContextMock = $this->getMock(
             'Magento\Catalog\Block\Product\Context',

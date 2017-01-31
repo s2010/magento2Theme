@@ -67,7 +67,7 @@ class AddTrackTest extends \PHPUnit_Framework_TestCase
      */
     protected $pageTitleMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManagerHelper = new ObjectManagerHelper($this);
         $this->shipmentLoader = $this->getMockBuilder('Magento\Shipping\Controller\Adminhtml\Order\ShipmentLoader')

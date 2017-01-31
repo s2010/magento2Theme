@@ -9,7 +9,7 @@ use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Api\Data\ShipmentItemCreationInterface;
 use Magento\Sales\Api\Data\ShipmentPackageCreationInterface;
 use Magento\Sales\Api\Data\ShipmentTrackCreationInterface;
-use Magento\Framework\EntityManager\HydratorPool;
+use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Magento\Sales\Model\Order\Shipment\TrackFactory;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\ShipmentCommentCreationInterface;
@@ -33,25 +33,17 @@ class ShipmentDocumentFactory
     private $trackFactory;
 
     /**
-     * @var HydratorPool
-     */
-    private $hydratorPool;
-
-    /**
      * ShipmentDocumentFactory constructor.
      *
      * @param ShipmentFactory $shipmentFactory
-     * @param HydratorPool $hydratorPool
      * @param TrackFactory $trackFactory
      */
     public function __construct(
         ShipmentFactory $shipmentFactory,
-        HydratorPool $hydratorPool,
         TrackFactory $trackFactory
     ) {
         $this->shipmentFactory = $shipmentFactory;
         $this->trackFactory = $trackFactory;
-        $this->hydratorPool = $hydratorPool;
     }
 
     /**
@@ -103,10 +95,11 @@ class ShipmentDocumentFactory
     private function prepareTracks(\Magento\Sales\Api\Data\ShipmentInterface $shipment, array $tracks)
     {
         foreach ($tracks as $track) {
-            $hydrator = $this->hydratorPool->getHydrator(
-                \Magento\Sales\Api\Data\ShipmentTrackCreationInterface::class
-            );
-            $shipment->addTrack($this->trackFactory->create(['data' => $hydrator->extract($track)]));
+            $data = [];
+            $data[ShipmentTrackInterface::CARRIER_CODE] = $track->getCarrierCode();
+            $data[ShipmentTrackInterface::TITLE] = $track->getTitle();
+            $data[ShipmentTrackInterface::TRACK_NUMBER] = $track->getTrackNumber();
+            $shipment->addTrack($this->trackFactory->create(['data' => $data]));
         }
         return $shipment;
     }

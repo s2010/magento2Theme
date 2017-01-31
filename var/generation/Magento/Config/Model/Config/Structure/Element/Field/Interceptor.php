@@ -225,19 +225,6 @@ class Interceptor extends \Magento\Config\Model\Config\Structure\Element\Field i
     /**
      * {@inheritdoc}
      */
-    public function canRestore()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'canRestore');
-        if (!$pluginInfo) {
-            return parent::canRestore();
-        } else {
-            return $this->___callPlugins('canRestore', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function populateInput($formField)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'populateInput');

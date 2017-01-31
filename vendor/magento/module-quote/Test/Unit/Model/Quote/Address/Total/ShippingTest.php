@@ -175,9 +175,8 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
             ->method('isFreeShipping')
             ->with($this->quote, [$this->cartItem])
             ->willReturn(true);
-        $this->address->expects($this->once())
-            ->method('setFreeShipping')
-            ->with(true);
+        $this->address->expects($this->atLeastOnce())
+            ->method('setFreeShipping');
         $this->total->expects($this->atLeastOnce())
             ->method('setTotalAmount');
         $this->total->expects($this->atLeastOnce())
@@ -200,7 +199,9 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
         $this->cartItem->expects($this->atLeastOnce())
             ->method('getQty')
             ->willReturn(2);
-        $this->freeShippingAssertions();
+        $this->address->expects($this->atLeastOnce())
+            ->method('getFreeShipping')
+            ->willReturn(true);
         $this->cartItem->expects($this->once())
             ->method('setRowWeight')
             ->with(0);
@@ -252,19 +253,5 @@ class ShippingTest extends \PHPUnit_Framework_TestCase
             ->with('Carrier title - Method title');
 
         $this->shippingModel->collect($this->quote, $this->shippingAssignment, $this->total);
-    }
-
-    protected function freeShippingAssertions()
-    {
-        $this->address->expects($this->at(0))
-            ->method('getFreeShipping')
-            ->willReturn(false);
-        $this->address->expects($this->at(1))
-            ->method('getFreeShipping')
-            ->willReturn(true);
-        $this->cartItem->expects($this->atLeastOnce())
-            ->method('getFreeShipping')
-            ->willReturn(true);
-
     }
 }

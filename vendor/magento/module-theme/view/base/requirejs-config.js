@@ -7,10 +7,9 @@ var config = {
     "waitSeconds": 0,
     "map": {
         "*": {
-            "ko": "knockoutjs/knockout",
-            "knockout": "knockoutjs/knockout",
             "mageUtils": "mage/utils/main",
-            "rjsResolver": "mage/requirejs/resolver"
+            "ko": "knockoutjs/knockout",
+            "knockout": "knockoutjs/knockout"
         }
     },
     "shim": {
@@ -51,14 +50,7 @@ var config = {
     },
     "deps": [
         "jquery/jquery-migrate"
-    ],
-    "config": {
-        "mixins": {
-            "jquery/jstree/jquery.jstree": {
-                "mage/backend/jstree-mixin": true
-            }
-        }
-    }
+    ]
 };
 
 require(['jquery'], function ($) {

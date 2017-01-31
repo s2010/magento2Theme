@@ -14,28 +14,24 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      * @var \Magento\Sales\Model\ResourceModel\Order\Handler\Address
      */
     protected $address;
-
     /**
      * @var \Magento\Sales\Model\ResourceModel\Order\Address\Collection|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $addressCollectionMock;
-
     /**
      * @var \Magento\Sales\Model\ResourceModel\Attribute|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $attributeMock;
-
     /**
      * @var \Magento\Sales\Model\Order|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $orderMock;
-
     /**
      * @var \Magento\Sales\Model\Order\Address|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $addressMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->attributeMock = $this->getMock(
             'Magento\Sales\Model\ResourceModel\Attribute',

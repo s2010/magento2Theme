@@ -8,7 +8,6 @@ namespace Magento\Framework\Stdlib;
 /**
  * Class ArrayUtils
  *
- * @api
  */
 class ArrayUtils
 {

@@ -8,23 +8,10 @@ class Interceptor extends \Magento\Cms\Model\ResourceModel\Page implements \Mage
 {
     use \Magento\Framework\Interception\Interceptor;
 
-    public function __construct(\Magento\Framework\Model\ResourceModel\Db\Context $context, \Magento\Store\Model\StoreManagerInterface $storeManager, \Magento\Framework\Stdlib\DateTime $dateTime, \Magento\Framework\EntityManager\EntityManager $entityManager, \Magento\Framework\EntityManager\MetadataPool $metadataPool, $connectionName = null)
+    public function __construct(\Magento\Framework\Model\ResourceModel\Db\Context $context, \Magento\Store\Model\StoreManagerInterface $storeManager, \Magento\Framework\Stdlib\DateTime $dateTime, $connectionName = null)
     {
         $this->___init();
-        parent::__construct($context, $storeManager, $dateTime, $entityManager, $metadataPool, $connectionName);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getConnection()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getConnection');
-        if (!$pluginInfo) {
-            return parent::getConnection();
-        } else {
-            return $this->___callPlugins('getConnection', func_get_args(), $pluginInfo);
-        }
+        parent::__construct($context, $storeManager, $dateTime, $connectionName);
     }
 
     /**
@@ -134,32 +121,6 @@ class Interceptor extends \Magento\Cms\Model\ResourceModel\Page implements \Mage
     /**
      * {@inheritdoc}
      */
-    public function save(\Magento\Framework\Model\AbstractModel $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'save');
-        if (!$pluginInfo) {
-            return parent::save($object);
-        } else {
-            return $this->___callPlugins('save', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete(\Magento\Framework\Model\AbstractModel $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'delete');
-        if (!$pluginInfo) {
-            return parent::delete($object);
-        } else {
-            return $this->___callPlugins('delete', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getIdFieldName()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getIdFieldName');
@@ -193,6 +154,45 @@ class Interceptor extends \Magento\Cms\Model\ResourceModel\Page implements \Mage
             return parent::getTable($tableName);
         } else {
             return $this->___callPlugins('getTable', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConnection()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getConnection');
+        if (!$pluginInfo) {
+            return parent::getConnection();
+        } else {
+            return $this->___callPlugins('getConnection', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function save(\Magento\Framework\Model\AbstractModel $object)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'save');
+        if (!$pluginInfo) {
+            return parent::save($object);
+        } else {
+            return $this->___callPlugins('save', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(\Magento\Framework\Model\AbstractModel $object)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'delete');
+        if (!$pluginInfo) {
+            return parent::delete($object);
+        } else {
+            return $this->___callPlugins('delete', func_get_args(), $pluginInfo);
         }
     }
 
@@ -264,20 +264,7 @@ class Interceptor extends \Magento\Cms\Model\ResourceModel\Page implements \Mage
     /**
      * {@inheritdoc}
      */
-    public function getChecksum($table)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getChecksum');
-        if (!$pluginInfo) {
-            return parent::getChecksum($table);
-        } else {
-            return $this->___callPlugins('getChecksum', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterLoad(\Magento\Framework\DataObject $object)
+    public function afterLoad(\Magento\Framework\Model\AbstractModel $object)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterLoad');
         if (!$pluginInfo) {
@@ -290,65 +277,13 @@ class Interceptor extends \Magento\Cms\Model\ResourceModel\Page implements \Mage
     /**
      * {@inheritdoc}
      */
-    public function beforeSave(\Magento\Framework\DataObject $object)
+    public function getChecksum($table)
     {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'beforeSave');
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getChecksum');
         if (!$pluginInfo) {
-            return parent::beforeSave($object);
+            return parent::getChecksum($table);
         } else {
-            return $this->___callPlugins('beforeSave', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterSave(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterSave');
-        if (!$pluginInfo) {
-            return parent::afterSave($object);
-        } else {
-            return $this->___callPlugins('afterSave', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeDelete(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'beforeDelete');
-        if (!$pluginInfo) {
-            return parent::beforeDelete($object);
-        } else {
-            return $this->___callPlugins('beforeDelete', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterDelete(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterDelete');
-        if (!$pluginInfo) {
-            return parent::afterDelete($object);
-        } else {
-            return $this->___callPlugins('afterDelete', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function serializeFields(\Magento\Framework\Model\AbstractModel $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'serializeFields');
-        if (!$pluginInfo) {
-            return parent::serializeFields($object);
-        } else {
-            return $this->___callPlugins('serializeFields', func_get_args(), $pluginInfo);
+            return $this->___callPlugins('getChecksum', func_get_args(), $pluginInfo);
         }
     }
 

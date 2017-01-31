@@ -57,7 +57,7 @@ class QueueTest extends \PHPUnit_Framework_TestCase
      */
     protected $objectManager;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->templateFilter = $this->getMockBuilder('\Magento\Newsletter\Model\Template\Filter')
             ->disableOriginalConstructor()

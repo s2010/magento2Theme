@@ -11,6 +11,9 @@ use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 
+/**
+ * @magentoAppIsolation enabled
+ */
 class LowestPriceOptionProviderTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -42,7 +45,7 @@ class LowestPriceOptionProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetProductsIfOneOfChildIsDisabled()
     {
-        $configurableProduct = $this->productRepository->get('configurable', false, null, true);
+        $configurableProduct = $this->productRepository->getById(1, false, null, true);
         $lowestPriceChildrenProducts = $this->lowestPriceOptionsProvider->getProducts($configurableProduct);
         $this->assertCount(1, $lowestPriceChildrenProducts);
         $lowestPriceChildrenProduct = reset($lowestPriceChildrenProducts);
@@ -73,7 +76,7 @@ class LowestPriceOptionProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetProductsIfOneOfChildIsDisabledPerStore()
     {
-        $configurableProduct = $this->productRepository->get('configurable', false, null, true);
+        $configurableProduct = $this->productRepository->getById(1, false, null, true);
         $lowestPriceChildrenProducts = $this->lowestPriceOptionsProvider->getProducts($configurableProduct);
         $this->assertCount(1, $lowestPriceChildrenProducts);
         $lowestPriceChildrenProduct = reset($lowestPriceChildrenProducts);
@@ -105,7 +108,7 @@ class LowestPriceOptionProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetProductsIfOneOfChildIsOutOfStock()
     {
-        $configurableProduct = $this->productRepository->get('configurable', false, null, true);
+        $configurableProduct = $this->productRepository->getById(1, false, null, true);
         $lowestPriceChildrenProducts = $this->lowestPriceOptionsProvider->getProducts($configurableProduct);
         $this->assertCount(1, $lowestPriceChildrenProducts);
         $lowestPriceChildrenProduct = reset($lowestPriceChildrenProducts);

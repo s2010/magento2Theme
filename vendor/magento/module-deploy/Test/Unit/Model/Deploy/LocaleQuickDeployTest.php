@@ -12,6 +12,7 @@ use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
 use Symfony\Component\Console\Output\OutputInterface;
 use Magento\Deploy\Console\Command\DeployStaticOptionsInterface as Options;
 use \Magento\Framework\RequireJs\Config as RequireJsConfig;
+use Magento\Framework\Filesystem;
 
 class LocaleQuickDeployTest extends \PHPUnit_Framework_TestCase
 {
@@ -102,11 +103,13 @@ class LocaleQuickDeployTest extends \PHPUnit_Framework_TestCase
      */
     private function getModel($options = [])
     {
+        $filesystemMock = $this->getMockBuilder(Filesystem::class)->disableOriginalConstructor()->getMock();
+        $filesystemMock->expects(self::any())->method('getDirectoryWrite')->willReturn($this->staticDirectoryMock);
         return (new ObjectManager($this))->getObject(
             LocaleQuickDeploy::class,
             [
                 'output' => $this->outputMock,
-                'staticDirectory' => $this->staticDirectoryMock,
+                'filesystem' => $filesystemMock,
                 'options' => $options
             ]
         );

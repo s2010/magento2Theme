@@ -150,8 +150,6 @@ class ProductOptionRepositoryTest extends \Magento\TestFramework\TestCase\Webapi
         $productSku = 'bundle-product';
         $request = [
             'title' => 'someTitle',
-            'type' => 'select',
-            'required' => 1,
             'sku' => $productSku,
         ];
 
@@ -161,7 +159,10 @@ class ProductOptionRepositoryTest extends \Magento\TestFramework\TestCase\Webapi
         $this->assertArrayHasKey('option_id', $options[0]);
 
         $optionId = $options[0]['option_id'];
-        $this->update($optionId, $request);
+
+        $result = $this->update($optionId, $request);
+
+        $this->assertEquals($result, $optionId);
 
         $result = $this->get($productSku, $optionId);
 

@@ -40,9 +40,6 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Framework\Pricing\PriceCurrencyInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $priceCurrency;
 
-    /** @var \Magento\ConfigurableProduct\Model\ConfigurableAttributeData|\PHPUnit_Framework_MockObject_MockObject */
-    private $configurableAttributeData;
-
     /** @var \Magento\Catalog\Model\Product|\PHPUnit_Framework_MockObject_MockObject */
     private $product;
 
@@ -58,7 +55,7 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Framework\UrlInterface|\PHPUnit_Framework_MockObject_MockObject  */
     private $urlBuilder;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->arrayUtils = $this->getMock('\Magento\Framework\Stdlib\ArrayUtils', [], [], '', false);
         $this->jsonEncoder = $this->getMock('\Magento\Framework\Json\EncoderInterface', [], [], '', false);
@@ -68,13 +65,6 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
         $this->catalogProduct = $this->getMock('\Magento\Catalog\Helper\Product', [], [], '', false);
         $this->currentCustomer = $this->getMock('\Magento\Customer\Helper\Session\CurrentCustomer', [], [], '', false);
         $this->priceCurrency = $this->getMock('\Magento\Framework\Pricing\PriceCurrencyInterface', [], [], '', false);
-        $this->configurableAttributeData = $this->getMock(
-            'Magento\ConfigurableProduct\Model\ConfigurableAttributeData',
-            [],
-            [],
-            '',
-            false
-        );
         $this->product = $this->getMock('\Magento\Catalog\Model\Product', [], [], '', false);
         $this->typeInstance = $this->getMock('\Magento\Catalog\Model\Product\Type\AbstractType', [], [], '', false);
         $this->scopeConfig = $this->getMock('\Magento\Framework\App\Config\ScopeConfigInterface', [], [], '', false);
@@ -96,8 +86,6 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
                 'catalogProduct' => $this->catalogProduct,
                 'currentCustomer' => $this->currentCustomer,
                 'priceCurrency' => $this->priceCurrency,
-                'configurableAttributeData' => $this->configurableAttributeData,
-                'data' => [],
             ]
         );
     }
@@ -154,9 +142,11 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
     private function prepareGetJsonSwatchConfig()
     {
         $product1 = $this->getMock('\Magento\Catalog\Model\Product', [], [], '', false);
+        $product1->expects($this->atLeastOnce())->method('isSaleable')->willReturn(true);
         $product1->expects($this->atLeastOnce())->method('getData')->with('code')->willReturn(1);
 
         $product2 = $this->getMock('\Magento\Catalog\Model\Product', [], [], '', false);
+        $product2->expects($this->atLeastOnce())->method('isSaleable')->willReturn(true);
         $product2->expects($this->atLeastOnce())->method('getData')->with('code')->willReturn(3);
 
         $simpleProducts = [$product1, $product2];
@@ -167,7 +157,7 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        $configurableType->expects($this->atLeastOnce())->method('getSalableUsedProducts')->with($this->product, null)
+        $configurableType->expects($this->atLeastOnce())->method('getUsedProducts')->with($this->product, null)
             ->willReturn($simpleProducts);
         $this->product->expects($this->any())->method('getTypeInstance')->willReturn($configurableType);
 
@@ -209,7 +199,7 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
                 3 => ['type' => null, 'value' => 'hello']
             ]);
 
-        $this->swatchHelper->expects($this->once())->method('loadFirstVariationWithSwatchImage')
+        $this->swatchHelper->expects($this->once())->method('loadFirstVariationSwatchImage')
             ->with($this->product, ['code' => 3])
             ->willReturn($this->product);
 
@@ -249,7 +239,7 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
                 3 => ['type' => Swatch::SWATCH_TYPE_VISUAL_IMAGE, 'value' => 'hello']
             ]);
 
-        $this->swatchHelper->expects($this->once())->method('loadFirstVariationWithSwatchImage')
+        $this->swatchHelper->expects($this->once())->method('loadFirstVariationSwatchImage')
             ->with($this->product, ['code' => 3])
             ->willReturn($this->product);
 
@@ -297,7 +287,7 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
                 3 => ['type' => Swatch::SWATCH_TYPE_VISUAL_IMAGE, 'value' => 'hello']
             ]);
 
-        $this->swatchHelper->expects($this->once())->method('loadFirstVariationWithSwatchImage')
+        $this->swatchHelper->expects($this->once())->method('loadFirstVariationSwatchImage')
             ->with($this->product, ['code' => 3])
             ->willReturn($this->product);
 

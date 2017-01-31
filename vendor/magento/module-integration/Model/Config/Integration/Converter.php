@@ -7,15 +7,13 @@ namespace Magento\Integration\Model\Config\Integration;
 
 /**
  * Converter of api.xml content into array format.
- *
- * @deprecated
  */
 class Converter implements \Magento\Framework\Config\ConverterInterface
 {
     /**#@+
      * Array keys for config internal representation.
      */
-    const API_RESOURCES = 'resource';
+    const API_RESOURCES = 'resources';
 
     const API_RESOURCE_NAME = 'name';
 

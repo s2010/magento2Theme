@@ -25,7 +25,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase
      */
     protected $_session;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_helper = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
     }

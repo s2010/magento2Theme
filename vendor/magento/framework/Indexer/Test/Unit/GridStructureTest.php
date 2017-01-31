@@ -31,7 +31,7 @@ class GridStructureTest extends \PHPUnit_Framework_TestCase
      */
     protected $object;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->connection = $this->getMockBuilder('Magento\Framework\DB\Adapter\AdapterInterface')
             ->getMock();

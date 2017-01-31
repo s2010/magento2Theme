@@ -37,7 +37,6 @@ class MassAssignCustomerGroupTest extends Injectable
     /* tags */
     const MVP = 'yes';
     const DOMAIN = 'CS';
-    const TEST_TYPE = 'extended_acceptance_test';
     /* end tags */
 
     /**

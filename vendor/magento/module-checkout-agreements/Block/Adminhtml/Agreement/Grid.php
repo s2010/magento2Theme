@@ -78,10 +78,10 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 
         if (!$this->_storeManager->isSingleStoreMode()) {
             $this->addColumn(
-                'stores',
+                'store_id',
                 [
                     'header' => __('Store View'),
-                    'index' => 'stores',
+                    'index' => 'store_id',
                     'type' => 'store',
                     'store_all' => true,
                     'store_view' => true,

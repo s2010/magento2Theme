@@ -21,7 +21,7 @@ class HttpTest extends \PHPUnit_Framework_TestCase
     /** @var bool Result of fsockopen() function */
     public static $fsockopen;
 
-    protected function setUp()
+    public function setUp()
     {
         require_once __DIR__ . '/../_files/http_mock.php';
 

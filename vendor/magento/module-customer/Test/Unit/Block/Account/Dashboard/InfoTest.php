@@ -54,7 +54,7 @@ class InfoTest extends \PHPUnit_Framework_TestCase
      */
     protected $currentCustomer;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->currentCustomer = $this->getMock(
             'Magento\Customer\Helper\Session\CurrentCustomer',
@@ -138,7 +138,7 @@ class InfoTest extends \PHPUnit_Framework_TestCase
             ->will(
                 $this->throwException(new NoSuchEntityException(
                     __(
-                        'No such entity with %fieldName = %fieldValue',
+                        NoSuchEntityException::MESSAGE_SINGLE_FIELD,
                         ['fieldName' => 'customerId', 'fieldValue' => 1]
                     )
                 ))

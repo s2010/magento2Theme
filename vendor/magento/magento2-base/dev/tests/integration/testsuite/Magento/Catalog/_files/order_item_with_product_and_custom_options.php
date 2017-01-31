@@ -21,8 +21,7 @@ $payment->setMethod('checkmo');
 
 /** @var $product \Magento\Catalog\Model\Product */
 $product = $objectManager->create('Magento\Catalog\Model\Product');
-$repository = $objectManager->create('Magento\Catalog\Model\ProductRepository');
-$product = $repository->get('simple');
+$product->load(1);
 
 $optionValuesByType = [
     'field' => 'Test value',

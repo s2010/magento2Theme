@@ -10,14 +10,12 @@ class FullTest extends \PHPUnit_Framework_TestCase
 {
     /** @var \Magento\Framework\Search\Request\Config|\PHPUnit_Framework_MockObject_MockObject */
     protected $searchRequestConfig;
-
     /** @var \Magento\Store\Model\StoreManagerInterface|\PHPUnit_Framework_MockObject_MockObject */
     protected $storeManager;
-
     /** @var \Magento\CatalogSearch\Model\Indexer\Fulltext\Action\Full */
     protected $object;
 
-    protected function setUp()
+    public function setUp()
     {
         $resource = $this->getMockBuilder('Magento\Framework\App\ResourceConnection')
             ->disableOriginalConstructor()

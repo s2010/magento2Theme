@@ -26,7 +26,7 @@ class ExpressReview extends Block
      *
      * @var string
      */
-    protected $total = '#transactionCart .ng-binding';
+    protected $total = '.amountFormatted';
 
     /**
      * Method that escapes currency symbols.

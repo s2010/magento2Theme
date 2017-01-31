@@ -2,7 +2,8 @@
 namespace Magento\Authorization\Model\ResourceModel\Role;
 
 /**
- * Factory class for @see \Magento\Authorization\Model\ResourceModel\Role\Collection
+ * Factory class for @see
+ * \Magento\Authorization\Model\ResourceModel\Role\Collection
  */
 class CollectionFactory
 {

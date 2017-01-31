@@ -13,7 +13,6 @@ use Magento\CatalogImportExport\Model\Import\Product;
  * Import entity abstract product type model
  *
  * @SuppressWarnings(PHPMD.TooManyFields)
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 abstract class AbstractType
 {
@@ -126,20 +125,6 @@ abstract class AbstractType
      * @var \Magento\Framework\DB\Adapter\AdapterInterface
      */
     protected $connection;
-
-    /**
-     * Product metadata pool
-     *
-     * @var \Magento\Framework\EntityManager\MetadataPool
-     */
-    protected $metadataPool;
-
-    /**
-     * Product entity link field
-     *
-     * @var string
-     */
-    private $productEntityLinkField;
 
     /**
      * @param \Magento\Eav\Model\ResourceModel\Entity\Attribute\Set\CollectionFactory $attrSetColFac
@@ -498,7 +483,11 @@ abstract class AbstractType
                     $resultAttrs[$attrCode] = $attrParams['options'][strtolower($rowData[$attrCode])];
                 } elseif ('multiselect' == $attrParams['type']) {
                     $resultAttrs[$attrCode] = [];
-                    foreach ($this->_entityModel->parseMultiselectValues($rowData[$attrCode]) as $value) {
+                    $multiSelectValues = $this->parseMultiSelectValues(
+                        $this->_entityModel->getParameters(),
+                        $rowData[$attrCode]
+                    );
+                    foreach ($multiSelectValues as $value) {
                         $resultAttrs[$attrCode][] = $attrParams['options'][strtolower($value)];
                     }
                     $resultAttrs[$attrCode] = implode(',', $resultAttrs[$attrCode]);
@@ -542,31 +531,22 @@ abstract class AbstractType
     }
 
     /**
-     * Get product metadata pool
+     * Parse values of multiselect attributes depends on "Fields Enclosure" parameter
      *
-     * @return \Magento\Framework\EntityManager\MetadataPool
+     * @param array $parameters
+     * @param string $values
+     * @return array
      */
-    protected function getMetadataPool()
+    private function parseMultiSelectValues(array $parameters, $values)
     {
-        if (!$this->metadataPool) {
-            $this->metadataPool = \Magento\Framework\App\ObjectManager::getInstance()
-                ->get('Magento\Framework\EntityManager\MetadataPool');
+        if (empty($parameters[\Magento\ImportExport\Model\Import::FIELDS_ENCLOSURE])) {
+            return explode(\Magento\CatalogImportExport\Model\Import\Product::PSEUDO_MULTI_LINE_SEPARATOR, $values);
         }
-        return $this->metadataPool;
-    }
-
-    /**
-     * Get product entity link field
-     *
-     * @return string
-     */
-    protected function getProductEntityLinkField()
-    {
-        if (!$this->productEntityLinkField) {
-            $this->productEntityLinkField = $this->getMetadataPool()
-                ->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class)
-                ->getLinkField();
+        if (preg_match_all('~"((?:[^"]|"")*)"~', $values, $matches)) {
+            return $values = array_map(function ($value) {
+                return str_replace('""', '"', $value);
+            }, $matches[1]);
         }
-        return $this->productEntityLinkField;
+        return [$values];
     }
 }

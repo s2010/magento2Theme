@@ -7,11 +7,6 @@ namespace Magento\Payment\Gateway\Http;
 
 use Magento\Payment\Gateway\Response;
 
-/**
- * Interface ClientInterface
- * @package Magento\Payment\Gateway\Http
- * @api
- */
 interface ClientInterface
 {
     /**

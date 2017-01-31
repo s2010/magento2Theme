@@ -123,6 +123,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $object = $this->_model->loadByAttribute('sku', 'simple');
         $this->assertNotSame($object, $this->_model);
+        $this->assertEquals(1, $object->getId());
         // fixture
 
         $result = $this->_model->loadByAttribute('sku', uniqid());

@@ -34,7 +34,7 @@ class ExpressRedirectTest extends \PHPUnit_Framework_TestCase
      */
     protected $_helper;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_actionFlag = $this->getMockBuilder(
             'Magento\Framework\App\ActionFlag'

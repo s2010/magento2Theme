@@ -15,9 +15,12 @@ use Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingErrorAggregatorI
 abstract class Import extends Action
 {
     /**
-     * Authorization level of a basic admin session
+     * Check access (in the ACL) for current user.
      *
-     * @see _isAllowed()
+     * @return bool
      */
-    const ADMIN_RESOURCE = 'Magento_ImportExport::import';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_ImportExport::import');
+    }
 }

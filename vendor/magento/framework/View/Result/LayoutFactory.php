@@ -8,9 +8,6 @@ namespace Magento\Framework\View\Result;
 
 use Magento\Framework\ObjectManagerInterface;
 
-/**
- * @api
- */
 class LayoutFactory
 {
     /**

@@ -5,11 +5,6 @@
  */
 namespace Magento\Payment\Gateway\Validator;
 
-/**
- * Interface ValidatorInterface
- * @package Magento\Payment\Gateway\Validator
- * @api
- */
 interface ValidatorInterface
 {
     /**

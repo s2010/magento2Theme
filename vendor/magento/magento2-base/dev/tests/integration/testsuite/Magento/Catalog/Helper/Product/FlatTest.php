@@ -27,6 +27,11 @@ class FlatTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testIsEnabledDefault()
+    {
+        $this->assertFalse($this->_state->isFlatEnabled());
+    }
+
     /**
      * @magentoConfigFixture current_store catalog/frontend/flat_catalog_product 1
      */

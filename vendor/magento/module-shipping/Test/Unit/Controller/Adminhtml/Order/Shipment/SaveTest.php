@@ -356,12 +356,13 @@ class SaveTest extends \PHPUnit_Framework_TestCase
                 ->method('create')
                 ->with(\Magento\Framework\DB\Transaction::class)
                 ->will($this->returnValue($saveTransaction));
-            $this->objectManager->expects($this->exactly(1))
+            $this->objectManager->expects($this->exactly(2))
                 ->method('get')
                 ->withConsecutive(
+                    [\Magento\Sales\Model\Order\Shipment\ShipmentValidatorInterface::class],
                     [\Magento\Backend\Model\Session::class]
                 )
-                ->willReturnOnConsecutiveCalls($this->session);
+                ->willReturnOnConsecutiveCalls($this->shipmentValidatorMock, $this->session);
             $path = 'sales/order/view';
             $arguments = ['order_id' => $orderId];
             $shipment->expects($this->once())

@@ -42,13 +42,6 @@ class Database extends \Magento\MediaStorage\Model\File\Storage\Database\Abstrac
     protected $_mediaHelper;
 
     /**
-     * Store media base directory path
-     *
-     * @var string
-     */
-    protected $mediaBaseDirectory = null;
-
-    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\MediaStorage\Helper\File\Storage\Database $coreFileStorageDb
@@ -358,18 +351,5 @@ class Database extends \Magento\MediaStorage\Model\File\Storage\Database\Abstrac
         $this->_getResource()->deleteFile($filename, $directory);
 
         return $this;
-    }
-
-    /**
-     * Retrieve media base directory path
-     *
-     * @return string
-     */
-    public function getMediaBaseDirectory()
-    {
-        if ($this->mediaBaseDirectory === null) {
-            $this->mediaBaseDirectory = $this->_coreFileStorageDb->getMediaBaseDir();
-        }
-        return $this->mediaBaseDirectory;
     }
 }

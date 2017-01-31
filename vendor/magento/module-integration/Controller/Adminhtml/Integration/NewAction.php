@@ -15,7 +15,6 @@ class NewAction extends \Magento\Integration\Controller\Adminhtml\Integration
      */
     public function execute()
     {
-        $this->restoreResourceAndSaveToRegistry();
         $this->_view->loadLayout();
         $this->_setActiveMenu('Magento_Integration::system_integrations');
         $this->_addBreadcrumb(__('New Integration'), __('New Integration'));

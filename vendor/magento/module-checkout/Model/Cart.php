@@ -8,13 +8,12 @@ namespace Magento\Checkout\Model;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Checkout\Model\Cart\CartInterface;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
  * Shopping cart model
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @deprecated 
  */
 class Cart extends DataObject implements CartInterface
 {
@@ -335,8 +334,12 @@ class Cart extends DataObject implements CartInterface
                 __('We found an invalid request for adding product to quote.')
             );
         }
-        $this->getRequestInfoFilter()->filter($request);
 
+        if (!$request->hasQty()) {
+            $request->setQty(1);
+        }
+
+        $this->getRequestInfoFilter()->filter($request);
         return $request;
     }
 
@@ -361,7 +364,7 @@ class Cart extends DataObject implements CartInterface
             //If product was not found in cart and there is set minimal qty for it
             if ($minimumQty
                 && $minimumQty > 0
-                && !$request->getQty()
+                && $request->getQty() < $minimumQty
                 && !$this->getQuote()->hasProductId($productId)
             ) {
                 $request->setQty($minimumQty);
@@ -701,7 +704,7 @@ class Cart extends DataObject implements CartInterface
                 // If product was not found in cart and there is set minimal qty for it
                 if ($minimumQty
                     && $minimumQty > 0
-                    && !$request->getQty()
+                    && $request->getQty() < $minimumQty
                     && !$this->getQuote()->hasProductId($productId)
                 ) {
                     $request->setQty($minimumQty);

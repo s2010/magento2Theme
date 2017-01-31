@@ -10,16 +10,17 @@ use Magento\Mtf\Block\Form;
 use Magento\Mtf\Client\Locator;
 
 /**
- * List associated products on product page.
+ * Class ListAssociatedProducts
+ * List associated products on the page
  */
 class ListAssociatedProducts extends Form
 {
     /**
-     * Selector with item product.
+     * Selector with item product
      *
      * @var string
      */
-    protected $itemProduct = '//table[contains(@data-role,"grid")]/tbody/tr[%d]';
+    protected $itemProduct = '//tr[@data-role="row"][@class="pointer"][%d]';
 
     /**
      * Getting block products

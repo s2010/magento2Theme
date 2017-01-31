@@ -79,12 +79,12 @@ class CustomerMetadata implements CustomerMetadataInterface
         } else {
             throw new NoSuchEntityException(
                 __(
-                    'No such entity with %fieldName = %fieldValue, %field2Name = %field2Value',
+                    NoSuchEntityException::MESSAGE_DOUBLE_FIELDS,
                     [
                         'fieldName' => 'entityType',
                         'fieldValue' => self::ENTITY_TYPE_CUSTOMER,
                         'field2Name' => 'attributeCode',
-                        'field2Value' => $attributeCode
+                        'field2Value' => $attributeCode,
                     ]
                 )
             );

@@ -227,6 +227,11 @@ class AttributeTest extends \PHPUnit_Framework_TestCase
                 'attributeCache' => $this->attributeCacheMock,
             ]
         );
+
+        $reflection = new \ReflectionClass(get_class($this->attribute));
+        $reflectionProperty = $reflection->getProperty('attributeCache');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($this->attribute, $this->attributeCacheMock);
     }
 
     /**

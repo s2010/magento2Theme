@@ -2,7 +2,8 @@
 namespace Magento\Catalog\Model\Product\Initialization\Helper\ProductLinks;
 
 /**
- * Interceptor class for @see \Magento\Catalog\Model\Product\Initialization\Helper\ProductLinks
+ * Interceptor class for @see
+ * \Magento\Catalog\Model\Product\Initialization\Helper\ProductLinks
  */
 class Interceptor extends \Magento\Catalog\Model\Product\Initialization\Helper\ProductLinks implements \Magento\Framework\Interception\InterceptorInterface
 {

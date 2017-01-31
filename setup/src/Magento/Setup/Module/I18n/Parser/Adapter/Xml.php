@@ -33,13 +33,6 @@ class Xml extends AbstractAdapter
                     if ($phrase) {
                         $this->_addPhrase($phrase);
                     }
-                    $elementAttributes = $element->attributes();
-                    if (isset($elementAttributes[$value])) {
-                        $phrase = (string)$elementAttributes[$value];
-                        if ($phrase) {
-                            $this->_addPhrase($phrase);
-                        }
-                    }
                 }
             }
         }

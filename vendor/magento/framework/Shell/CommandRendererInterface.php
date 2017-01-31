@@ -5,11 +5,6 @@
  */
 namespace Magento\Framework\Shell;
 
-/**
- * Shell command renderer
- *
- * @api
- */
 interface CommandRendererInterface
 {
     /**

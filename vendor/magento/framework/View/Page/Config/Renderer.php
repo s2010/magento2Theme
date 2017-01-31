@@ -148,10 +148,6 @@ class Renderer implements RendererInterface
      */
     protected function getMetadataTemplate($name)
     {
-        if (strpos($name, 'og:') === 0) {
-            return '<meta property="' . $name . '" content="%content"/>' . "\n";
-        }
-
         switch ($name) {
             case 'charset':
                 $metadataTemplate = '<meta charset="%content"/>' . "\n";

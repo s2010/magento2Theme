@@ -33,7 +33,6 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      * @var ObjectManager
      */
     protected $objectManager;
-
     /**
      * @var Place
      */
@@ -99,7 +98,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
      */
     protected $checkoutSessionMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->directpostSessionMock = $this
             ->getMockBuilder('Magento\Authorizenet\Model\Directpost\Session')
@@ -280,10 +279,7 @@ class PlaceTest extends \PHPUnit_Framework_TestCase
     {
         $objectFailed = new \Magento\Framework\DataObject();
         $objectFailed->setData('error', true);
-        $objectFailed->setData(
-            'error_messages',
-            __('An error occurred on the server. Please try to place the order again.')
-        );
+        $objectFailed->setData('error_messages', __('Unable to place order. Please try again later.'));
 
         return [
             [

@@ -69,7 +69,7 @@ class RetrieveImageTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up
      */
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->contextMock = $this->getMock('\Magento\Backend\App\Action\Context', [], [], '', false);

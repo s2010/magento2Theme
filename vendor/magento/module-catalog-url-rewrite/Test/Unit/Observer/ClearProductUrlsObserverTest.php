@@ -77,7 +77,7 @@ class ClearProductUrlsObserverTest extends \PHPUnit_Framework_TestCase
     /**
      * @SuppressWarnings(PHPMD.TooManyFields)
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->importProduct = $this->getMock(
             '\Magento\CatalogImportExport\Model\Import\Product',

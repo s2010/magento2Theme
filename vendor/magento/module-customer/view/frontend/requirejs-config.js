@@ -8,9 +8,7 @@ var config = {
         '*': {
             checkoutBalance:    'Magento_Customer/js/checkout-balance',
             address:            'Magento_Customer/address',
-            changeEmailPassword: 'Magento_Customer/change-email-password',
-            passwordStrengthIndicator: 'Magento_Customer/js/password-strength-indicator',
-            zxcvbn: 'Magento_Customer/js/zxcvbn'
+            setPassword:        'Magento_Customer/set-password'
         }
     }
 };

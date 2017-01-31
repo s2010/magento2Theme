@@ -2,7 +2,8 @@
 namespace Magento\Eav\Model\ResourceModel\Entity\Attribute\Set;
 
 /**
- * Factory class for @see \Magento\Eav\Model\ResourceModel\Entity\Attribute\Set\Collection
+ * Factory class for @see
+ * \Magento\Eav\Model\ResourceModel\Entity\Attribute\Set\Collection
  */
 class CollectionFactory
 {

@@ -7,9 +7,6 @@ namespace Magento\Customer\Model\Observer;
 
 use Magento\Customer\Model\ResourceModel\Customer\Grid as CustomerGrid;
 
-/**
- * @deprecated
- */
 class Grid
 {
     /**
@@ -28,8 +25,6 @@ class Grid
 
     /**
      * @return void
-     *
-     * @deprecated
      */
     public function syncCustomerGrid()
     {

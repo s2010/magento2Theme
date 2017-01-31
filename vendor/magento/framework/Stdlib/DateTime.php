@@ -8,8 +8,6 @@ namespace Magento\Framework\Stdlib;
 /**
  * Converter of date formats
  * Internal dates
- *
- * @api
  */
 class DateTime
 {

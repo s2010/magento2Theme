@@ -8,7 +8,6 @@
  * Products generation to test base data
  */
 
-\Magento\TestFramework\Helper\Bootstrap::getInstance()->reinitialize();
 $testCases = include __DIR__ . '/_algorithm_base_data.php';
 
 /** @var $installer \Magento\Catalog\Setup\CategorySetup */
@@ -74,10 +73,10 @@ foreach ($testCases as $index => $testCase) {
             'Magento\Catalog\Model\Product'
         );
         $productId = $lastProductId + 1;
-        $product->setId(
-            $productId
-        )->setTypeId(
+        $product->setTypeId(
             \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE
+        )->setId(
+            $productId
         )->setAttributeSetId(
             $installer->getAttributeSetId('catalog_product', 'Default')
         )->setStoreId(

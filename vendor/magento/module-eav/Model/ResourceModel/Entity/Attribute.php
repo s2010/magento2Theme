@@ -147,10 +147,10 @@ class Attribute extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     /**
      * Delete entity
      *
-     * @param \Magento\Framework\Model\AbstractMode $object
+     * @param AbstractModel $object
      * @return $this
      */
-    public function deleteEntity(\Magento\Framework\Model\AbstractModel $object)
+    public function deleteEntity(AbstractModel $object)
     {
         if (!$object->getEntityAttributeId()) {
             return $this;
@@ -536,23 +536,6 @@ class Attribute extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         );
 
         return $connection->fetchOne($select, $bind);
-    }
-
-    /**
-     * Get entity attribute
-     *
-     * @param int|string $entityAttributeId
-     * @return array
-     */
-    public function getEntityAttribute($entityAttributeId)
-    {
-        $select = $this->getConnection()->select()->from(
-            $this->getTable('eav_entity_attribute')
-        )->where(
-            'entity_attribute_id = ?',
-            (int)$entityAttributeId
-        );
-        return $this->getConnection()->fetchRow($select);
     }
 
     /**

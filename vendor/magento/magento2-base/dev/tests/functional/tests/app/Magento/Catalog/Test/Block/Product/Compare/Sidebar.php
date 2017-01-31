@@ -79,5 +79,6 @@ class Sidebar extends ListCompare
             }
         );
         $this->_rootElement->find($this->clearAll)->click();
+        $this->browser->acceptAlert();
     }
 }

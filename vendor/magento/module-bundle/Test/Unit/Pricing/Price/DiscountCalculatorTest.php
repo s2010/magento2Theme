@@ -41,7 +41,7 @@ class DiscountCalculatorTest extends \PHPUnit_Framework_TestCase
     /**
      * Test setUp
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->productMock = $this->getMock(
             'Magento\Catalog\Model\Product',

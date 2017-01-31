@@ -16,9 +16,6 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
     /** @var Delete */
     protected $model;
 
-    /** @var \Magento\Framework\App\Action\Context */
-    protected $context;
-
     /** @var \Magento\Customer\Model\Session|\PHPUnit_Framework_MockObject_MockObject */
     protected $sessionMock;
 
@@ -45,73 +42,41 @@ class DeleteTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->sessionMock = $this->getMockBuilder('Magento\Customer\Model\Session')
+        $this->sessionMock = $this->getMockBuilder(\Magento\Customer\Model\Session::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->validatorMock = $this->getMockBuilder('Magento\Framework\Data\Form\FormKey\Validator')
+        $this->validatorMock = $this->getMockBuilder(\Magento\Framework\Data\Form\FormKey\Validator::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $formFactoryMock = $this->getMockBuilder('Magento\Customer\Model\Metadata\FormFactory')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->addressRepositoryMock = $this->getMockBuilder('Magento\Customer\Api\AddressRepositoryInterface')
+        $this->addressRepositoryMock = $this->getMockBuilder(\Magento\Customer\Api\AddressRepositoryInterface::class)
             ->getMockForAbstractClass();
-        $addressInterfaceFactoryMock = $this->getMockBuilder('Magento\Customer\Api\Data\AddressInterfaceFactory')
-            ->disableOriginalConstructor()
-            ->setMethods(['create'])
-            ->getMock();
-        $regionInterfaceFactoryMock = $this->getMockBuilder('Magento\Customer\Api\Data\RegionInterfaceFactory')
-            ->disableOriginalConstructor()
-            ->setMethods(['create'])
-            ->getMock();
-        $dataObjectProcessorMock = $this->getMockBuilder('Magento\Framework\Reflection\DataObjectProcessor')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $dataObjectHelperMock = $this->getMockBuilder('Magento\Framework\Api\DataObjectHelper')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $forwardFactoryMock = $this->getMockBuilder('Magento\Framework\Controller\Result\ForwardFactory')
-            ->disableOriginalConstructor()
-            ->setMethods(['create'])
-            ->getMock();
-        $pageFactoryMock = $this->getMockBuilder('Magento\Framework\View\Result\PageFactory')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->request = $this->getMockBuilder('Magento\Framework\App\RequestInterface')
+        $this->request = $this->getMockBuilder(\Magento\Framework\App\RequestInterface::class)
             ->getMockForAbstractClass();
-        $this->address = $this->getMockBuilder('Magento\Customer\Api\Data\AddressInterface')
+        $this->address = $this->getMockBuilder(\Magento\Customer\Api\Data\AddressInterface::class)
             ->getMockForAbstractClass();
-        $this->messageManager = $this->getMockBuilder('Magento\Framework\Message\ManagerInterface')
+        $this->messageManager = $this->getMockBuilder(\Magento\Framework\Message\ManagerInterface::class)
             ->getMockForAbstractClass();
-        $this->resultRedirectFactory = $this->getMockBuilder('Magento\Framework\Controller\Result\RedirectFactory')
+        $this->resultRedirectFactory =
+            $this->getMockBuilder(\Magento\Framework\Controller\Result\RedirectFactory::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        $this->resultRedirect = $this->getMockBuilder(\Magento\Framework\Controller\Result\Redirect::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->resultRedirect = $this->getMockBuilder('Magento\Framework\Controller\Result\Redirect')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->request = $this->getMockBuilder(\Magento\Framework\App\RequestInterface::class)
+            ->getMockForAbstractClass();
 
         $objectManager = new ObjectManagerHelper($this);
-        $this->context = $objectManager->getObject(
-            'Magento\Framework\App\Action\Context',
+        $this->model =  $objectManager->getObject(
+            Delete::class,
             [
                 'request' => $this->request,
-                'messageManager' => $this->messageManager,
                 'resultRedirectFactory' => $this->resultRedirectFactory,
+                'messageManager' => $this->messageManager,
+                'customerSession' => $this->sessionMock,
+                'formKeyValidator' => $this->validatorMock,
+                'addressRepository' => $this->addressRepositoryMock
             ]
-        );
-
-        $this->model = new Delete(
-            $this->context,
-            $this->sessionMock,
-            $this->validatorMock,
-            $formFactoryMock,
-            $this->addressRepositoryMock,
-            $addressInterfaceFactoryMock,
-            $regionInterfaceFactoryMock,
-            $dataObjectProcessorMock,
-            $dataObjectHelperMock,
-            $forwardFactoryMock,
-            $pageFactoryMock
         );
     }
 

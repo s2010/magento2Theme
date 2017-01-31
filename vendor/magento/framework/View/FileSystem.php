@@ -7,8 +7,6 @@ namespace Magento\Framework\View;
 
 /**
  * Model that finds file paths by their fileId
- *
- * @api
  */
 class FileSystem
 {

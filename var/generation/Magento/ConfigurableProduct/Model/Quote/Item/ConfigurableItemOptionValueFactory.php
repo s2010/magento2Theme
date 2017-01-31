@@ -2,7 +2,8 @@
 namespace Magento\ConfigurableProduct\Model\Quote\Item;
 
 /**
- * Factory class for @see \Magento\ConfigurableProduct\Model\Quote\Item\ConfigurableItemOptionValue
+ * Factory class for @see
+ * \Magento\ConfigurableProduct\Model\Quote\Item\ConfigurableItemOptionValue
  */
 class ConfigurableItemOptionValueFactory
 {
@@ -36,7 +37,8 @@ class ConfigurableItemOptionValueFactory
      * Create class instance with specified parameters
      *
      * @param array $data
-     * @return \Magento\ConfigurableProduct\Model\Quote\Item\ConfigurableItemOptionValue
+     * @return
+     * \Magento\ConfigurableProduct\Model\Quote\Item\ConfigurableItemOptionValue
      */
     public function create(array $data = array())
     {

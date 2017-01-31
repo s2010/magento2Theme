@@ -27,6 +27,7 @@ class AssertSearchTermForm extends AbstractConstraint
      *  - correct Store
      *  - correct Number of results
      *  - correct Number of Uses
+     *  - correct Synonym For
      *  - correct Redirect URL
      *  - correct Display in Suggested Terms
      *

@@ -6,10 +6,9 @@
 
 require __DIR__ . '/../../../Magento/Bundle/_files/product.php';
 
-/** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-$productRepository = $objectManager->create('Magento\Catalog\Api\ProductRepositoryInterface');
 /** @var $product \Magento\Catalog\Model\Product */
-$product = $productRepository->get('bundle-product');
+$product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Product');
+$product->load(3);
 
 /** @var $typeInstance \Magento\Bundle\Model\Product\Type */
 //Load options

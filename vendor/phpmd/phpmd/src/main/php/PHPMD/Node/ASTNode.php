@@ -143,7 +143,7 @@ class ASTNode extends \PHPMD\AbstractNode
      *
      * @return string
      */
-    public function getFullQualifiedName()
+    public function getQName()
     {
         return null;
     }

@@ -27,6 +27,7 @@ class TotalsConverter
         $this->factory = $factory;
     }
 
+
     /**
      * @param \Magento\Quote\Model\Quote\Address\Total[] $addressTotals
      * @return \Magento\Quote\Api\Data\TotalSegmentInterface[]
@@ -43,7 +44,7 @@ class TotalsConverter
                 TotalSegmentInterface::AREA => $addressTotal->getArea(),
             ];
             if (is_object($addressTotal->getTitle())) {
-                $pureData[TotalSegmentInterface::TITLE] = $addressTotal->getTitle()->render();
+                $pureData[TotalSegmentInterface::TITLE] = $addressTotal->getTitle()->getText();
             }
             /** @var \Magento\Quote\Model\Cart\TotalSegment $total */
             $total = $this->factory->create();

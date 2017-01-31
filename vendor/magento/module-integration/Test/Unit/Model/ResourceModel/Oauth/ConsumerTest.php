@@ -30,7 +30,7 @@ class ConsumerTest extends \PHPUnit_Framework_TestCase
      */
     protected $consumerResource;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->consumerMock = $this->getMock(
             'Magento\Integration\Model\Oauth\Consumer',

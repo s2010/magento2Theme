@@ -53,7 +53,8 @@ class OptionTest extends \PHPUnit_Framework_TestCase
             'Magento\Catalog\Model\Product\Option',
             ['data' => ['id' => 1, 'title' => 'some_title']]
         );
-        $productWithOptions->setOptions([$option]);
+        $productWithOptions->addOption($option);
+
         $block->setProduct($productWithOptions);
         $this->assertNotEmpty($block->getOptionValues());
 

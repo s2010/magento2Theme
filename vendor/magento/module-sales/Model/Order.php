@@ -769,7 +769,7 @@ class Order extends AbstractModel implements EntityInterface, OrderInterface
      */
     protected function _canReorder($ignoreSalable = false)
     {
-        if ($this->canUnhold() || $this->isPaymentReview()) {
+        if ($this->canUnhold() || $this->isPaymentReview() || !$this->getCustomerId()) {
             return false;
         }
 

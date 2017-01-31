@@ -376,7 +376,7 @@ abstract class AbstractFilter extends \Magento\Framework\DataObject implements F
      */
     protected function getAttributeIsFilterable($attribute)
     {
-        return (int)$attribute->getIsFilterable();
+        return $attribute->getIsFilterable();
     }
 
     /**

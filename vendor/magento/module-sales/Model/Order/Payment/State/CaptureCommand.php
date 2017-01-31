@@ -9,9 +9,6 @@ use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\OrderPaymentInterface;
 use Magento\Sales\Model\Order as SalesOrder;
 
-/**
- * Class CaptureCommand
- */
 class CaptureCommand implements CommandInterface
 {
     /**
@@ -27,23 +24,22 @@ class CaptureCommand implements CommandInterface
         $state = SalesOrder::STATE_PROCESSING;
         $status = false;
         $formattedAmount = $order->getBaseCurrency()->formatTxt($amount);
-
         if ($payment->getIsTransactionPending()) {
+            $message = __(
+                'An amount of %1 will be captured after being approved at the payment gateway.',
+                $formattedAmount
+            );
             $state = SalesOrder::STATE_PAYMENT_REVIEW;
-            $message = 'An amount of %1 will be captured after being approved at the payment gateway.';
+            if ($payment->getIsFraudDetected()) {
+                $status = SalesOrder::STATUS_FRAUD;
+            }
         } else {
             // normal online capture: invoice is marked as "paid"
-            $message = 'Captured amount of %1 online.';
-        }
-
-        if ($payment->getIsFraudDetected()) {
-            $state = SalesOrder::STATE_PAYMENT_REVIEW;
-            $status = SalesOrder::STATUS_FRAUD;
-            $message .= ' Order is suspended as its capturing amount %1 is suspected to be fraudulent.';
+            $message = __('Captured amount of %1 online', $formattedAmount);
         }
         $this->setOrderStateAndStatus($order, $status, $state);
 
-        return __($message, $formattedAmount);
+        return $message;
     }
 
     /**

@@ -102,7 +102,7 @@ class CartTotalRepositoryTest extends WebapiAbstract
      */
     public function testGetTotalsWithAbsentQuote()
     {
-        $cartId = 9999999999;
+        $cartId = 'unknownCart';
         $requestData = ['cartId' => $cartId];
         $this->_webApiCall($this->getServiceInfoForTotalsService($cartId), $requestData);
     }

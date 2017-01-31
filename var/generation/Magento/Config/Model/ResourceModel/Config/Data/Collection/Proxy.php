@@ -53,7 +53,7 @@ class Proxy extends \Magento\Config\Model\ResourceModel\Config\Data\Collection i
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**

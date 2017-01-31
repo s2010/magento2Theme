@@ -10,7 +10,7 @@
     <preference for="Magento\Framework\Shell\CommandRendererInterface" type="Magento\Framework\Shell\CommandRenderer" />
     <type name="Magento\Cron\Model\Config\Reader\Db">
         <arguments>
-            <argument name="defaultReader" xsi:type="object">DefaultScopeReader</argument>
+            <argument name="defaultReader" xsi:type="object">Magento\Store\Model\Config\Reader\DefaultReader</argument>
         </arguments>
     </type>
     <type name="Magento\Config\Model\Config\Structure\Converter">
@@ -29,7 +29,7 @@
             <argument name="shell" xsi:type="object">shellBackground</argument>
         </arguments>
     </type>
-    <type name="Magento\Framework\Console\CommandListInterface">
+    <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="cronCommand" xsi:type="object">Magento\Cron\Console\Command\CronCommand</item>

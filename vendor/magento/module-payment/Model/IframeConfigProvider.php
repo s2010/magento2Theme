@@ -22,11 +22,6 @@ use Psr\Log\LoggerInterface;
 class IframeConfigProvider implements ConfigProviderInterface
 {
     /**
-     * 30 sec
-     */
-    const TIMEOUT_TIME = 30000;
-
-    /**
      * Default length of Cc year field
      */
     const DEFAULT_YEAR_LENGTH = 2;
@@ -100,7 +95,6 @@ class IframeConfigProvider implements ConfigProviderInterface
         return [
             'payment' => [
                 'iframe' => [
-                    'timeoutTime' => [$this->methodCode => self::TIMEOUT_TIME],
                     'dateDelim' => [$this->methodCode => $this->getDateDelim()],
                     'cardFieldsMap' => [$this->methodCode => $this->getCardFieldsMap()],
                     'source' =>  [$this->methodCode => $this->getViewFileUrl('blank.html')],

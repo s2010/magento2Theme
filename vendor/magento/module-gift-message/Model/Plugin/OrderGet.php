@@ -126,21 +126,4 @@ class OrderGet
         }
         return $order;
     }
-
-    /**
-     * @param \Magento\Sales\Api\OrderRepositoryInterface $subject
-     * @param \Magento\Sales\Model\ResourceModel\Order\Collection $resultOrder
-     * @return \Magento\Sales\Model\ResourceModel\Order\Collection
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function afterGetList(
-        \Magento\Sales\Api\OrderRepositoryInterface $subject,
-        \Magento\Sales\Model\ResourceModel\Order\Collection $resultOrder
-    ) {
-        /** @var  $order */
-        foreach ($resultOrder->getItems() as $order) {
-            $this->afterGet($subject, $order);
-        }
-        return $resultOrder;
-    }
 }

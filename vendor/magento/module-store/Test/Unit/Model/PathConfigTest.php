@@ -26,7 +26,7 @@ class PathConfigTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Store\Model\RouteConfig */
     protected $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->scopeConfigMock = $this->getMockBuilder('Magento\Framework\App\Config\ScopeConfigInterface')
             ->disableOriginalConstructor()

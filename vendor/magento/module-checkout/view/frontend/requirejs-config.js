@@ -14,5 +14,8 @@ var config = {
             checkoutData:           'Magento_Checkout/js/checkout-data',
             proceedToCheckout:      'Magento_Checkout/js/proceed-to-checkout'
         }
-    }
+    },
+    deps: [
+        "Magento_Checkout/js/checkout-loader"
+    ]
 };

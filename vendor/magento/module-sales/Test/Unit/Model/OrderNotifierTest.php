@@ -41,7 +41,7 @@ class OrderNotifierTest extends \PHPUnit_Framework_TestCase
      */
     protected $orderSenderMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->historyCollectionFactory = $this->getMock(
             'Magento\Sales\Model\ResourceModel\Order\Status\History\CollectionFactory',

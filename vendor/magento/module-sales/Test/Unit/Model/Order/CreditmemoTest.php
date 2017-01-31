@@ -33,7 +33,7 @@ class CreditmemoTest extends \PHPUnit_Framework_TestCase
      */
     protected $cmItemCollectionFactoryMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->orderFactory = $this->getMock(
             '\Magento\Sales\Model\OrderFactory',

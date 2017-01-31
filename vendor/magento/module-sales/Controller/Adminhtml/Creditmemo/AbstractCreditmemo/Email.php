@@ -13,11 +13,12 @@ namespace Magento\Sales\Controller\Adminhtml\Creditmemo\AbstractCreditmemo;
 class Email extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
+     * @return bool
      */
-    const ADMIN_RESOURCE = 'Magento_Sales::sales_creditmemo';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Sales::sales_creditmemo');
+    }
 
     /**
      * Notify user

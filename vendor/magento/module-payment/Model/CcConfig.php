@@ -62,7 +62,6 @@ class CcConfig
      * Solo/switch card start years
      *
      * @return array
-     * @deprecated unused
      */
     public function getSsStartYears()
     {
@@ -120,7 +119,6 @@ class CcConfig
      * Whether switch/solo card type available
      *
      * @return bool
-     * @deprecated unused
      */
     public function hasSsCardType()
     {

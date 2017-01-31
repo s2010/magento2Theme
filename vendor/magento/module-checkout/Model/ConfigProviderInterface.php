@@ -5,10 +5,6 @@
  */
 namespace Magento\Checkout\Model;
 
-/**
- * Interface ConfigProviderInterface
- * @api
- */
 interface ConfigProviderInterface
 {
 

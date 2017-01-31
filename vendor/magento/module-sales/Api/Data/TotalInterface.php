@@ -9,7 +9,6 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
  * Interface TotalInterface
- * @api
  */
 interface TotalInterface extends ExtensibleDataInterface
 {

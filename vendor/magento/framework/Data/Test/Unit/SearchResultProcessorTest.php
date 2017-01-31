@@ -27,7 +27,7 @@ class SearchResultProcessorTest extends \PHPUnit_Framework_TestCase
      */
     protected $searchCriteriaMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->searchCriteriaMock = $this->getMockBuilder('Magento\Framework\Api\CriteriaInterface')
             ->disableOriginalConstructor()

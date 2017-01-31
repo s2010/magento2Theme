@@ -31,8 +31,8 @@ class CountryProvider
      */
     public function getCountry(Quote $quote)
     {
-        $address = $quote->getBillingAddress() ? : $quote->getShippingAddress();
-        return (!empty($address) && !empty($address->getCountry()))
+        $address = $quote->isVirtual() ? $quote->getBillingAddress() : $quote->getShippingAddress();
+        return $address
             ? $address->getCountry()
             : $this->directoryHelper->getDefaultCountry();
     }

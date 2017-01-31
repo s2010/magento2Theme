@@ -28,7 +28,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     protected $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->priceCollection = $this->getMock('Magento\Framework\Pricing\Price\Collection', [], [], '', false);
         $this->adjustmentCollection = $this->getMock(

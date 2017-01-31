@@ -144,11 +144,9 @@ class NewWidgetTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCurrentPage($pageNumber, $expectedResult)
     {
-        $this->block->setData('page_var_name', 'page_number');
-
         $this->requestMock->expects($this->any())
             ->method('getParam')
-            ->with('page_number')
+            ->with(\Magento\Catalog\Block\Product\Widget\NewWidget::PAGE_VAR_NAME)
             ->willReturn($pageNumber);
 
         $this->assertEquals($expectedResult, $this->block->getCurrentPage());

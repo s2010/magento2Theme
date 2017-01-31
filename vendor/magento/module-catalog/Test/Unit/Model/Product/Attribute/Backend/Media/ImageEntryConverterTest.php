@@ -37,7 +37,8 @@ class ImageEntryConverterTest extends \PHPUnit_Framework_TestCase
      */
     protected $modelObject;
 
-    protected function setUp()
+
+    public function setUp()
     {
         $this->mediaGalleryEntryFactoryMock =
             $this->getMock(

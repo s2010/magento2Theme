@@ -22,7 +22,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
      */
     protected $_scopeConfig;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_scopeConfig = $this->getMockForAbstractClass(
             '\Magento\Framework\App\Config\ScopeConfigInterface',

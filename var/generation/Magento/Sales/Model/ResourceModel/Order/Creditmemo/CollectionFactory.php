@@ -2,7 +2,8 @@
 namespace Magento\Sales\Model\ResourceModel\Order\Creditmemo;
 
 /**
- * Factory class for @see \Magento\Sales\Model\ResourceModel\Order\Creditmemo\Collection
+ * Factory class for @see
+ * \Magento\Sales\Model\ResourceModel\Order\Creditmemo\Collection
  */
 class CollectionFactory
 {

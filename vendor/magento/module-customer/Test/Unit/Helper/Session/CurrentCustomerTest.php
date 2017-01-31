@@ -51,7 +51,7 @@ class CurrentCustomerTest extends \PHPUnit_Framework_TestCase
     protected $moduleManagerMock;
 
     /**
-     * @var \Magento\Framework\App\ViewInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\App\ViewInterface
      */
     protected $viewMock;
 
@@ -68,7 +68,7 @@ class CurrentCustomerTest extends \PHPUnit_Framework_TestCase
     /**
      * Test setup
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->customerSessionMock = $this->getMock('Magento\Customer\Model\Session', [], [], '', false);
         $this->layoutMock = $this->getMock('Magento\Framework\View\Layout', [], [], '', false);

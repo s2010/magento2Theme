@@ -13,6 +13,19 @@ define([
 ], function ($, _, utils, uiAlert, validator, Element) {
     'use strict';
 
+    /**
+     * Constructor to creating valid validation format
+     *
+     * @param {String|Object} rule - One or many validation rules.
+     * @param {Boolean} passed
+     * @param {String} msg - ErrorMessage
+     */
+    var ValidationResult = function (rule, passed, msg) {
+        this.rule = rule || '';
+        this.passed = passed || false;
+        this.message = msg || '';
+    };
+
     return Element.extend({
         defaults: {
             value: [],
@@ -28,9 +41,6 @@ define([
                 formData: {
                     'form_key': window.FORM_KEY
                 }
-            },
-            tracks: {
-                isLoading: true
             }
         },
 
@@ -54,6 +64,19 @@ define([
             });
 
             $(fileInput).fileupload(this.uploaderConfig);
+
+            return this;
+        },
+
+        /**
+         * Initializes observable properties of instance
+         *
+         * @returns {Abstract} Chainable.
+         */
+        initObservable: function () {
+            this._super();
+
+            this.observe('isLoading');
 
             return this;
         },
@@ -231,7 +254,7 @@ define([
          * @returns {Boolean}
          */
         isExtensionAllowed: function (file) {
-            return validator('validate-file-type', file.name, this.allowedExtensions);
+            return this.validatorResultParser('validate-file-type', file.name, this.allowedExtensions);
         },
 
         /**
@@ -242,7 +265,22 @@ define([
          * @returns {Boolean}
          */
         isSizeExceeded: function (file) {
-            return validator('validate-max-size', file.size, this.maxFileSize);
+            return this.validatorResultParser('validate-max-size', file.size, this.maxFileSize);
+        },
+
+        /**
+         * Parse validation string result to valid format
+         *
+         * @param {(String|Object)} rule - One or many validation rules.
+         * @param {*} value - Value to validate.
+         * @param {*} [params] - Rule configuration
+         *
+         * @returns {Object} Parsed validation result
+         */
+        validatorResultParser: function (rule, value, params) {
+            var validation = validator(rule, value, params);
+
+            return !validation ? new ValidationResult(rule, true) : new ValidationResult(rule, false, validation);
         },
 
         /**
@@ -294,15 +332,20 @@ define([
         /**
          * Handler which is invoked prior to the start of a file upload.
          *
-         * @param {Event} e - Event obejct.
+         * @param {Event} e - Event object.
          * @param {Object} data - File data that will be uploaded.
          */
         onBeforeFileUpload: function (e, data) {
             var file     = data.files[0],
-                allowed  = this.isFileAllowed(file);
+                allowed  = this.isFileAllowed(file),
+                target   = $(e.target);
 
             if (allowed.passed) {
-                $(e.target).fileupload('process', data).done(function () {
+                target.on('fileuploadsend', function (event, postData) {
+                    postData.data.set('param_name', this.paramName);
+                }.bind(data));
+
+                target.fileupload('process', data).done(function () {
                     data.submit();
                 });
             } else {
@@ -329,14 +372,14 @@ define([
          * Load start event handler.
          */
         onLoadingStart: function () {
-            this.isLoading = true;
+            this.isLoading(true);
         },
 
         /**
          * Load stop event handler.
          */
         onLoadingStop: function () {
-            this.isLoading = false;
+            this.isLoading(false);
         },
 
         /**

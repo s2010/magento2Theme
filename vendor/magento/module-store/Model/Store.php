@@ -40,11 +40,6 @@ class Store extends AbstractExtensibleModel implements
     StoreInterface
 {
     /**
-     * Store Id key name
-     */
-    const STORE_ID = 'store_id';
-
-    /**
      * Entity name
      */
     const ENTITY = 'store';
@@ -68,10 +63,6 @@ class Store extends AbstractExtensibleModel implements
     const XML_PATH_SECURE_IN_FRONTEND = 'web/secure/use_in_frontend';
 
     const XML_PATH_SECURE_IN_ADMINHTML = 'web/secure/use_in_adminhtml';
-
-    const XML_PATH_ENABLE_HSTS = 'web/secure/enable_hsts';
-
-    const XML_PATH_ENABLE_UPGRADE_INSECURE = 'web/secure/enable_upgrade_insecure';
 
     const XML_PATH_SECURE_BASE_LINK_URL = 'web/secure/base_link_url';
 
@@ -306,16 +297,6 @@ class Store extends AbstractExtensibleModel implements
      * @var \Magento\Store\Model\Information
      */
     protected $information;
-
-    /**
-     * @var StoreManagerInterface
-     */
-    private $_storeManager;
-
-    /**
-     * @var \Magento\Framework\Url\ModifierInterface
-     */
-    private $urlModifier;
 
     /**
      * @param \Magento\Framework\Model\Context $context
@@ -645,10 +626,7 @@ class Store extends AbstractExtensibleModel implements
                 $url = str_replace(self::BASE_URL_PLACEHOLDER, $this->_request->getDistroBaseUrl(), $url);
             }
 
-            $this->_baseUrlCache[$cacheKey] = $this->getUrlModifier()->execute(
-                rtrim($url, '/') . '/',
-                \Magento\Framework\Url\ModifierInterface::MODE_BASE
-            );
+            $this->_baseUrlCache[$cacheKey] = rtrim($url, '/') . '/';
         }
 
         return $this->_baseUrlCache[$cacheKey];
@@ -754,7 +732,7 @@ class Store extends AbstractExtensibleModel implements
      */
     public function getId()
     {
-        return $this->_getData(self::STORE_ID);
+        return $this->_getData('store_id');
     }
 
     /**
@@ -1035,18 +1013,6 @@ class Store extends AbstractExtensibleModel implements
     }
 
     /**
-     * Reinit Stores on after save
-     *
-     * @deprecated
-     * @return $this
-     */
-    public function afterSave()
-    {
-        $this->_storeManager->reinitStores();
-        return parent::afterSave();
-    }
-
-    /**
      * @inheritdoc
      */
     public function setWebsiteId($websiteId)
@@ -1103,20 +1069,7 @@ class Store extends AbstractExtensibleModel implements
             return false;
         }
 
-        return $this->getGroup()->getStoresCount() > 1;
-    }
-
-    /**
-     * Check if store is default
-     *
-     * @return boolean
-     */
-    public function isDefault()
-    {
-        if (!$this->getId() && $this->getWebsite() && $this->getWebsite()->getStoresCount() == 0) {
-            return true;
-        }
-        return $this->getGroup()->getDefaultStoreId() == $this->getId();
+        return $this->getGroup()->getDefaultStoreId() != $this->getId();
     }
 
     /**
@@ -1206,18 +1159,6 @@ class Store extends AbstractExtensibleModel implements
     {
         parent::afterDelete();
         $this->_configCacheType->clean();
-
-        if ($this->getId() === $this->getGroup()->getDefaultStoreId()) {
-            $ids = $this->getGroup()->getStoreIds();
-            if (!empty($ids) && count($ids) > 1) {
-                unset($ids[$this->getId()]);
-                $defaultId = current($ids);
-            } else {
-                $defaultId = null;
-            }
-            $this->getGroup()->setDefaultStoreId($defaultId);
-            $this->getGroup()->save();
-        }
         return $this;
     }
 
@@ -1282,7 +1223,7 @@ class Store extends AbstractExtensibleModel implements
      */
     public function getIdentities()
     {
-        return [self::CACHE_TAG];
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
     /**
@@ -1292,22 +1233,6 @@ class Store extends AbstractExtensibleModel implements
     {
         $parsedUrl = parse_url($this->getBaseUrl());
         return isset($parsedUrl['path']) ? $parsedUrl['path'] : '/';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getScopeType()
-    {
-        return ScopeInterface::SCOPE_STORE;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getScopeTypeName()
-    {
-        return 'Store View';
     }
 
     /**
@@ -1325,22 +1250,5 @@ class Store extends AbstractExtensibleModel implements
         \Magento\Store\Api\Data\StoreExtensionInterface $extensionAttributes
     ) {
         return $this->_setExtensionAttributes($extensionAttributes);
-    }
-
-    /**
-     * Gets URL modifier.
-     *
-     * @return \Magento\Framework\Url\ModifierInterface
-     * @deprecated
-     */
-    private function getUrlModifier()
-    {
-        if ($this->urlModifier === null) {
-            $this->urlModifier = \Magento\Framework\App\ObjectManager::getInstance()->get(
-                'Magento\Framework\Url\ModifierInterface'
-            );
-        }
-
-        return $this->urlModifier;
     }
 }

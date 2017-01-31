@@ -7,8 +7,6 @@ namespace Magento\Framework\Data\Argument;
 
 /**
  * Interface that encapsulates complexity of expression computation
- *
- * @api
  */
 interface InterpreterInterface
 {

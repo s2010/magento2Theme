@@ -148,9 +148,7 @@ class Configuration implements StockConfigurationInterface
      */
     public function getDefaultScopeId()
     {
-        // TODO: should be fixed in MAGETWO-46043
-        // "0" is id of admin website, which is used in backend during save entity
-        return 0;
+        return 1;
     }
 
     /**

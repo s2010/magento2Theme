@@ -74,8 +74,6 @@ class MassDeleteCustomerBackendEntityTest extends Injectable
         $this->fixtureFactory = $fixtureFactory;
         $this->customerIndexPage = $customerIndexPage;
         $this->customerIndexEditPage = $customerIndexEditPage;
-        $customerIndexPage->open();
-        $customerIndexPage->getCustomerGridBlock()->massaction([], 'Delete', true, 'Select All');
     }
 
     /**

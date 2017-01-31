@@ -41,7 +41,7 @@ class AdjustmentTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up mocks for tested class
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->contextMock = $this->getMock('Magento\Framework\View\Element\Template\Context', [], [], '', false);
         $this->priceCurrencyMock = $this->getMockForAbstractClass(

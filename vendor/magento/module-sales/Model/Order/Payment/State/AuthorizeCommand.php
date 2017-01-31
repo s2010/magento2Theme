@@ -10,9 +10,6 @@ use Magento\Sales\Api\Data\OrderPaymentInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Payment;
 
-/**
- * Class AuthorizeCommand
- */
 class AuthorizeCommand implements CommandInterface
 {
     /**
@@ -26,22 +23,29 @@ class AuthorizeCommand implements CommandInterface
         $state = Order::STATE_PROCESSING;
         $status = false;
         $formattedAmount = $order->getBaseCurrency()->formatTxt($amount);
-
         if ($payment->getIsTransactionPending()) {
             $state = Order::STATE_PAYMENT_REVIEW;
-            $message = 'We will authorize %1 after the payment is approved at the payment gateway.';
+            $message = __(
+                'We will authorize %1 after the payment is approved at the payment gateway.',
+                $formattedAmount
+            );
         } else {
-            $message = 'Authorized amount of %1.';
+            if ($payment->getIsFraudDetected()) {
+                $state = Order::STATE_PROCESSING;
+                $message = __(
+                    'Order is suspended as its authorizing amount %1 is suspected to be fraudulent.',
+                    $formattedAmount
+                );
+            } else {
+                $message = __('Authorized amount of %1', $formattedAmount);
+            }
         }
-
         if ($payment->getIsFraudDetected()) {
-            $state = Order::STATE_PAYMENT_REVIEW;
             $status = Order::STATUS_FRAUD;
-            $message .= ' Order is suspended as its authorizing amount %1 is suspected to be fraudulent.';
         }
         $this->setOrderStateAndStatus($order, $status, $state);
 
-        return __($message, $formattedAmount);
+        return $message;
     }
 
     /**

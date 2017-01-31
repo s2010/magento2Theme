@@ -12,7 +12,6 @@ define([
     return Element.extend({
         defaults: {
             template: 'ui/grid/exportButton',
-            selectProvider: 'ns = ${ $.ns }, index = ids',
             checked: '',
             modules: {
                 selections: '${ $.selectProvider }'

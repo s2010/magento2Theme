@@ -28,7 +28,7 @@ class PagingTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->objectManager = new ObjectManager($this);
 

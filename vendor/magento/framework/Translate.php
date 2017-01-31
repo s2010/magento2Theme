@@ -334,7 +334,7 @@ class Translate implements \Magento\Framework\TranslateInterface
     protected function _loadDbTranslation()
     {
         $data = $this->_translateResource->getTranslationArray(null, $this->getLocale());
-        $this->_addData(array_map("htmlspecialchars_decode", $data));
+        $this->_addData($data);
         return $this;
     }
 

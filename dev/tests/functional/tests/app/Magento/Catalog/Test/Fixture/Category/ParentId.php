@@ -37,9 +37,6 @@ class ParentId extends DataSource
                 $this->parentCategory->persist();
             }
             $this->data = $this->parentCategory->getId();
-        } else if (isset($data['source']) && $data['source'] instanceof Category) {
-            $this->parentCategory = $data['source'];
-            $this->data = $data['source']->getId();
         } else {
             $this->data = $data;
         }

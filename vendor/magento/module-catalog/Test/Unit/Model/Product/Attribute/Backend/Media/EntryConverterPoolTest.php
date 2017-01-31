@@ -28,7 +28,7 @@ class EntryConverterPoolTest extends \PHPUnit_Framework_TestCase
      */
     protected $dataObjectMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->imageMock =
             $this->getMock(

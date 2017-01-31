@@ -22,7 +22,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     protected $orderStatusCollectionFactoryMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $orderStatusFactory = $this->getMock('Magento\Sales\Model\Order\StatusFactory', [], [], '', false, false);
         $this->orderStatusCollectionFactoryMock = $this->getMock(

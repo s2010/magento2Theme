@@ -15,13 +15,6 @@ use Magento\Mtf\Block\Block;
 class Template extends Block
 {
     /**
-     * Magento new loader.
-     *
-     * @var string
-     */
-    protected $spinner = '[data-role="spinner"]';
-
-    /**
      * Magento loader.
      *
      * @var string
@@ -36,13 +29,12 @@ class Template extends Block
     protected $loaderOld = '#loading-mask #loading_mask_loader';
 
     /**
-     * Wait until loader disappears.
+     * Wait until loader will be disappeared.
      *
      * @return void
      */
     public function waitLoader()
     {
-        $this->waitForElementNotVisible($this->spinner);
         $this->waitForElementNotVisible($this->loader);
         $this->waitForElementNotVisible($this->loaderOld);
     }

@@ -87,7 +87,7 @@ class Csv extends \Magento\ImportExport\Model\Import\AbstractSource
         } else {
             $this->_foundWrongQuoteFlag = false;
         }
-        return is_array($parsed) ? $parsed : [];
+        return $parsed;
     }
 
     /**

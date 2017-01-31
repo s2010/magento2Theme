@@ -51,7 +51,7 @@ class Plugin
             $attributes = $request->getParam('attributes');
             if (!empty($attributes)) {
                 $product->setTypeId(\Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE);
-                $this->configurableType->setUsedProductAttributes($product, $attributes);
+                $this->configurableType->setUsedProductAttributeIds($attributes, $product);
             } else {
                 $product->setTypeId(\Magento\Catalog\Model\Product\Type::TYPE_SIMPLE);
             }
@@ -73,9 +73,7 @@ class Plugin
             && $request->getParam('id', false) === false
         ) {
             $configProduct = $this->productFactory->create();
-            $configProduct->setStoreId(0)
-                ->load($request->getParam('product'))
-                ->setTypeId($request->getParam('type'));
+            $configProduct->setStoreId(0)->load($request->getParam('product'))->setTypeId($request->getParam('type'));
 
             $data = [];
             foreach ($configProduct->getTypeInstance()->getSetAttributes($configProduct) as $attribute) {

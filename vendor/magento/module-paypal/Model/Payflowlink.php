@@ -112,11 +112,6 @@ class Payflowlink extends \Magento\Paypal\Model\Payflowpro
     protected $orderSender;
 
     /**
-     * @var \Magento\Framework\Math\Random
-     */
-    private $mathRandom;
-
-    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Api\ExtensionAttributesFactory $extensionFactory
@@ -398,16 +393,12 @@ class Payflowlink extends \Magento\Paypal\Model\Payflowpro
             $order->getState() != \Magento\Sales\Model\Order::STATE_PENDING_PAYMENT ||
             !$amountCompared
         ) {
-            throw new \Magento\Framework\Exception\LocalizedException(
-                __('Payment error. %value was not found.', ['value' => 'Order'])
-            );
+            throw new \Magento\Framework\Exception\LocalizedException(__(self::RESPONSE_ERROR_MSG, 'Order'));
         }
 
         $fetchData = $this->fetchTransactionInfo($order->getPayment(), $response->getPnref());
         if (!isset($fetchData['custref']) || $fetchData['custref'] != $order->getIncrementId()) {
-            throw new \Magento\Framework\Exception\LocalizedException(
-                __('Payment error. %value was not found.', ['value' => 'Transaction'])
-            );
+            throw new \Magento\Framework\Exception\LocalizedException(__(self::RESPONSE_ERROR_MSG, 'Transaction'));
         }
 
         return $order;

@@ -53,11 +53,10 @@ class ExtensionAttributesProcessorTest extends \PHPUnit_Framework_TestCase
      * @var AuthorizationInterface
      */
     private $authorizationMock;
-
     /**
      * Set up helper.
      */
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 

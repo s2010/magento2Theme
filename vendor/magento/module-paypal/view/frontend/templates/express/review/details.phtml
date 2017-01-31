@@ -24,7 +24,7 @@
             <?php foreach ($block->getItems() as $item): ?>
                 <?php echo $block->getItemHtml($item) ?>
             <?php endforeach ?>
-        <tfoot class="opc-block-summary">
+        <tfoot>
             <?php echo $block->getChildHtml('totals'); ?>
         </tfoot>
     </table>

@@ -26,7 +26,7 @@ class GridProcessAddressChangeTest extends \PHPUnit_Framework_TestCase
      */
     protected $eventObserverMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->gridPoolMock = $this->getMockBuilder('Magento\Sales\Model\ResourceModel\GridPool')
             ->disableOriginalConstructor()

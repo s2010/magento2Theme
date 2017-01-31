@@ -230,7 +230,7 @@ class CustomerSetup extends EavSetup
                     ],
                     'dob' => [
                         'type' => 'static',
-                        'label' => 'Date of Birth',
+                        'label' => 'Date Of Birth',
                         'input' => 'date',
                         'frontend' => 'Magento\Eav\Model\Entity\Attribute\Frontend\Datetime',
                         'backend' => 'Magento\Eav\Model\Entity\Attribute\Backend\Datetime',

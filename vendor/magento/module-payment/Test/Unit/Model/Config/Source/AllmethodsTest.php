@@ -24,10 +24,10 @@ class AllmethodsTest extends \PHPUnit_Framework_TestCase
      */
     protected $_model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_paymentData = $this->getMockBuilder(
-            \Magento\Payment\Helper\Data::class
+            'Magento\Payment\Helper\Data'
         )->disableOriginalConstructor()->setMethods([])->getMock();
 
         $this->_model = new Allmethods($this->_paymentData);

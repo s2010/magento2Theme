@@ -20,7 +20,7 @@ class RedirectFactoryTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Framework\ObjectManagerInterface | \PHPUnit_Framework_MockObject_MockObject */
     private $objectManagerMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new ObjectManager($this);
         $this->objectManagerMock = $this->getMock('Magento\Framework\ObjectManagerInterface');

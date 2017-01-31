@@ -25,7 +25,7 @@ class NonceTest extends \PHPUnit_Framework_TestCase
      */
     protected $nonceResource;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->connectionMock = $this->getMock('Magento\Framework\DB\Adapter\Pdo\Mysql', [], [], '', false);
 

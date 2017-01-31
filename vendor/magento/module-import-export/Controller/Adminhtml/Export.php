@@ -13,9 +13,12 @@ use Magento\Backend\App\Action;
 abstract class Export extends Action
 {
     /**
-     * Authorization level of a basic admin session
+     * Check access (in the ACL) for current user
      *
-     * @see _isAllowed()
+     * @return bool
      */
-    const ADMIN_RESOURCE = 'Magento_ImportExport::export';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_ImportExport::export');
+    }
 }

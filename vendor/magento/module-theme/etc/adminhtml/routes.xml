@@ -10,8 +10,5 @@
         <route id="adminhtml">
             <module name="Magento_Theme" />
         </route>
-        <route id="theme" frontName="theme">
-            <module name="Magento_Theme" />
-        </route>
     </router>
 </config>

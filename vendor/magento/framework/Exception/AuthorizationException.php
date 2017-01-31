@@ -9,8 +9,5 @@ namespace Magento\Framework\Exception;
 
 class AuthorizationException extends LocalizedException
 {
-    /**
-     * @deprecated
-     */
     const NOT_AUTHORIZED = 'Consumer is not authorized to access %resources';
 }

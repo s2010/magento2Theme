@@ -70,16 +70,13 @@ class Agreement extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _afterSave(\Magento\Framework\Model\AbstractModel $object)
     {
-        $this->getConnection()->delete(
-            $this->getTable('checkout_agreement_store'),
-            ['agreement_id = ?' => $object->getId()]
-        );
+        $condition = ['agreement_id = ?' => $object->getId()];
+        $this->getConnection()->delete($this->getTable('checkout_agreement_store'), $condition);
 
-        foreach ((array)$object->getData('stores') as $storeId) {
-            $storeArray = [
-                'agreement_id' => $object->getId(),
-                'store_id' => $storeId
-            ];
+        foreach ((array)$object->getData('stores') as $store) {
+            $storeArray = [];
+            $storeArray['agreement_id'] = $object->getId();
+            $storeArray['store_id'] = $store;
             $this->getConnection()->insert($this->getTable('checkout_agreement_store'), $storeArray);
         }
 
@@ -99,10 +96,8 @@ class Agreement extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
             ->from($this->getTable('checkout_agreement_store'), ['store_id'])
             ->where('agreement_id = :agreement_id');
 
-        $stores = $this->getConnection()->fetchCol($select, [':agreement_id' => $object->getId()]);
-
-        if ($stores) {
-            $object->setData('stores', $stores);
+        if ($stores = $this->getConnection()->fetchCol($select, [':agreement_id' => $object->getId()])) {
+            $object->setData('store_id', $stores);
         }
 
         return parent::_afterLoad($object);

@@ -11,14 +11,7 @@ use Magento\Framework\Phrase;
 
 class NoSuchEntityException extends LocalizedException
 {
-    /**
-     * @deprecated
-     */
     const MESSAGE_SINGLE_FIELD = 'No such entity with %fieldName = %fieldValue';
-
-    /**
-     * @deprecated
-     */
     const MESSAGE_DOUBLE_FIELDS = 'No such entity with %fieldName = %fieldValue, %field2Name = %field2Value';
 
     /**
@@ -44,7 +37,7 @@ class NoSuchEntityException extends LocalizedException
     {
         return new self(
             new Phrase(
-                'No such entity with %fieldName = %fieldValue',
+                self::MESSAGE_SINGLE_FIELD,
                 [
                     'fieldName' => $fieldName,
                     'fieldValue' => $fieldValue
@@ -66,7 +59,7 @@ class NoSuchEntityException extends LocalizedException
     {
         return new self(
             new Phrase(
-                'No such entity with %fieldName = %fieldValue, %field2Name = %field2Value',
+                self::MESSAGE_DOUBLE_FIELDS,
                 [
                     'fieldName' => $fieldName,
                     'fieldValue' => $fieldValue,

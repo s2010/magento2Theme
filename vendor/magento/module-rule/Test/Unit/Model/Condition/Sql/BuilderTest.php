@@ -15,7 +15,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
      */
     protected $_builder;
 
-    protected function setUp()
+    public function setUp()
     {
         $expressionMock = $this->getMock('\Magento\Rule\Model\Condition\Sql\Expression', [], [], '', false);
         $expressionFactory = $this->getMock(

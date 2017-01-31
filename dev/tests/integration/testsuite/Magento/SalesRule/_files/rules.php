@@ -22,8 +22,7 @@ $rule->setName(
     '1'
 )->setCustomerGroupIds(
     '0'
-)->setDiscountStep(0)
-    ->save();
+)->save();
 
 /** @var \Magento\SalesRule\Model\Rule $rule */
 $rule = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\SalesRule\Model\Rule');
@@ -43,8 +42,7 @@ $rule->setName(
     '1'
 )->setCustomerGroupIds(
     '0'
-)->setDiscountStep(0)
-    ->save();
+)->save();
 
 /** @var \Magento\SalesRule\Model\Rule $rule */
 $rule = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\SalesRule\Model\Rule');
@@ -64,8 +62,7 @@ $rule->setName(
     '1'
 )->setCustomerGroupIds(
     '0'
-)->setDiscountStep(0)
-    ->save();
+)->save();
 
 /** @var \Magento\SalesRule\Model\Rule $rule */
 $rule = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\SalesRule\Model\Rule');
@@ -85,8 +82,7 @@ $rule->setName(
     '1'
 )->setCustomerGroupIds(
     '0'
-)->setDiscountStep(0)
-    ->save();
+)->save();
 
 /** @var \Magento\SalesRule\Model\Rule $rule */
 $rule = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\SalesRule\Model\Rule');
@@ -106,5 +102,4 @@ $rule->setName(
     '1'
 )->setCustomerGroupIds(
     '0'
-)->setDiscountStep(0)
-    ->save();
+)->save();

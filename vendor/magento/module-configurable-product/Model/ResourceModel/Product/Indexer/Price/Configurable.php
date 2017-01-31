@@ -9,10 +9,12 @@ namespace Magento\ConfigurableProduct\Model\ResourceModel\Product\Indexer\Price;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product\Attribute\Source\Status as ProductStatus;
-use Magento\Catalog\Model\Product\Attribute\Source\Status;
 use Magento\Store\Api\StoreResolverInterface;
 use Magento\Store\Model\Store;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class Configurable extends \Magento\Catalog\Model\ResourceModel\Product\Indexer\Price\DefaultPrice
 {
     /**
@@ -29,6 +31,7 @@ class Configurable extends \Magento\Catalog\Model\ResourceModel\Product\Indexer\
      * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Framework\Module\Manager $moduleManager
      * @param string $connectionName
+     * @param StoreResolverInterface $storeResolver
      */
     public function __construct(
         \Magento\Framework\Model\ResourceModel\Db\Context $context,
@@ -104,40 +107,23 @@ class Configurable extends \Magento\Catalog\Model\ResourceModel\Product\Indexer\
      */
     private function getRelatedProducts($entityIds)
     {
-        $metadata = $this->getMetadataPool()->getMetadata(ProductInterface::class);
         $select = $this->getConnection()->select()->union(
             [
                 $this->getConnection()->select()
-                    ->from(
-                        ['e' => $this->getTable('catalog_product_entity')],
-                        'e.entity_id'
-                    )->join(
-                        ['cpsl' => $this->getTable('catalog_product_super_link')],
-                        'cpsl.parent_id = e.' . $metadata->getLinkField(),
-                        []
-                    )->where(
-                        'e.entity_id IN (?)',
-                        $entityIds
-                    ),
+                    ->from($this->getTable('catalog_product_super_link'), 'parent_id')
+                    ->where('parent_id in (?)', $entityIds),
                 $this->getConnection()->select()
-                    ->from(
-                        ['cpsl' => $this->getTable('catalog_product_super_link')],
-                        'cpsl.product_id'
-                    )->join(
-                        ['e' => $this->getTable('catalog_product_entity')],
-                        'cpsl.parent_id = e.' . $metadata->getLinkField(),
-                        []
-                    )->where(
-                        'e.entity_id IN (?)',
-                        $entityIds
-                    ),
+                    ->from($this->getTable('catalog_product_super_link'), 'product_id')
+                    ->where('parent_id in (?)', $entityIds),
                 $this->getConnection()->select()
                     ->from($this->getTable('catalog_product_super_link'), 'product_id')
                     ->where('product_id in (?)', $entityIds),
             ]
         );
-
-        return array_map('intval', $this->getConnection()->fetchCol($select));
+        return array_map(
+            'intval',
+            $this->getConnection()->fetchCol($select)
+        );
     }
 
     /**
@@ -191,7 +177,6 @@ class Configurable extends \Magento\Catalog\Model\ResourceModel\Product\Indexer\
      */
     protected function _applyConfigurableOption()
     {
-        $metadata = $this->getMetadataPool()->getMetadata(ProductInterface::class);
         $connection = $this->getConnection();
         $coaTable = $this->_getConfigurableOptionAggregateTable();
         $copTable = $this->_getConfigurableOptionPriceTable();
@@ -200,19 +185,14 @@ class Configurable extends \Magento\Catalog\Model\ResourceModel\Product\Indexer\
         $this->_prepareConfigurableOptionPriceTable();
 
         $statusAttribute = $this->_getAttribute(ProductInterface::STATUS);
-        $linkField = $metadata->getLinkField();
 
         $select = $connection->select()->from(
             ['i' => $this->_getDefaultFinalPriceTable()],
             []
         )->join(
-            ['e' => $this->getTable('catalog_product_entity')],
-            'e.entity_id = i.entity_id',
-            ['parent_id' => 'e.entity_id']
-        )->join(
             ['l' => $this->getTable('catalog_product_super_link')],
-            'l.parent_id = e.' . $linkField,
-            ['product_id']
+            'l.parent_id = i.entity_id',
+            ['parent_id', 'product_id']
         )->columns(
             ['customer_group_id', 'website_id'],
             'i'
@@ -224,22 +204,23 @@ class Configurable extends \Magento\Catalog\Model\ResourceModel\Product\Indexer\
             'le.required_options=0'
         )->joinLeft(
             ['status_global_attr' => $statusAttribute->getBackendTable()],
-            "status_global_attr.{$linkField} = le.{$linkField}"
-            . ' AND status_global_attr.attribute_id  = ' . (int)$statusAttribute->getAttributeId()
+            "status_global_attr.entity_id = le.entity_id"
+            . ' AND status_global_attr.attribute_id = ' . (int)$statusAttribute->getAttributeId()
             . ' AND status_global_attr.store_id  = ' . Store::DEFAULT_STORE_ID,
             []
         )->joinLeft(
             ['status_attr' => $statusAttribute->getBackendTable()],
-            "status_attr.{$linkField} = le.{$linkField}"
-            . ' AND status_attr.attribute_id  = ' . (int)$statusAttribute->getAttributeId()
-            . ' AND status_attr.store_id  = ' . $this->storeResolver->getCurrentStoreId(),
+            "status_attr.entity_id = le.entity_id"
+            . ' AND status_attr.attribute_id = ' . (int)$statusAttribute->getAttributeId()
+            . ' AND status_attr.store_id = ' . $this->storeResolver->getCurrentStoreId(),
             []
         )->where(
-            'IFNULL(status_attr.value, status_global_attr.value) = ?', Status::STATUS_ENABLED
+            'IFNULL(status_attr.value, status_global_attr.value) = ?',
+            ProductStatus::STATUS_ENABLED
         )->group(
-            ['e.entity_id', 'i.customer_group_id', 'i.website_id', 'l.product_id']
+            ['l.parent_id', 'i.customer_group_id', 'i.website_id', 'l.product_id']
         );
-        $priceColumn = $this->_addAttributeToSelect($select, 'price', 'le.' . $linkField, 0, null, true);
+        $priceColumn = $this->_addAttributeToSelect($select, 'price', 'l.product_id', 0, null, true);
         $tierPriceColumn = $connection->getIfNullSql('MIN(i.tier_price)', 'NULL');
 
         $select->columns(

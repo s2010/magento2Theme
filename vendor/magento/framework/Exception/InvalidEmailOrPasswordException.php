@@ -10,8 +10,5 @@ namespace Magento\Framework\Exception;
  */
 class InvalidEmailOrPasswordException extends AuthenticationException
 {
-    /**
-     * @deprecated
-     */
     const INVALID_EMAIL_OR_PASSWORD = 'Invalid email or password';
 }

@@ -11,9 +11,12 @@ namespace Magento\Newsletter\Controller\Adminhtml;
 abstract class Problem extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
+     * Check if user has enough privileges
      *
-     * @see _isAllowed()
+     * @return bool
      */
-    const ADMIN_RESOURCE = 'Magento_Newsletter::problem';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Newsletter::problem');
+    }
 }

@@ -53,7 +53,7 @@ class Proxy extends \Magento\Customer\Model\Config\Share implements \Magento\Fra
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**
@@ -130,6 +130,14 @@ class Proxy extends \Magento\Customer\Model\Config\Share implements \Magento\Fra
     /**
      * {@inheritdoc}
      */
+    public function afterLoad()
+    {
+        return $this->_getSubject()->afterLoad();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function isValueChanged()
     {
         return $this->_getSubject()->isValueChanged();
@@ -157,14 +165,6 @@ class Proxy extends \Magento\Customer\Model\Config\Share implements \Magento\Fra
     public function afterSave()
     {
         return $this->_getSubject()->afterSave();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterDelete()
-    {
-        return $this->_getSubject()->afterDelete();
     }
 
     /**
@@ -298,14 +298,6 @@ class Proxy extends \Magento\Customer\Model\Config\Share implements \Magento\Fra
     /**
      * {@inheritdoc}
      */
-    public function afterLoad()
-    {
-        return $this->_getSubject()->afterLoad();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function isSaveAllowed()
     {
         return $this->_getSubject()->isSaveAllowed();
@@ -381,6 +373,14 @@ class Proxy extends \Magento\Customer\Model\Config\Share implements \Magento\Fra
     public function beforeDelete()
     {
         return $this->_getSubject()->beforeDelete();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function afterDelete()
+    {
+        return $this->_getSubject()->afterDelete();
     }
 
     /**

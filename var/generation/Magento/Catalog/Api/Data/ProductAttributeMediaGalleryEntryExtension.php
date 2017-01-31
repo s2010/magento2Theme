@@ -2,7 +2,8 @@
 namespace Magento\Catalog\Api\Data;
 
 /**
- * Extension class for @see \Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface
+ * Extension class for @see
+ * \Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface
  */
 class ProductAttributeMediaGalleryEntryExtension extends \Magento\Framework\Api\AbstractSimpleObject implements \Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryExtensionInterface
 {
@@ -18,7 +19,7 @@ class ProductAttributeMediaGalleryEntryExtension extends \Magento\Framework\Api\
      * @param \Magento\Framework\Api\Data\VideoContentInterface $videoContent
      * @return $this
      */
-    public function setVideoContent(\Magento\Framework\Api\Data\VideoContentInterface $videoContent)
+    public function setVideoContent($videoContent)
     {
         $this->setData('video_content', $videoContent);
         return $this;

@@ -216,7 +216,11 @@ class Chooser extends \Magento\Backend\Block\Template
                         }
                     }
 
-                    jQuery(instantiateChooser);
+                    if (document.loaded) { //allow load over ajax
+                        instantiateChooser();
+                    } else {
+                        document.observe("dom:loaded", instantiateChooser);
+                    }
                 })();
             //]]>
             });

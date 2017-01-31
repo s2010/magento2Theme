@@ -41,7 +41,7 @@ class ConfigProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected $store;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->storeManager = $this->getMockForAbstractClass(
             'Magento\Store\Model\StoreManagerInterface',

@@ -180,7 +180,7 @@ define([
                         };
                     });
 
-                    $option.html(template(toTemplate));
+                    $option.text(template(toTemplate));
                 });
             });
         },

@@ -34,7 +34,7 @@ class SpecialPriceTest extends \PHPUnit_Framework_TestCase
      */
     protected $priceCurrencyMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->saleable = $this->getMockBuilder('Magento\Catalog\Model\Product')
             ->disableOriginalConstructor()

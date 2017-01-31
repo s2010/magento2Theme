@@ -37,7 +37,7 @@ class ReviewForm extends AbstractForm
      *
      * @var string
      */
-    protected $rating = './/*[@id="%s_rating_label"]/span';
+    protected $rating = './/*[@id="%s_rating_label"]/..[contains(@class,"rating")]';
 
     /**
      * Selector for label of rating vote.

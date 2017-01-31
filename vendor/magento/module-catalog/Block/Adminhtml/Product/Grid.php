@@ -114,6 +114,8 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     protected function _prepareCollection()
     {
+        parent::_prepareCollection();
+
         $store = $this->_getStore();
         $collection = $this->_productFactory->create()->getCollection()->addAttributeToSelect(
             'sku'
@@ -182,9 +184,6 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         $this->setCollection($collection);
 
         $this->getCollection()->addWebsiteNamesToResult();
-
-        parent::_prepareCollection();
-
         return $this;
     }
 

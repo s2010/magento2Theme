@@ -10,7 +10,6 @@ use Magento\Customer\Api\CustomerMetadataInterface;
 use Magento\Customer\Api\Data\AttributeMetadataInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Controller\RegistryConstants;
-use Magento\Customer\Model\EmailNotificationInterface;
 use Magento\Customer\Model\Metadata\Form;
 use Magento\Framework\Controller\Result\Redirect;
 
@@ -127,7 +126,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
     protected $redirectFactoryMock;
 
     /**
-     * @var \Magento\Customer\Model\AccountManagement|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Customer\Api\AccountManagementInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $managementMock;
 
@@ -135,11 +134,6 @@ class SaveTest extends \PHPUnit_Framework_TestCase
      * @var \Magento\Customer\Api\Data\AddressInterfaceFactory|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $addressDataFactoryMock;
-
-    /**
-     * @var EmailNotificationInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $emailNotificationMock;
 
     /**
      * @var \Magento\Customer\Model\Address\Mapper|\PHPUnit_Framework_MockObject_MockObject
@@ -181,7 +175,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $this->sessionMock = $this->getMockBuilder('Magento\Backend\Model\Session')
             ->disableOriginalConstructor()
-            ->setMethods(['unsCustomerFormData', 'setCustomerFormData'])
+            ->setMethods(['unsCustomerData', 'setCustomerData'])
             ->getMock();
         $this->formFactoryMock = $this->getMockBuilder('Magento\Customer\Model\Metadata\FormFactory')
             ->disableOriginalConstructor()
@@ -226,23 +220,29 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['create'])
             ->getMock();
-        $this->managementMock = $this->getMockBuilder('Magento\Customer\Model\AccountManagement')
+        $this->managementMock = $this->getMockBuilder('Magento\Customer\Api\AccountManagementInterface')
             ->disableOriginalConstructor()
-            ->setMethods(['createAccount'])
             ->getMock();
         $this->addressDataFactoryMock = $this->getMockBuilder('Magento\Customer\Api\Data\AddressInterfaceFactory')
             ->disableOriginalConstructor()
             ->setMethods(['create'])
             ->getMock();
-        $this->emailNotificationMock = $this->getMockBuilder(EmailNotificationInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
 
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
-
+        $this->context = $objectManager->getObject(
+            'Magento\Backend\App\Action\Context',
+            [
+                'request' => $this->requestMock,
+                'session' => $this->sessionMock,
+                'authorization' => $this->authorizationMock,
+                'messageManager' => $this->messageManagerMock,
+                'resultRedirectFactory' => $this->redirectFactoryMock,
+            ]
+        );
         $this->model = $objectManager->getObject(
             'Magento\Customer\Controller\Adminhtml\Index\Save',
             [
+                'context' => $this->context,
                 'resultForwardFactory' => $this->resultForwardFactoryMock,
                 'resultPageFactory' => $this->resultPageFactoryMock,
                 'formFactory' => $this->formFactoryMock,
@@ -255,20 +255,9 @@ class SaveTest extends \PHPUnit_Framework_TestCase
                 'coreRegistry' => $this->registryMock,
                 'customerAccountManagement' => $this->managementMock,
                 'addressDataFactory' => $this->addressDataFactoryMock,
-                'request' => $this->requestMock,
-                'session' => $this->sessionMock,
-                'authorization' => $this->authorizationMock,
-                'messageManager' => $this->messageManagerMock,
-                'resultRedirectFactory' => $this->redirectFactoryMock,
                 'addressRepository' => $this->customerAddressRepositoryMock,
                 'addressMapper' => $this->customerAddressMapperMock,
             ]
-        );
-
-        $objectManager->setBackwardCompatibleProperty(
-            $this->model,
-            'emailNotification',
-            $this->emailNotificationMock
         );
     }
 
@@ -302,33 +291,28 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ],
             'subscription' => $subscription,
         ];
-        $filteredData = [
+        $extractedData = [
             'entity_id' => $customerId,
             'code' => 'value',
             'coolness' => false,
             'disable_auto_group_change' => 'false',
         ];
-        $dataToCompact = [
+        $compactedData = [
             'entity_id' => $customerId,
             'code' => 'value',
             'coolness' => false,
             'disable_auto_group_change' => 'false',
-            CustomerInterface::DEFAULT_BILLING => false,
-            CustomerInterface::DEFAULT_SHIPPING => false,
-            'confirmation' => false,
-            'sendemail_store_id' => false,
-            'extension_attributes' => false,
+            CustomerInterface::DEFAULT_BILLING => 2,
+            CustomerInterface::DEFAULT_SHIPPING => 2,
         ];
-        $addressFilteredData = [
+        $addressExtractedData = [
             'entity_id' => $addressId,
-            'default_billing' => 'true',
-            'default_shipping' => 'true',
             'code' => 'value',
             'coolness' => false,
             'region' => 'region',
             'region_id' => 'region_id',
         ];
-        $addressDataToCompact = [
+        $addressCompactedData = [
             'entity_id' => $addressId,
             'default_billing' => 'true',
             'default_shipping' => 'true',
@@ -375,7 +359,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             'id' => $addressId,
         ];
 
-        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
+        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $attributeMock */
         $attributeMock = $this->getMockBuilder('Magento\Customer\Api\Data\AttributeMetadataInterface')
             ->disableOriginalConstructor()
             ->getMock();
@@ -422,17 +406,18 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with(['data' => $postValue])
             ->willReturn($objectMock);
 
+        /** @var Form|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
         $customerFormMock = $this->getMockBuilder('Magento\Customer\Model\Metadata\Form')
             ->disableOriginalConstructor()
             ->getMock();
         $customerFormMock->expects($this->once())
             ->method('extractData')
             ->with($this->requestMock, 'customer')
-            ->willReturn($filteredData);
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('compactData')
-            ->with($dataToCompact)
-            ->willReturn($filteredData);
+            ->with($extractedData)
+            ->willReturn($compactedData);
         $customerFormMock->expects($this->once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -443,11 +428,11 @@ class SaveTest extends \PHPUnit_Framework_TestCase
         $customerAddressFormMock->expects($this->once())
             ->method('extractData')
             ->with($this->requestMock, 'address/' . $addressId)
-            ->willReturn($addressFilteredData);
+            ->willReturn($addressExtractedData);
         $customerAddressFormMock->expects($this->once())
             ->method('compactData')
-            ->with($addressDataToCompact)
-            ->willReturn($addressFilteredData);
+            ->with($addressExtractedData)
+            ->willReturn($addressCompactedData);
         $customerAddressFormMock->expects($this->once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -543,14 +528,6 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with($customerMock)
             ->willReturnSelf();
 
-        $customerEmail = 'customer@email.com';
-        $customerMock->expects($this->once())->method('getEmail')->willReturn($customerEmail);
-
-        $this->emailNotificationMock->expects($this->once())
-            ->method('credentialsChanged')
-            ->with($customerMock, $customerEmail)
-            ->willReturnSelf();
-
         $this->authorizationMock->expects($this->once())
             ->method('isAllowed')
             ->with(null)
@@ -573,7 +550,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->method('unsubscribeCustomerById');
 
         $this->sessionMock->expects($this->once())
-            ->method('unsCustomerFormData');
+            ->method('unsCustomerData');
 
         $this->registryMock->expects($this->once())
             ->method('register')
@@ -625,8 +602,6 @@ class SaveTest extends \PHPUnit_Framework_TestCase
                 '_template_' => '_template_',
                 $addressId => [
                     'entity_id' => $addressId,
-                    'default_billing' => 'false',
-                    'default_shipping' => 'false',
                     'code' => 'value',
                     'coolness' => false,
                     'region' => 'region',
@@ -635,32 +610,12 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ],
             'subscription' => $subscription,
         ];
-        $filteredData = [
+        $extractedData = [
             'coolness' => false,
             'disable_auto_group_change' => 'false',
         ];
-        $dataToCompact = [
-            'coolness' => false,
-            'disable_auto_group_change' => 'false',
-            CustomerInterface::DEFAULT_BILLING => false,
-            CustomerInterface::DEFAULT_SHIPPING => false,
-            'confirmation' => false,
-            'sendemail_store_id' => false,
-            'extension_attributes' => false,
-        ];
-        $addressFilteredData = [
+        $addressExtractedData = [
             'entity_id' => $addressId,
-            'default_billing' => 'false',
-            'default_shipping' => 'false',
-            'code' => 'value',
-            'coolness' => false,
-            'region' => 'region',
-            'region_id' => 'region_id',
-        ];
-        $addressDataToCompact = [
-            'entity_id' => $addressId,
-            'default_billing' => 'false',
-            'default_shipping' => 'false',
             'code' => 'value',
             'coolness' => false,
             'region' => 'region',
@@ -686,7 +641,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             'id' => $addressId,
         ];
 
-        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
+        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $attributeMock */
         $attributeMock = $this->getMockBuilder('Magento\Customer\Api\Data\AttributeMetadataInterface')
             ->disableOriginalConstructor()
             ->getMock();
@@ -733,17 +688,18 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with(['data' => $postValue])
             ->willReturn($objectMock);
 
+        /** @var Form|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
         $customerFormMock = $this->getMockBuilder('Magento\Customer\Model\Metadata\Form')
             ->disableOriginalConstructor()
             ->getMock();
         $customerFormMock->expects($this->once())
             ->method('extractData')
             ->with($this->requestMock, 'customer')
-            ->willReturn($filteredData);
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('compactData')
-            ->with($dataToCompact)
-            ->willReturn($filteredData);
+            ->with($extractedData)
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -754,11 +710,11 @@ class SaveTest extends \PHPUnit_Framework_TestCase
         $customerAddressFormMock->expects($this->once())
             ->method('extractData')
             ->with($this->requestMock, 'address/' . $addressId)
-            ->willReturn($addressFilteredData);
+            ->willReturn($addressExtractedData);
         $customerAddressFormMock->expects($this->once())
             ->method('compactData')
-            ->with($addressDataToCompact)
-            ->willReturn($addressFilteredData);
+            ->with($addressExtractedData)
+            ->willReturn($addressExtractedData);
         $customerAddressFormMock->expects($this->once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -865,7 +821,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->method('subscribeCustomerById');
 
         $this->sessionMock->expects($this->once())
-            ->method('unsCustomerFormData');
+            ->method('unsCustomerData');
 
         $this->registryMock->expects($this->once())
             ->method('register')
@@ -912,21 +868,12 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ],
             'subscription' => $subscription,
         ];
-        $filteredData = [
+        $extractedData = [
             'coolness' => false,
             'disable_auto_group_change' => 'false',
-        ];
-        $dataToCompact = [
-            'coolness' => false,
-            'disable_auto_group_change' => 'false',
-            CustomerInterface::DEFAULT_BILLING => false,
-            CustomerInterface::DEFAULT_SHIPPING => false,
-            'confirmation' => false,
-            'sendemail_store_id' => false,
-            'extension_attributes' => false,
         ];
 
-        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
+        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $attributeMock */
         $attributeMock = $this->getMockBuilder('Magento\Customer\Api\Data\AttributeMetadataInterface')
             ->disableOriginalConstructor()
             ->getMock();
@@ -967,17 +914,18 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with(['data' => $postValue])
             ->willReturn($objectMock);
 
+        /** @var Form|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
         $customerFormMock = $this->getMockBuilder('Magento\Customer\Model\Metadata\Form')
             ->disableOriginalConstructor()
             ->getMock();
         $customerFormMock->expects($this->once())
             ->method('extractData')
             ->with($this->requestMock, 'customer')
-            ->willReturn($filteredData);
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('compactData')
-            ->with($dataToCompact)
-            ->willReturn($filteredData);
+            ->with($extractedData)
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -1016,7 +964,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->method('create');
 
         $this->sessionMock->expects($this->never())
-            ->method('unsCustomerFormData');
+            ->method('unsCustomerData');
 
         $this->registryMock->expects($this->never())
             ->method('register');
@@ -1029,7 +977,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with(new \Magento\Framework\Message\Error('Validator Exception'));
 
         $this->sessionMock->expects($this->once())
-            ->method('setCustomerFormData')
+            ->method('setCustomerData')
             ->with($postValue);
 
         /** @var Redirect|\PHPUnit_Framework_MockObject_MockObject $redirectMock */
@@ -1064,21 +1012,12 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ],
             'subscription' => $subscription,
         ];
-        $filteredData = [
+        $extractedData = [
             'coolness' => false,
             'disable_auto_group_change' => 'false',
-        ];
-        $dataToCompact = [
-            'coolness' => false,
-            'disable_auto_group_change' => 'false',
-            CustomerInterface::DEFAULT_BILLING => false,
-            CustomerInterface::DEFAULT_SHIPPING => false,
-            'confirmation' => false,
-            'sendemail_store_id' => false,
-            'extension_attributes' => false,
         ];
 
-        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
+        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $attributeMock */
         $attributeMock = $this->getMockBuilder('Magento\Customer\Api\Data\AttributeMetadataInterface')
             ->disableOriginalConstructor()
             ->getMock();
@@ -1119,18 +1058,18 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with(['data' => $postValue])
             ->willReturn($objectMock);
 
-        /** @var Form|\PHPUnit_Framework_MockObject_MockObject $formMock */
+        /** @var Form|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
         $customerFormMock = $this->getMockBuilder('Magento\Customer\Model\Metadata\Form')
             ->disableOriginalConstructor()
             ->getMock();
         $customerFormMock->expects($this->once())
             ->method('extractData')
             ->with($this->requestMock, 'customer')
-            ->willReturn($filteredData);
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('compactData')
-            ->with($dataToCompact)
-            ->willReturn($filteredData);
+            ->with($extractedData)
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -1145,6 +1084,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
                 Form::DONT_IGNORE_INVISIBLE
             )->willReturn($customerFormMock);
 
+        /** @var CustomerInterface|\PHPUnit_Framework_MockObject_MockObject $customerMock */
         $customerMock = $this->getMockBuilder('Magento\Customer\Api\Data\CustomerInterface')
             ->disableOriginalConstructor()
             ->getMock();
@@ -1168,7 +1108,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->method('create');
 
         $this->sessionMock->expects($this->never())
-            ->method('unsCustomerFormData');
+            ->method('unsCustomerData');
 
         $this->registryMock->expects($this->never())
             ->method('register');
@@ -1181,7 +1121,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with(new \Magento\Framework\Message\Error('Localized Exception'));
 
         $this->sessionMock->expects($this->once())
-            ->method('setCustomerFormData')
+            ->method('setCustomerData')
             ->with($postValue);
 
         /** @var Redirect|\PHPUnit_Framework_MockObject_MockObject $redirectMock */
@@ -1216,21 +1156,12 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ],
             'subscription' => $subscription,
         ];
-        $filteredData = [
+        $extractedData = [
             'coolness' => false,
             'disable_auto_group_change' => 'false',
-        ];
-        $dataToCompact = [
-            'coolness' => false,
-            'disable_auto_group_change' => 'false',
-            CustomerInterface::DEFAULT_BILLING => false,
-            CustomerInterface::DEFAULT_SHIPPING => false,
-            'confirmation' => false,
-            'sendemail_store_id' => false,
-            'extension_attributes' => false,
         ];
 
-        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
+        /** @var AttributeMetadataInterface|\PHPUnit_Framework_MockObject_MockObject $attributeMock */
         $attributeMock = $this->getMockBuilder('Magento\Customer\Api\Data\AttributeMetadataInterface')
             ->disableOriginalConstructor()
             ->getMock();
@@ -1271,17 +1202,18 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with(['data' => $postValue])
             ->willReturn($objectMock);
 
+        /** @var Form|\PHPUnit_Framework_MockObject_MockObject $customerFormMock */
         $customerFormMock = $this->getMockBuilder('Magento\Customer\Model\Metadata\Form')
             ->disableOriginalConstructor()
             ->getMock();
         $customerFormMock->expects($this->once())
             ->method('extractData')
             ->with($this->requestMock, 'customer')
-            ->willReturn($filteredData);
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('compactData')
-            ->with($dataToCompact)
-            ->willReturn($filteredData);
+            ->with($extractedData)
+            ->willReturn($extractedData);
         $customerFormMock->expects($this->once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -1321,7 +1253,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->method('create');
 
         $this->sessionMock->expects($this->never())
-            ->method('unsCustomerFormData');
+            ->method('unsCustomerData');
 
         $this->registryMock->expects($this->never())
             ->method('register');
@@ -1334,7 +1266,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
             ->with($exception, __('Something went wrong while saving the customer.'));
 
         $this->sessionMock->expects($this->once())
-            ->method('setCustomerFormData')
+            ->method('setCustomerData')
             ->with($postValue);
 
         /** @var Redirect|\PHPUnit_Framework_MockObject_MockObject $redirectMock */

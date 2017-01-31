@@ -50,16 +50,10 @@ class RowTest extends \PHPUnit_Framework_TestCase
             'Magento\CatalogInventory\Api\StockItemRepositoryInterface'
         );
 
-        /** @var \Magento\Catalog\Model\ProductRepository $productRepository */
-        $productRepository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\Catalog\Model\ProductRepository'
-        );
-        $product = $productRepository->get('simple');
-
         $this->_processor->getIndexer()->setScheduled(false);
         $this->assertFalse($this->_processor->getIndexer()->isScheduled());
 
-        $stockItem = $stockRegistry->getStockItem($product->getId(), 1);
+        $stockItem = $stockRegistry->getStockItem(1, 1);
 
         $this->assertNotNull($stockItem->getItemId());
 

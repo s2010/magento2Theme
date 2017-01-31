@@ -24,7 +24,7 @@ class LifetimeTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Cookie\Model\Config\Backend\Lifetime */
     private $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->validatorMock = $this->getMockBuilder(
             'Magento\Framework\Session\Config\Validator\CookieLifetimeValidator'

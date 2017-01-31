@@ -110,8 +110,12 @@ class FixtureModel
         foreach ($files as $file) {
             $file = basename($file, '.php');
             /** @var \Magento\Setup\Fixtures\Fixture $fixture */
-            $type = 'Magento\Setup\Fixtures' . '\\' . $file;
-            $fixture = new $type($this);
+            $fixture = $this->objectManager->create(
+                'Magento\Setup\Fixtures' . '\\' . $file,
+                [
+                    'fixtureModel' => $this
+                ]
+            );
             $this->fixtures[$fixture->getPriority()] = $fixture;
         }
 

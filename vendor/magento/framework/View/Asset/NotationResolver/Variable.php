@@ -58,21 +58,18 @@ class Variable
     }
 
     /**
-     * Process placeholder
+     * Retrieves the value of a given placeholder
      *
      * @param string $placeholder
      * @return string
      */
     public function getPlaceholderValue($placeholder)
     {
-        /** @var \Magento\Framework\View\Asset\File\FallbackContext $context */
         $context = $this->assetRepo->getStaticViewFileContext();
 
         switch ($placeholder) {
             case self::VAR_BASE_URL_PATH:
-                return '{{' . self::VAR_BASE_URL_PATH . '}}' . $context->getAreaCode() .
-                    ($context->getThemePath() ? '/' . $context->getThemePath() . '/' : '') .
-                    '{{locale}}';
+                return $context->getBaseUrl() . $context->getPath();
             default:
                 return '';
         }

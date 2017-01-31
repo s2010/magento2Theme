@@ -30,19 +30,6 @@ class Interceptor extends \Magento\Config\Model\Config\Structure implements \Mag
     /**
      * {@inheritdoc}
      */
-    public function getSectionList()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getSectionList');
-        if (!$pluginInfo) {
-            return parent::getSectionList();
-        } else {
-            return $this->___callPlugins('getSectionList', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getElement($path)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getElement');

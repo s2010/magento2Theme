@@ -158,6 +158,15 @@ class PluginTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->returnSelf()
         );
+        $this->configurableTypeMock->expects(
+            $this->once()
+        )->method(
+            'setUsedProductAttributeIds'
+        )->with(
+            ['attributes']
+        )->will(
+            $this->returnSelf()
+        );
         $this->productMock->expects(
             $this->once()
         )->method(

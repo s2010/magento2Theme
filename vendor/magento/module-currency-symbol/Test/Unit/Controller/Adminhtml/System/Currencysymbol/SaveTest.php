@@ -57,7 +57,7 @@ class SaveTest extends \PHPUnit_Framework_TestCase
      */
     protected $filterManagerMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new ObjectManager($this);
 

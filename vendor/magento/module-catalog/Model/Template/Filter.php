@@ -14,11 +14,6 @@
  */
 namespace Magento\Catalog\Model\Template;
 
-/**
- * Work with catalog(store, website) urls
- *
- * @package Magento\Catalog\Model\Template
- */
 class Filter extends \Magento\Framework\Filter\Template
 {
     /**

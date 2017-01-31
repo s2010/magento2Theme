@@ -26,7 +26,7 @@ class InvoiceRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     protected $searchResultFactory;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->invoiceMetadata = $this->getMock('Magento\Sales\Model\ResourceModel\Metadata', [], [], '', false);

@@ -29,7 +29,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
      */
     protected $objectManager;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->taxRateDataObjectFactory = $this->getMockBuilder(
             '\Magento\Tax\Api\Data\TaxRateInterfaceFactory'
@@ -75,6 +75,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals([], $this->converter->createTitleArrayFromServiceObject($taxRateMock));
     }
+
 
     public function testCreateArrayFromServiceObject()
     {

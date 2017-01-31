@@ -29,7 +29,7 @@ class ThemePackageInfoTest extends \PHPUnit_Framework_TestCase
      */
     private $dirReadFactory;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->componentRegistrar = $this->getMock('Magento\Framework\Component\ComponentRegistrar', [], [], '', false);
         $this->dirRead = $this->getMock('Magento\Framework\Filesystem\Directory\Read', [], [], '', false);

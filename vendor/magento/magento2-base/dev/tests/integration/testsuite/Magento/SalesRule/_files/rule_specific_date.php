@@ -25,8 +25,6 @@ $rule->setName(
     '1'
 )->setCustomerGroupIds(
     '0'
-)->setDiscountStep(
-    0
 )->setFromDate(
     date('Y-m-d')
 )->setToDate(

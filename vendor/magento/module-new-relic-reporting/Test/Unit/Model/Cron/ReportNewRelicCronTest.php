@@ -62,7 +62,7 @@ class ReportNewRelicCronTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->config = $this->getMockBuilder('Magento\NewRelicReporting\Model\Config')
             ->disableOriginalConstructor()

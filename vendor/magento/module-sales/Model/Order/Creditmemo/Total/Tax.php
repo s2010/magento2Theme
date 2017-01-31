@@ -42,7 +42,7 @@ class Tax extends AbstractTotal
                  */
 
                 $tax = $orderItemTax - $orderItem->getTaxRefunded();
-                $baseTax = $baseOrderItemTax - $orderItem->getBaseTaxRefunded();
+                $baseTax = $baseOrderItemTax - $orderItem->getTaxRefunded();
                 $discountTaxCompensation = $orderItem->getDiscountTaxCompensationInvoiced() -
                     $orderItem->getDiscountTaxCompensationRefunded();
                 $baseDiscountTaxCompensation = $orderItem->getBaseDiscountTaxCompensationInvoiced() -

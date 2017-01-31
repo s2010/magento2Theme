@@ -17,7 +17,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
      */
     protected $_transport;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_messageMock = $this->getMock('\Magento\Framework\Mail\Message', [], [], '', false);
         $this->_transport = new \Magento\Framework\Mail\Transport($this->_messageMock);

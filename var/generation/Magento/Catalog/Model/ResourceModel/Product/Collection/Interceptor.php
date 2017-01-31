@@ -2,7 +2,8 @@
 namespace Magento\Catalog\Model\ResourceModel\Product\Collection;
 
 /**
- * Interceptor class for @see \Magento\Catalog\Model\ResourceModel\Product\Collection
+ * Interceptor class for @see
+ * \Magento\Catalog\Model\ResourceModel\Product\Collection
  */
 class Interceptor extends \Magento\Catalog\Model\ResourceModel\Product\Collection implements \Magento\Framework\Interception\InterceptorInterface
 {

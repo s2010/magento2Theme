@@ -19,7 +19,7 @@ class AddressRegistryTest extends \PHPUnit_Framework_TestCase
      */
     private $addressFactory;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->addressFactory = $this->getMockBuilder('\Magento\Customer\Model\AddressFactory')
             ->disableOriginalConstructor()

@@ -32,9 +32,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $link = $om->get('Magento\Catalog\Model\Product\Link')->useCrossSellLinks();
         $this->collection->setLinkModel($link);
         $this->collection->addLinkAttributeToFilter('position', ['from' => 0, 'to' => 2]);
-        $productRepository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-            ->create('Magento\Catalog\Api\ProductRepositoryInterface');
-        $product = $productRepository->get('simple_with_cross');
+        $product = $om->get('Magento\Catalog\Model\Product')->load(2);
         $this->collection->setProduct($product);
         $this->collection->load();
         $this->assertCount(1, $this->collection->getItems());
@@ -53,9 +51,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $link = $om->get('Magento\Catalog\Model\Product\Link')->useCrossSellLinks();
         $this->collection->setLinkModel($link);
         $this->collection->addLinkAttributeToFilter('position', ['from' => 2, 'to' => 3]);
-        $productRepository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-            ->create('Magento\Catalog\Api\ProductRepositoryInterface');
-        $product = $productRepository->get('simple_with_cross');
+        $product = $om->get('Magento\Catalog\Model\Product')->load(2);
         $this->collection->setProduct($product);
         $this->collection->load();
         $this->assertCount(0, $this->collection->getItems());

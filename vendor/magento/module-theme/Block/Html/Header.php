@@ -31,6 +31,6 @@ class Header extends \Magento\Framework\View\Element\Template
                 \Magento\Store\Model\ScopeInterface::SCOPE_STORE
             );
         }
-        return __($this->_data['welcome']);
+        return $this->_data['welcome'];
     }
 }

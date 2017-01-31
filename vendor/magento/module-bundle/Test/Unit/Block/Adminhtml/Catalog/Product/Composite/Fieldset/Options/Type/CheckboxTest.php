@@ -14,7 +14,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
      */
     protected $block;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->block = (new ObjectManager($this))
             ->getObject('Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Checkbox');

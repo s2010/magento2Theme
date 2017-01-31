@@ -8,12 +8,11 @@
 <mapping strict="0">
     <fields>
         <stores>
-            <selector>[name="store_id"]</selector>
+            <selector>[name="stores[]"]</selector>
             <input>multiselectgrouplist</input>
         </stores>
         <is_active>
-            <selector>.admin__actions-switch-label</selector>
-            <input>switcher</input>
+            <input>select</input>
         </is_active>
     </fields>
 </mapping>

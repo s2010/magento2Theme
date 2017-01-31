@@ -777,7 +777,7 @@ class GroupRepositoryTest extends WebapiAbstract
         ];
 
         $requestData = [CustomerGroup::ID => $groupId];
-        $expectedMessage = 'No such entity with %fieldName = %fieldValue';
+        $expectedMessage = NoSuchEntityException::MESSAGE_SINGLE_FIELD;
         $expectedParameters = ['fieldName' => CustomerGroup::ID, 'fieldValue' => $groupId];
 
         try {

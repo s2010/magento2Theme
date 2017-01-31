@@ -5,7 +5,6 @@
  */
 namespace Magento\Cms\Model\ResourceModel\Block;
 
-use Magento\Cms\Api\Data\BlockInterface;
 use \Magento\Cms\Model\ResourceModel\AbstractCollection;
 
 /**
@@ -25,9 +24,7 @@ class Collection extends AbstractCollection
      */
     protected function _afterLoad()
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlockInterface::class);
-
-        $this->performAfterLoad('cms_block_store', $entityMetadata->getLinkField());
+        $this->performAfterLoad('cms_block_store', 'block_id');
 
         return parent::_afterLoad();
     }
@@ -74,7 +71,6 @@ class Collection extends AbstractCollection
      */
     protected function _renderFiltersBefore()
     {
-        $entityMetadata = $this->metadataPool->getMetadata(BlockInterface::class);
-        $this->joinStoreRelationTable('cms_block_store', $entityMetadata->getLinkField());
+        $this->joinStoreRelationTable('cms_block_store', 'block_id');
     }
 }

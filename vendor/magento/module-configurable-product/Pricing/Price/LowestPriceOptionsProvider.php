@@ -55,8 +55,10 @@ class LowestPriceOptionsProvider implements LowestPriceOptionsProviderInterface
         );
 
         $lowestPriceChildProducts = $this->collectionFactory->create()
-            ->addAttributeToSelect(['price', 'special_price'])
             ->addIdFilter($productIds)
+            ->addAttributeToSelect('*')
+            ->addPriceData()
+            ->addTierPriceData()
             ->getItems();
         return $lowestPriceChildProducts;
     }

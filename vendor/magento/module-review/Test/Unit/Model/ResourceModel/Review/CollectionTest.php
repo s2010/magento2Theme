@@ -37,7 +37,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     protected $objectManager;
 
-    protected function setUp()
+    public function setUp()
     {
         $store = $this->getMock('\Magento\Store\Model\Store', ['getId'], [], '', false);
         $store->expects($this->any())->method('getId')->will($this->returnValue(1));

@@ -72,7 +72,7 @@ class AssertAttributeSetOnProductForm extends AbstractConstraint
         );
 
         if ($attributeSetOriginal === null) {
-            $productEdit->getProductForm()->openSection('product-details');
+            $productEdit->getProductForm()->openTab('product-details');
 
             \PHPUnit_Framework_Assert::assertTrue(
                 $productEdit->getProductForm()->checkAttributeLabel($productAttribute),

@@ -69,7 +69,7 @@ class Plugin
         $girthEnabled = false;
         $sizeEnabled = false;
         if ($carrier && isset($size[0]['value'])) {
-            if (in_array(
+            if ($size[0]['value'] == Carrier::SIZE_LARGE && in_array(
                 key($subject->getContainers()),
                 [Carrier::CONTAINER_NONRECTANGULAR, Carrier::CONTAINER_VARIABLE]
             )

@@ -82,9 +82,7 @@ class DependencyChecker
         foreach ($rawLines as $rawLine) {
             $parts = explode(' ', $rawLine);
             if (count(explode('/', $parts[0])) == 2) {
-                if (strpos($parts[0], 'magento/project-') === false) {
-                    $packages[] = $parts[0];
-                }
+                $packages[] = $parts[0];
             }
         }
         return $packages;

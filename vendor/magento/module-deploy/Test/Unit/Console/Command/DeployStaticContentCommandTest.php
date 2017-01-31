@@ -10,8 +10,6 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Magento\Framework\Validator\Locale;
 use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
 
-require 'FunctionExistMock.php';
-
 class DeployStaticContentCommandTest extends \PHPUnit_Framework_TestCase
 {
     /**

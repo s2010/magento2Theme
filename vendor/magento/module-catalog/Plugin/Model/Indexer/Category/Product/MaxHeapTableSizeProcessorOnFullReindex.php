@@ -10,9 +10,6 @@ use Magento\Catalog\Model\Indexer\Category\Product\Action\Full;
 use Magento\Catalog\Model\ResourceModel\MaxHeapTableSizeProcessor;
 use Psr\Log\LoggerInterface;
 
-/**
- * @deprecated
- */
 class MaxHeapTableSizeProcessorOnFullReindex
 {
     /**

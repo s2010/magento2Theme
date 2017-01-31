@@ -15,7 +15,7 @@ class ConfigFilePoolTest extends \PHPUnit_Framework_TestCase
      */
     private $configFilePool;
 
-    protected function setUp()
+    public function setUp()
     {
         $newPath = [
             'new_key' => 'new_config.php'

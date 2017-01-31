@@ -20,7 +20,7 @@ class CustomerLoginTest extends \PHPUnit_Framework_TestCase
      */
     protected $helper;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->helper = $this->getMockBuilder('Magento\Wishlist\Helper\Data')
             ->disableOriginalConstructor()

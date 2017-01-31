@@ -19,14 +19,20 @@ class SkuProcessorTest extends \PHPUnit_Framework_TestCase
      */
     protected $skuProcessor;
 
-    protected function setUp()
+    public function setUp()
     {
-        $this->productFactory = $this->getMock(\Magento\Catalog\Model\ProductFactory::class, [], [], '', false);
+        $this->productFactory = $this->getMock(
+            '\Magento\Catalog\Model\ProductFactory',
+            [],
+            [],
+            '',
+            false
+        );
         $this->skuProcessor = $this->getMock(
-            \Magento\CatalogImportExport\Model\Import\Product\SkuProcessor::class,
+            'Magento\CatalogImportExport\Model\Import\Product\SkuProcessor',
             ['_getSkus'],
             [
-                $this->productFactory,
+                $this->productFactory
             ],
             ''
         );

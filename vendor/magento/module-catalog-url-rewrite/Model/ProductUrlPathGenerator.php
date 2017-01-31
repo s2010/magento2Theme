@@ -60,9 +60,9 @@ class ProductUrlPathGenerator
     {
         $path = $product->getData('url_path');
         if ($path === null) {
-            $path = $product->getUrlKey()
-                ? $this->prepareProductUrlKey($product)
-                : $this->prepareProductDefaultUrlKey($product);
+            $path = $product->getUrlKey() === false
+                ? $this->prepareProductDefaultUrlKey($product)
+                : $this->prepareProductUrlKey($product);
         }
         return $category === null
             ? $path

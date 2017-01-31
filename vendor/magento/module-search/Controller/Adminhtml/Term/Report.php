@@ -11,13 +11,6 @@ use Magento\Framework\Controller\ResultFactory;
 class Report extends ReportsIndexController
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Magento_Reports::report_search';
-
-    /**
      * Search terms report action
      *
      * @return \Magento\Backend\Model\View\Result\Page
@@ -32,5 +25,13 @@ class Report extends ReportsIndexController
             ->addBreadcrumb(__('Search Terms'), __('Search Terms'));
         $resultPage->getConfig()->getTitle()->set(__('Search Terms Report'));
         return $resultPage;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Reports::report_search');
     }
 }

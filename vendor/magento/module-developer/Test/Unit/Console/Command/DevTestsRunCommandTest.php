@@ -23,7 +23,7 @@ class DevTestsRunCommandTest extends \PHPUnit_Framework_TestCase
      */
     private $command;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->command = new DevTestsRunCommand();
     }

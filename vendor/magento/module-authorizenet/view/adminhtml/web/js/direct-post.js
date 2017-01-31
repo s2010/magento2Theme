@@ -20,9 +20,6 @@ directPost.prototype = {
         var prepare = function (event, method) {
             if (method === 'authorizenet_directpost') {
                 this.preparePayment();
-            } else {
-                jQuery('#edit_form')
-                    .off('submitOrder.authorizenet');
             }
         };
         this.iframeId = iframeId;
@@ -79,7 +76,7 @@ directPost.prototype = {
         this.changeInputOptions('autocomplete', 'off');
         jQuery('#edit_form')
             .off('submitOrder')
-            .on('submitOrder.authorizenet', this.submitAdminOrder.bind(this));
+            .on('submitOrder', this.submitAdminOrder.bind(this));
         if ($(this.iframeId)) {
             // Temporary solution will be removed after refactoring Authorize.Net (sales) functionality
             jQuery('.scalable.save:not(disabled)').removeAttr('onclick');

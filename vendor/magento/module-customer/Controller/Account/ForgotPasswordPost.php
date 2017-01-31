@@ -12,12 +12,7 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\Escaper;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Exception\SecurityViolationException;
 
-/**
- * ForgotPasswordPost controller
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- */
 class ForgotPasswordPost extends \Magento\Customer\Controller\AbstractAccount
 {
     /** @var AccountManagementInterface */
@@ -71,11 +66,8 @@ class ForgotPasswordPost extends \Magento\Customer\Controller\AbstractAccount
                     $email,
                     AccountManagement::EMAIL_RESET
                 );
-            } catch (NoSuchEntityException $exception) {
+            } catch (NoSuchEntityException $e) {
                 // Do nothing, we don't want anyone to use this action to determine which email accounts are registered.
-            } catch (SecurityViolationException $exception) {
-                $this->messageManager->addErrorMessage($exception->getMessage());
-                return $resultRedirect->setPath('*/*/forgotpassword');
             } catch (\Exception $exception) {
                 $this->messageManager->addExceptionMessage(
                     $exception,

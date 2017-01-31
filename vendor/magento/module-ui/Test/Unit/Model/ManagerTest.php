@@ -75,7 +75,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected $aggregatedFileCollectorFactory;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->componentConfigProvider = $this->getMockBuilder(
             'Magento\Framework\View\Element\UiComponent\Config\Provider\Component\Definition'
@@ -126,11 +126,11 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->uiReader, $this->manager->getReader('some_name'));
     }
 
-    public function testPrepareDataWithoutName()
+    public function testPrepareDataWithException()
     {
         $this->setExpectedException(
             'Magento\Framework\Exception\LocalizedException',
-            __("Invalid UI Component element name: ''")
+            __('Initialization error component, check the spelling of the name or the correctness of the call.')
         );
         $this->manager->prepareData(null);
     }

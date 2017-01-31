@@ -53,7 +53,7 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Category implements \Ma
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**
@@ -282,30 +282,6 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Category implements \Ma
     /**
      * {@inheritdoc}
      */
-    public function load($object, $entityId, $attributes = array())
-    {
-        return $this->_getSubject()->load($object, $entityId, $attributes);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete($object)
-    {
-        return $this->_getSubject()->delete($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function save(\Magento\Framework\Model\AbstractModel $object)
-    {
-        return $this->_getSubject()->save($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultStoreId()
     {
         return $this->_getSubject()->getDefaultStoreId();
@@ -317,6 +293,14 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Category implements \Ma
     public function getAttributeRawValue($entityId, $attribute, $store)
     {
         return $this->_getSubject()->getAttributeRawValue($entityId, $attribute, $store);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function load($object, $entityId, $attributes = array())
+    {
+        return $this->_getSubject()->load($object, $entityId, $attributes);
     }
 
     /**
@@ -474,14 +458,6 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Category implements \Ma
     /**
      * {@inheritdoc}
      */
-    public function getLinkField()
-    {
-        return $this->_getSubject()->getLinkField();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getEntityIdField()
     {
         return $this->_getSubject()->getEntityIdField();
@@ -554,6 +530,14 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Category implements \Ma
     /**
      * {@inheritdoc}
      */
+    public function save(\Magento\Framework\Model\AbstractModel $object)
+    {
+        return $this->_getSubject()->save($object);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function saveAttribute(\Magento\Framework\DataObject $object, $attributeCode)
     {
         return $this->_getSubject()->saveAttribute($object, $attributeCode);
@@ -562,49 +546,17 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Category implements \Ma
     /**
      * {@inheritdoc}
      */
+    public function delete($object)
+    {
+        return $this->_getSubject()->delete($object);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getDefaultAttributes()
     {
         return $this->_getSubject()->getDefaultAttributes();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterLoad(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->afterLoad($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeSave(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->beforeSave($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterSave(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->afterSave($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeDelete(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->beforeDelete($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterDelete(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->afterDelete($object);
     }
 
     /**

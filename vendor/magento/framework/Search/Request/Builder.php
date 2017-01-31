@@ -7,7 +7,6 @@
 namespace Magento\Framework\Search\Request;
 
 use Magento\Framework\ObjectManagerInterface;
-use Magento\Framework\Phrase;
 use Magento\Framework\Search\RequestInterface;
 
 class Builder
@@ -34,7 +33,6 @@ class Builder
         'dimensions' => [],
         'placeholder' => [],
     ];
-
     /**
      * @var Cleaner
      */
@@ -132,7 +130,7 @@ class Builder
         /** @var array $data */
         $data = $this->config->get($requestName);
         if ($data === null) {
-            throw new NonExistingRequestNameException(new Phrase("Request name '%1' doesn't exist.", [$requestName]));
+            throw new \InvalidArgumentException("Request name '{$requestName}' doesn't exist.");
         }
 
         $data = $this->binder->bind($data, $this->data);

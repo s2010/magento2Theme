@@ -63,7 +63,7 @@ class AuthObserverTest extends \PHPUnit_Framework_TestCase
     /** @var AuthObserver */
     protected $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->configInterfaceMock = $this->getMockBuilder('Magento\Backend\App\ConfigInterface')
             ->disableOriginalConstructor()

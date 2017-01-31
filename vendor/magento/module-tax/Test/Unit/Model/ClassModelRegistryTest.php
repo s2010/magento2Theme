@@ -30,7 +30,7 @@ class ClassModelRegistryTest extends \PHPUnit_Framework_TestCase
 
     const CLASS_MODEL = 1;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new ObjectManager($this);
         $this->classModelFactoryMock = $this->getMockBuilder('Magento\Tax\Model\ClassModelFactory')

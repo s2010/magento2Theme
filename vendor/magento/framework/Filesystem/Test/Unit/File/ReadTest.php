@@ -37,7 +37,7 @@ class ReadTest extends \PHPUnit_Framework_TestCase
      */
     protected $driver;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->driver = $this->getMockForAbstractClass('Magento\Framework\Filesystem\DriverInterface');
         $this->resource = $this->getMock('resource');

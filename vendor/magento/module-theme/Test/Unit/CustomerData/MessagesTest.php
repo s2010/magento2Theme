@@ -25,7 +25,7 @@ class MessagesTest extends \PHPUnit_Framework_TestCase
      */
     protected $object;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->messageManager = $this->getMockBuilder('Magento\Framework\Message\ManagerInterface')->getMock();
         $this->messageInterpretationStrategy = $this->getMock(

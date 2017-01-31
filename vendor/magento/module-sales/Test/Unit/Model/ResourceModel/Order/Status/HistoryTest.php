@@ -41,7 +41,7 @@ class HistoryTest extends \PHPUnit_Framework_TestCase
      */
     protected $entitySnapshotMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->appResourceMock = $this->getMock(
             'Magento\Framework\App\ResourceConnection',

@@ -14,8 +14,6 @@ use Magento\Framework\View\Design\Theme\ThemeProviderInterface;
 /**
  * A repository service for view assets
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- *
- * @api
  */
 class Repository
 {

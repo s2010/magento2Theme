@@ -50,7 +50,7 @@ class AmountTest extends \PHPUnit_Framework_TestCase
      */
     protected $priceMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->priceCurrency = $this->getMock('Magento\Framework\Pricing\PriceCurrencyInterface');
         $data = [

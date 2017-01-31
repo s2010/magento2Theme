@@ -13,7 +13,6 @@ use Magento\Integration\Model\Config\Integration\Reader;
  * Integration Api Config Model.
  *
  * This is a parent class for storing information about Integrations.
- * @deprecated
  */
 class IntegrationConfig
 {

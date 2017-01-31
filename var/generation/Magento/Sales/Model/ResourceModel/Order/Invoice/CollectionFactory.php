@@ -2,7 +2,8 @@
 namespace Magento\Sales\Model\ResourceModel\Order\Invoice;
 
 /**
- * Factory class for @see \Magento\Sales\Model\ResourceModel\Order\Invoice\Collection
+ * Factory class for @see
+ * \Magento\Sales\Model\ResourceModel\Order\Invoice\Collection
  */
 class CollectionFactory
 {

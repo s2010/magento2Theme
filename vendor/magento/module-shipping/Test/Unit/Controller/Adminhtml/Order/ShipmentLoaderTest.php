@@ -52,7 +52,7 @@ class ShipmentLoaderTest extends \PHPUnit_Framework_TestCase
      */
     protected $loader;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->shipmentRepositoryMock = $this->getMockBuilder('Magento\Sales\Model\Order\ShipmentRepository')
             ->disableOriginalConstructor()

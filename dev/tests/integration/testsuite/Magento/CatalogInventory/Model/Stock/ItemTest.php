@@ -28,7 +28,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
             ->get('Magento\Catalog\Model\Product');
 
-        $product->loadByAttribute('sku', 'simple');
+        $product->load(1);
 
         /** @var \Magento\CatalogInventory\Model\Stock\StockItemRepository $stockItemRepository */
         $stockItemRepository = $product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()

@@ -12,9 +12,6 @@ use Magento\Framework\Locale\ResolverInterface;
 use Magento\Quote\Api\Data\CartItemInterface;
 use Magento\Quote\Model\Quote\Address\Total;
 
-/**
- * @deprecated
- */
 class Sidebar
 {
     /**

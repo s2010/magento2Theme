@@ -11,13 +11,6 @@ namespace Magento\Paypal\Controller\Adminhtml\Billing;
 abstract class Agreement extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Magento_Paypal::billing_agreement';
-
-    /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
@@ -53,5 +46,15 @@ abstract class Agreement extends \Magento\Backend\App\Action
 
         $this->_coreRegistry->register('current_billing_agreement', $agreementModel);
         return $agreementModel;
+    }
+
+    /**
+     * Check currently called action by permissions for current user
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Paypal::billing_agreement');
     }
 }

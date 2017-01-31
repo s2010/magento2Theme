@@ -14,27 +14,20 @@ define(
         'Magento_Checkout/js/model/totals'
     ],
     function ($, quote, resourceUrlManager, errorProcessor, storage, totals) {
-        'use strict';
-
+        "use strict";
         return function (callbacks, deferred) {
             deferred = deferred || $.Deferred();
             totals.isLoading(true);
-
             return storage.get(
                 resourceUrlManager.getUrlForCartTotals(quote),
                 false
             ).done(
                 function (response) {
-                    var proceed = true;
-
                     totals.isLoading(false);
-
-                    if (callbacks.length > 0) {
-                        $.each(callbacks, function (index, callback) {
-                            proceed = proceed && callback();
-                        });
-                    }
-
+                    var proceed = true;
+                    $.each(callbacks, function(index, callback) {
+                        proceed = proceed && callback();
+                    });
                     if (proceed) {
                         quote.setTotals(response);
                         deferred.resolve();

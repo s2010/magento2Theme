@@ -27,7 +27,7 @@ class LogoTest extends \PHPUnit_Framework_TestCase
      */
     private $requestDataMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $helper = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->uploaderFactoryMock = $this->getMockBuilder('\Magento\MediaStorage\Model\File\UploaderFactory')

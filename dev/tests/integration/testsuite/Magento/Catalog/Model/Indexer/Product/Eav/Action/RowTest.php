@@ -24,10 +24,12 @@ class RowTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($attr->isIndexable());
 
-        $repository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-            'Magento\Catalog\Model\ProductRepository'
+        /** @var \Magento\Catalog\Model\Product $product */
+        $product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
+            'Magento\Catalog\Model\Product'
         );
-        $product = $repository->get('simple');
+
+        $product->load(1);
         $product->setWeight(11);
         $product->save();
 

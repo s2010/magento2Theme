@@ -7,11 +7,6 @@ namespace Magento\Payment\Gateway\Validator;
 
 use Magento\Framework\Exception\NotFoundException;
 
-/**
- * Interface ValidatorPoolInterface
- * @package Magento\Payment\Gateway\Validator
- * @api
- */
 interface ValidatorPoolInterface
 {
     /**

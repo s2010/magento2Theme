@@ -68,6 +68,8 @@ foreach ($prices as $price) {
     $productId = $lastProductId + 1;
     $product->setTypeId(
         \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE
+    )->setId(
+        $productId
     )->setAttributeSetId(
         $installer->getAttributeSetId('catalog_product', 'Default')
     )->setStoreId(
@@ -80,11 +82,6 @@ foreach ($prices as $price) {
         'simple-' . $productId
     )->setPrice(
         $price
-    )->setStockData(
-        [
-            'qty' => 100,
-            'is_in_stock' => 1,
-        ]
     )->setWeight(
         18
     )->setCategoryIds(

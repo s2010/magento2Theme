@@ -2,7 +2,8 @@
 namespace Magento\Framework\Search\Request\Config\FilesystemReader;
 
 /**
- * Interceptor class for @see \Magento\Framework\Search\Request\Config\FilesystemReader
+ * Interceptor class for @see
+ * \Magento\Framework\Search\Request\Config\FilesystemReader
  */
 class Interceptor extends \Magento\Framework\Search\Request\Config\FilesystemReader implements \Magento\Framework\Interception\InterceptorInterface
 {

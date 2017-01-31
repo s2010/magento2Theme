@@ -24,7 +24,7 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     protected $escaper;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new ObjectManager($this);
         $contextMock = $this->getMockBuilder('Magento\Framework\View\Element\UiComponent\ContextInterface')

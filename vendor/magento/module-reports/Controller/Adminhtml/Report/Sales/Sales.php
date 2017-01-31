@@ -25,7 +25,7 @@ class Sales extends \Magento\Reports\Controller\Adminhtml\Report\Sales
             __('Sales Report'),
             __('Sales Report')
         );
-        $this->_view->getPage()->getConfig()->getTitle()->prepend(__('Orders Report'));
+        $this->_view->getPage()->getConfig()->getTitle()->prepend(__('Sales Report'));
 
         $gridBlock = $this->_view->getLayout()->getBlock('adminhtml_sales_sales.grid');
         $filterFormBlock = $this->_view->getLayout()->getBlock('grid.filter.form');

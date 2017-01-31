@@ -18,7 +18,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
     /** @var CustomerMetadataInterface|\PHPUnit_Framework_MockObject_MockObject */
     protected $customerMetadataService;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->context = $this->getMockBuilder('Magento\Framework\App\Helper\Context')
             ->disableOriginalConstructor()

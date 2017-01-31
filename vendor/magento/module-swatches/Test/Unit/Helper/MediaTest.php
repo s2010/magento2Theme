@@ -43,7 +43,7 @@ class MediaTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Swatches\Helper\Media|\Magento\Framework\TestFramework\Unit\Helper\ObjectManager */
     protected $mediaHelperObject;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 

@@ -92,7 +92,7 @@ class MethodNode extends AbstractCallableNode
      *
      * @return string
      */
-    public function getFullQualifiedName()
+    public function getQName()
     {
         return sprintf(
             '%s\\%s::%s()',

@@ -7,7 +7,6 @@ namespace Magento\Payment\Gateway\Http;
 
 /**
  * Class TransferBuilder
- * @api
  */
 class TransferBuilder
 {

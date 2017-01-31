@@ -33,7 +33,7 @@ define([
          */
         _initType: function () {
             if (
-                productType.type.init === 'bundle' &&
+                productType.type.real === 'bundle' &&
                 productType.type.current !== 'bundle' &&
                 !weight.isLocked()
             ) {

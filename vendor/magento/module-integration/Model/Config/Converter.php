@@ -7,8 +7,6 @@ namespace Magento\Integration\Model\Config;
 
 /**
  * Converter of integration.xml content into array format.
- *
- * @deprecated
  */
 class Converter implements \Magento\Framework\Config\ConverterInterface
 {

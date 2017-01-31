@@ -8,7 +8,6 @@ return [
     'catalogsearch_fulltext' =>
         [
             'indexer_id' => 'catalogsearch_fulltext',
-            'shared_index' => null,
             'primary' => 'first',
             'view_id' => 'catalogsearch_fulltext',
             'action_class' => 'Magento\\CatalogSearch\\Model\\Indexer\\Fulltext',

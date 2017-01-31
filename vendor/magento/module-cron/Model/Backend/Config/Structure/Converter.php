@@ -46,9 +46,6 @@ class Converter
             foreach ($fields as $fieldName => $value) {
                 $template['children'][$fieldName]['path'] = 'system/cron/' . $group;
                 $template['children'][$fieldName]['sortOrder'] += $fieldIterator++;
-                if (isset($value['tooltip'])) {
-                    $template['children'][$fieldName]['tooltip'] = $value['tooltip'];
-                }
             }
             $result['config']['system']['sections']['system']['children']['cron']['children'][$group] = $template;
         }

@@ -223,8 +223,7 @@ class StockRegistryProviderTest extends \PHPUnit_Framework_TestCase
 
                 'stockCriteriaFactory' => $this->stockCriteriaFactory,
                 'stockItemCriteriaFactory' => $this->stockItemCriteriaFactory,
-                'stockStatusCriteriaFactory' => $this->stockStatusCriteriaFactory,
-                'stockRegistryStorage' => $this->getMock('Magento\CatalogInventory\Model\StockRegistryStorage')
+                'stockStatusCriteriaFactory' => $this->stockStatusCriteriaFactory
             ]
         );
     }

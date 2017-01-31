@@ -13,7 +13,7 @@ class IndexTest extends \PHPUnit_Framework_TestCase
      */
     private $indexControllerMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->indexControllerMock = $this->getControllerIndexMock(['getResultPageFactory']);
     }

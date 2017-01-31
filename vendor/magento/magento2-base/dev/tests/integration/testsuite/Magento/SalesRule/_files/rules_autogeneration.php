@@ -22,8 +22,6 @@ $rule->setName(
     '1'
 )->setCustomerGroupIds(
     '0'
-)->setDiscountStep(
-    0
 )->save();
 
 /** @var $objectManager \Magento\TestFramework\ObjectManager */

@@ -2,7 +2,8 @@
 namespace Magento\Tax\Model\ResourceModel\Sales\Order\Tax;
 
 /**
- * Factory class for @see \Magento\Tax\Model\ResourceModel\Sales\Order\Tax\Collection
+ * Factory class for @see
+ * \Magento\Tax\Model\ResourceModel\Sales\Order\Tax\Collection
  */
 class CollectionFactory
 {

@@ -97,8 +97,7 @@ class Combine extends AbstractCondition
                 'name' => $this->elementName . '[' . $this->getPrefix() . '][' . $this->getId() . '][aggregator]',
                 'values' => $this->getAggregatorSelectOptions(),
                 'value' => $this->getAggregator(),
-                'value_name' => $this->getAggregatorName(),
-                'data-form-part' => $this->getFormName()
+                'value_name' => $this->getAggregatorName()
             ]
         )->setRenderer(
             $this->_layout->getBlockSingleton('Magento\Rule\Block\Editable')
@@ -269,8 +268,7 @@ class Combine extends AbstractCondition
             [
                 'name' => $this->elementName . '[' . $this->getPrefix() . '][' . $this->getId() . '][new_child]',
                 'values' => $this->getNewChildSelectOptions(),
-                'value_name' => $this->getNewChildName(),
-                'data-form-part' => $this->getFormName()
+                'value_name' => $this->getNewChildName()
             ]
         )->setRenderer(
             $this->_layout->getBlockSingleton('Magento\Rule\Block\Newchild')

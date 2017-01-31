@@ -11,7 +11,6 @@ use Magento\Integration\Model\Cache\Type;
  * Integration Config Model.
  *
  * This is a parent class for storing information about Integrations.
- * @deprecated
  */
 class Config
 {

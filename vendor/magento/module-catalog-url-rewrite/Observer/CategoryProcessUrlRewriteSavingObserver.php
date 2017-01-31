@@ -49,10 +49,7 @@ class CategoryProcessUrlRewriteSavingObserver implements ObserverInterface
         if ($category->getParentId() == Category::TREE_ROOT_ID) {
             return;
         }
-        if ($category->dataHasChangedFor('url_key')
-            || $category->dataHasChangedFor('is_anchor')
-            || $category->getIsChangedProductList()
-        ) {
+        if ($category->dataHasChangedFor('url_key') || $category->getIsChangedProductList()) {
             $urlRewrites = array_merge(
                 $this->categoryUrlRewriteGenerator->generate($category),
                 $this->urlRewriteHandler->generateProductUrlRewrites($category)

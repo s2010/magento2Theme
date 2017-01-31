@@ -10,7 +10,7 @@ use Magento\Sales\Model\ResourceModel\Metadata;
 use Magento\Sales\Model\Order\ShippingAssignmentBuilder;
 use Magento\Sales\Api\Data\OrderSearchResultInterfaceFactory as SearchResultFactory;
 use Magento\Sales\Api\Data\OrderExtensionInterface;
-use Magento\Sales\Api\Data\OrderExtensionFactory;
+use Magento\Sales\Api\Data\OrderExtension;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\ShippingAssignmentInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -34,9 +34,9 @@ class OrderRepository implements \Magento\Sales\Api\OrderRepositoryInterface
     protected $searchResultFactory = null;
 
     /**
-     * @var OrderExtensionFactory
+     * @var OrderExtension
      */
-    private $orderExtensionFactory;
+    private $orderExtension;
 
     /**
      * @var ShippingAssignmentBuilder
@@ -115,7 +115,6 @@ class OrderRepository implements \Magento\Sales\Api\OrderRepositoryInterface
                 ($sortOrder->getDirection() == SortOrder::SORT_ASC) ? 'ASC' : 'DESC'
             );
         }
-
         $searchResult->setSearchCriteria($searchCriteria);
         $searchResult->setCurPage($searchCriteria->getCurrentPage());
         $searchResult->setPageSize($searchCriteria->getPageSize());
@@ -173,7 +172,7 @@ class OrderRepository implements \Magento\Sales\Api\OrderRepositoryInterface
         $extensionAttributes = $order->getExtensionAttributes();
 
         if ($extensionAttributes === null) {
-            $extensionAttributes = $this->getOrderExtensionFactory()->create();
+            $extensionAttributes = $this->getOrderExtensionDependency();
         } elseif ($extensionAttributes->getShippingAssignments() !== null) {
             return;
         }
@@ -185,19 +184,18 @@ class OrderRepository implements \Magento\Sales\Api\OrderRepositoryInterface
     }
 
     /**
-     * Get the new OrderExtensionFactory for application code
-     * 
-     * @return OrderExtensionFactory
+     * Get the new OrderExtension dependency for application code
+     * @return OrderExtension
      * @deprecated
      */
-    private function getOrderExtensionFactory()
+    private function getOrderExtensionDependency()
     {
-        if (!$this->orderExtensionFactory instanceof OrderExtensionFactory) {
-            $this->orderExtensionFactory = \Magento\Framework\App\ObjectManager::getInstance()->get(
-                '\Magento\Sales\Api\Data\OrderExtensionFactory'
+        if (!$this->orderExtension instanceof OrderExtension) {
+            $this->orderExtension = \Magento\Framework\App\ObjectManager::getInstance()->get(
+                '\Magento\Sales\Api\Data\OrderExtension'
             );
         }
-        return $this->orderExtensionFactory;
+        return $this->orderExtension;
     }
 
     /**

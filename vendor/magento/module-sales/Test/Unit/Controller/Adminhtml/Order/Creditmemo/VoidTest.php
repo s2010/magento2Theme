@@ -94,7 +94,7 @@ class VoidTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->creditmemoMock = $this->getMockBuilder('Magento\Sales\Model\Order\Creditmemo')
             ->disableOriginalConstructor()

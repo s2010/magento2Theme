@@ -18,10 +18,7 @@ class Preview extends \Magento\Newsletter\Controller\Adminhtml\Template
         $this->_view->loadLayout();
 
         $data = $this->getRequest()->getParams();
-        $isEmptyRequestData = empty($data) || !isset($data['id']);
-        $isEmptyPreviewData = !$this->_getSession()->hasPreviewData() || empty($this->_getSession()->getPreviewData());
-        
-        if ($isEmptyRequestData && $isEmptyPreviewData) {
+        if (empty($data) || !isset($data['id'])) {
             $this->_forward('noroute');
             return $this;
         }

@@ -95,10 +95,10 @@ abstract class AbstractPrice implements PriceInterface
      */
     public function getAmount()
     {
-        if (!isset($this->amount[$this->getValue()])) {
-            $this->amount[$this->getValue()] = $this->calculator->getAmount($this->getValue(), $this->getProduct());
+        if (null === $this->amount) {
+            $this->amount = $this->calculator->getAmount($this->getValue(), $this->getProduct());
         }
-        return $this->amount[$this->getValue()];
+        return $this->amount;
     }
 
     /**

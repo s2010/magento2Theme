@@ -15,23 +15,20 @@ class SubtotalTest extends \PHPUnit_Framework_TestCase
      * @var \Magento\Sales\Model\Order\Creditmemo\Total\Subtotal
      */
     protected $total;
-
     /**
      * @var \Magento\Sales\Model\Order\Creditmemo|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $creditmemoMock;
-
     /**
      * @var \Magento\Sales\Model\Order\Creditmemo\Item|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $creditmemoItemMock;
-
     /**
      * @var \Magento\Sales\Model\Order\Item|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $orderItemMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->orderMock = $this->getMock(
             'Magento\Sales\Model\Order',

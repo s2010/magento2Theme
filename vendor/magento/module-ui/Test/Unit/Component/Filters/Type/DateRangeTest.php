@@ -40,7 +40,7 @@ class DateRangeTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->contextMock = $this->getMockForAbstractClass(
             'Magento\Framework\View\Element\UiComponent\ContextInterface',
@@ -141,6 +141,7 @@ class DateRangeTest extends \PHPUnit_Framework_TestCase
             $dataProvider->expects($this->any())
                 ->method('addFilter')
                 ->with($expectedCondition, $name);
+
 
             $uiComponent->expects($this->any())
                 ->method('getLocale')

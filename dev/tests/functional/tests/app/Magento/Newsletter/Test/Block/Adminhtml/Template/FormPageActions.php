@@ -17,26 +17,9 @@ use Magento\Backend\Test\Block\FormPageActions as AbstractFormPageActions;
 class FormPageActions extends AbstractFormPageActions
 {
     /**
-     * "Save Template" button
+     * "Save" button
      *
      * @var string
      */
     protected $saveButton = "[data-ui-id='page-actions-toolbar-save-button']";
-
-    /**
-     * "Preview Template" button
-     *
-     * @var string
-     */
-    private $previewButton = "[data-role='template-preview']";
-
-    /**
-     * Click preview button on form page
-     *
-     * @return void
-     */
-    public function clickPreview()
-    {
-        $this->_rootElement->find($this->previewButton)->click();
-    }
 }

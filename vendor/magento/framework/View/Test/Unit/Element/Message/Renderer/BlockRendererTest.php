@@ -21,7 +21,7 @@ class BlockRendererTest extends \PHPUnit_Framework_TestCase
      */
     private $blockTemplate;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->blockTemplate = $this->getMockBuilder(
             'Magento\Framework\View\Element\Message\Renderer\BlockRenderer\Template'

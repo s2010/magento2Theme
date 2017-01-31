@@ -41,7 +41,7 @@ class AclResourceTest extends \PHPUnit_Framework_TestCase
      */
     private $connection;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->connectionFactory = $this->getMockBuilder(ConnectionFactoryInterface::class)
             ->setMethods(['create'])

@@ -15,7 +15,7 @@ class AbstractModelTest extends \PHPUnit_Framework_TestCase
      */
     protected $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->model = $objectManager->getObject('Magento\Sales\Model\Order');

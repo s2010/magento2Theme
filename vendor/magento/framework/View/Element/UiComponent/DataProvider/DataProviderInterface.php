@@ -9,8 +9,6 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 /**
  * Interface DataProviderInterface
- *
- * @api
  */
 interface DataProviderInterface
 {

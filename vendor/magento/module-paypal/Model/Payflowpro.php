@@ -6,18 +6,16 @@
 namespace Magento\Paypal\Model;
 
 use Magento\Framework\DataObject;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Payment\Model\InfoInterface;
 use Magento\Payment\Model\Method\ConfigInterface;
 use Magento\Payment\Model\Method\ConfigInterfaceFactory;
 use Magento\Payment\Model\Method\Online\GatewayInterface;
 use Magento\Payment\Observer\AbstractDataAssignObserver;
-use Magento\Paypal\Model\Config;
 use Magento\Paypal\Model\Payflow\Service\Gateway;
 use Magento\Paypal\Model\Payflow\Service\Response\Handler\HandlerInterface;
 use Magento\Quote\Model\Quote;
-use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Payment;
+use Magento\Sales\Model\Order;
 use Magento\Store\Model\ScopeInterface;
 
 /**
@@ -80,8 +78,6 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc implements GatewayInte
     const RESPONSE_CODE_CAPTURE_ERROR = 111;
 
     const RESPONSE_CODE_VOID_ERROR = 108;
-
-    const PNREF = 'pnref';
 
     /**#@-*/
 
@@ -400,12 +396,12 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc implements GatewayInte
      */
     public function capture(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        if ($payment->getAdditionalInformation(self::PNREF)) {
+        if ($payment->getAdditionalInformation('pnref')) {
             $request = $this->buildBasicRequest();
             $request->setAmt(round($amount, 2));
             $request->setTrxtype(self::TRXTYPE_SALE);
-            $request->setOrigid($payment->getAdditionalInformation(self::PNREF));
-            $payment->unsAdditionalInformation(self::PNREF);
+            $request->setOrigid($payment->getAdditionalInformation('pnref'));
+            $payment->unsAdditionalInformation('pnref');
         } elseif ($payment->getParentTransactionId()) {
             $request = $this->buildBasicRequest();
             $request->setOrigid($payment->getParentTransactionId());
@@ -518,7 +514,11 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc implements GatewayInte
      */
     public function fetchTransactionInfo(InfoInterface $payment, $transactionId)
     {
-        $response = $this->transactionInquiryRequest($payment, $transactionId);
+        $request = $this->buildBasicRequest();
+        $request->setTrxtype(self::TRXTYPE_DELAYED_INQUIRY);
+        $transactionId = $payment->getCcTransId() ? $payment->getCcTransId() : $transactionId;
+        $request->setOrigid($transactionId);
+        $response = $this->postRequest($request, $this->getConfig());
 
         $this->processErrors($response);
 
@@ -574,14 +574,7 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc implements GatewayInte
      */
     public function postRequest(DataObject $request, ConfigInterface $config)
     {
-        try {
-            return $this->gateway->postRequest($request, $config);
-        } catch (\Zend_Http_Client_Exception $e) {
-            throw new LocalizedException(
-                __('Payment Gateway is unreachable at the moment. Please use another payment option.'),
-                $e
-            );
-        }
+        return $this->gateway->postRequest($request, $config);
     }
 
     /**
@@ -622,7 +615,7 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc implements GatewayInte
         $request->setPartner($this->getConfigData('partner'));
         $request->setPwd($this->getConfigData('pwd'));
         $request->setVerbosity($this->getConfigData('verbosity'));
-        $request->setData('BUTTONSOURCE', $config->getBuildNotationCode());
+        $request->setData('BNCODE', $config->getBuildNotationCode());
         $request->setTender(self::TENDER_CC);
 
         return $request;
@@ -888,22 +881,5 @@ class Payflowpro extends \Magento\Payment\Model\Method\Cc implements GatewayInte
         );
 
         return $this;
-    }
-
-    /**
-     * @param InfoInterface $payment
-     * @param string $transactionId
-     * @return DataObject
-     * @throws LocalizedException
-     */
-    protected function transactionInquiryRequest(InfoInterface $payment, $transactionId)
-    {
-        $request = $this->buildBasicRequest();
-        $request->setTrxtype(self::TRXTYPE_DELAYED_INQUIRY);
-        $transactionId = $payment->getCcTransId() ? $payment->getCcTransId() : $transactionId;
-        $request->setOrigid($transactionId);
-        $response = $this->postRequest($request, $this->getConfig());
-
-        return $response;
     }
 }

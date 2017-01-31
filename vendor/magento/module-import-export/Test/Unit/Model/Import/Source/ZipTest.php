@@ -18,7 +18,7 @@ class ZipTest extends \PHPUnit_Framework_TestCase
      */
     protected $zip;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->directory = $this->getMockBuilder('\Magento\Framework\Filesystem\Directory\Write')
             ->disableOriginalConstructor()

@@ -7,8 +7,6 @@ namespace Magento\Framework\View\Design\Theme;
 
 /**
  * Theme list interface
- *
- * @api
  */
 interface ListInterface
 {

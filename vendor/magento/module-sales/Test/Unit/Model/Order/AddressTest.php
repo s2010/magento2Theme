@@ -19,17 +19,14 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      * @var \Magento\Sales\Model\Order\Address
      */
     protected $address;
-
     /**
      * @var \Magento\Sales\Model\Order|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $orderMock;
-
     /**
      * @var \Magento\Directory\Model\RegionFactory|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $regionFactoryMock;
-
     /**
      * @var \Magento\Directory\Model\Region|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -81,23 +78,9 @@ class AddressTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRegionCodeRegionIsSet()
     {
-        $regionId = 1;
         $this->address->setData('region', 'region');
-        $this->address->setData('region_id', $regionId);
-        $this->address->setData('country_id', 2);
-
-        $this->regionMock->expects(static::once())
-            ->method('load')
-            ->with($regionId)
-            ->willReturnSelf();
-
-        $this->regionMock->expects(static::once())
-            ->method('getCountryId')
-            ->willReturn(1);
-
-        $this->regionFactoryMock->expects(static::once())
-            ->method('create')
-            ->willReturn($this->regionMock);
+        $this->regionFactoryMock->expects($this->never())
+            ->method('create');
         $this->assertEquals('region', $this->address->getRegionCode());
     }
 

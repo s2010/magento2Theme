@@ -141,8 +141,6 @@ class TransactionTest extends WebapiAbstract
         $expectedData = [$transactionData, $childTransactionData];
 
         $this->assertEquals($expectedData, $result['items']);
-        $this->assertArrayHasKey('search_criteria', $result);
-        $this->assertEquals($searchData, $result['search_criteria']);
     }
 
     /**

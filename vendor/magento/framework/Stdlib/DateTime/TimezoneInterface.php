@@ -8,10 +8,6 @@
 
 namespace Magento\Framework\Stdlib\DateTime;
 
-/**
- * Timezone Interface
- * @api
- */
 interface TimezoneInterface
 {
     /**
@@ -138,11 +134,4 @@ interface TimezoneInterface
         $timezone = null,
         $pattern = null
     );
-
-    /**
-     * @param string|\DateTimeInterface $date
-     * @param string $format
-     * @return string
-     */
-    public function convertConfigTimeToUtc($date, $format = 'Y-m-d H:i:s');
 }

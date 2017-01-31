@@ -53,7 +53,7 @@ class Proxy extends \Magento\Framework\Event\Manager implements \Magento\Framewo
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**

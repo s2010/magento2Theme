@@ -7,7 +7,6 @@ namespace Magento\Paypal\Model\Payflow\Service\Response\Validator;
 
 use Magento\Framework\DataObject;
 use Magento\Paypal\Model\Payflow\Service\Response\ValidatorInterface;
-use Magento\Paypal\Model\Payflow\Transparent;
 
 /**
  * Class SecureToken
@@ -32,10 +31,9 @@ class SecureToken implements ValidatorInterface
     /**
      * Validate data
      * @param DataObject $response
-     * @param Transparent $transparentModel
      * @return bool
      */
-    public function validate(DataObject $response, Transparent $transparentModel)
+    public function validate(DataObject $response)
     {
         return (bool) $response->getSecuretoken()
             && is_numeric($response->getResult())

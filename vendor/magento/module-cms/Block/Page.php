@@ -101,8 +101,7 @@ class Page extends \Magento\Framework\View\Element\AbstractBlock implements
         $page = $this->getPage();
         $this->_addBreadcrumbs($page);
         $this->pageConfig->addBodyClass('cms-' . $page->getIdentifier());
-        $metaTitle = $page->getMetaTitle();
-        $this->pageConfig->getTitle()->set($metaTitle ? $metaTitle : $page->getTitle());
+        $this->pageConfig->getTitle()->set($page->getTitle());
         $this->pageConfig->setKeywords($page->getMetaKeywords());
         $this->pageConfig->setDescription($page->getMetaDescription());
 

@@ -32,7 +32,7 @@ class RecentTest extends \PHPUnit_Framework_TestCase
      */
     protected $orderConfig;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->context = $this->getMock('Magento\Framework\View\Element\Template\Context', [], [], '', false, false);
         $this->orderCollectionFactory = $this->getMock(

@@ -18,16 +18,16 @@ class SubstitutionTest extends \PHPUnit_Framework_TestCase
      */
     protected $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
-        $this->model = $this->objectManager->getObject(\Magento\Payment\Model\Method\Substitution::class);
+        $this->model = $this->objectManager->getObject('Magento\Payment\Model\Method\Substitution');
     }
 
     public function testGetTitle()
     {
         $infoMock = $this->getMockBuilder(
-            \Magento\Payment\Model\Info::class
+            'Magento\Payment\Model\Info'
         )->disableOriginalConstructor()->setMethods(
             []
         )->getMock();

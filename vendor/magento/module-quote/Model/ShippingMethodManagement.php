@@ -128,36 +128,17 @@ class ShippingMethodManagement implements
 
     /**
      * {@inheritDoc}
-     */
-    public function set($cartId, $carrierCode, $methodCode)
-    {
-        /** @var \Magento\Quote\Model\Quote $quote */
-        $quote = $this->quoteRepository->getActive($cartId);
-        try {
-            $this->apply($cartId, $carrierCode, $methodCode);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-
-        try {
-            $this->quoteRepository->save($quote->collectTotals());
-        } catch (\Exception $e) {
-            throw new CouldNotSaveException(__('Cannot set shipping method. %1', $e->getMessage()));
-        }
-        return true;
-    }
-
-    /**
+     *
      * @param int $cartId The shopping cart ID.
      * @param string $carrierCode The carrier code.
      * @param string $methodCode The shipping method code.
-     * @return void
+     * @return bool
      * @throws InputException The shipping method is not valid for an empty cart.
      * @throws CouldNotSaveException The shipping method could not be saved.
      * @throws NoSuchEntityException Cart contains only virtual products. Shipping method is not applicable.
      * @throws StateException The billing or shipping address is not set.
      */
-    public function apply($cartId, $carrierCode, $methodCode)
+    public function set($cartId, $carrierCode, $methodCode)
     {
         /** @var \Magento\Quote\Model\Quote $quote */
         $quote = $this->quoteRepository->getActive($cartId);
@@ -174,6 +155,17 @@ class ShippingMethodManagement implements
             throw new StateException(__('Shipping address is not set'));
         }
         $shippingAddress->setShippingMethod($carrierCode . '_' . $methodCode);
+        if (!$shippingAddress->getShippingRateByCode($shippingAddress->getShippingMethod())) {
+            throw new NoSuchEntityException(
+                __('Carrier with such method not found: %1, %2', $carrierCode, $methodCode)
+            );
+        }
+        try {
+            $this->quoteRepository->save($quote->collectTotals());
+        } catch (\Exception $e) {
+            throw new CouldNotSaveException(__('Cannot set shipping method. %1', $e->getMessage()));
+        }
+        return true;
     }
 
     /**

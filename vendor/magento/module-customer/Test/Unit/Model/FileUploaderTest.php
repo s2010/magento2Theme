@@ -179,6 +179,7 @@ class FileUploaderTest extends \PHPUnit_Framework_TestCase
             ->method('getValidationRules')
             ->willReturn([$validationRuleMock]);
 
+
         $model = $this->getModel(CustomerMetadataInterface::ENTITY_TYPE_CUSTOMER, 'customer');
         $this->assertEquals($expectedResult, $model->upload());
     }

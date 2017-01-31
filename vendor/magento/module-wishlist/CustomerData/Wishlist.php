@@ -126,7 +126,7 @@ class Wishlist implements SectionSourceInterface
             'product_name' => $product->getName(),
             'product_price' => $this->block->getProductPriceHtml(
                 $product,
-                'wishlist_configured_price',
+                \Magento\Catalog\Pricing\Price\ConfiguredPriceInterface::CONFIGURED_PRICE_CODE,
                 \Magento\Framework\Pricing\Render::ZONE_ITEM_LIST,
                 ['item' => $wishlistItem]
             ),

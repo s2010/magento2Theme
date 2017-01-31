@@ -5,11 +5,6 @@
  */
 namespace Magento\Payment\Gateway\Validator;
 
-/**
- * Class AbstractValidator
- * @package Magento\Payment\Gateway\Validator
- * @api
- */
 abstract class AbstractValidator implements ValidatorInterface
 {
     /**

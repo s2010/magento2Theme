@@ -147,15 +147,13 @@ class RendererTest extends \PHPUnit_Framework_TestCase
             'content_type' => 'content_type_value',
             'x_ua_compatible' => 'x_ua_compatible_value',
             'media_type' => 'media_type_value',
-            'og:video:secure_url' => 'secure_url'
         ];
         $metadataValueCharset = 'newCharsetValue';
 
         $expected = '<meta charset="newCharsetValue"/>' . "\n"
             . '<meta name="metadataName" content="metadataValue"/>' . "\n"
             . '<meta http-equiv="Content-Type" content="content_type_value"/>' . "\n"
-            . '<meta http-equiv="X-UA-Compatible" content="x_ua_compatible_value"/>' . "\n"
-            . '<meta property="og:video:secure_url" content="secure_url"/>' . "\n";
+            . '<meta http-equiv="X-UA-Compatible" content="x_ua_compatible_value"/>' . "\n";
 
         $this->stringMock->expects($this->at(0))
             ->method('upperCaseWords')

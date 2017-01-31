@@ -70,7 +70,7 @@ class MassAssignGroupTest extends \PHPUnit_Framework_TestCase
      */
     protected $customerRepositoryMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManagerHelper = new ObjectManagerHelper($this);
 

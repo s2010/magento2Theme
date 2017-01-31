@@ -40,7 +40,7 @@ class InputTest extends \PHPUnit_Framework_TestCase
     /**
      * Set up
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->contextMock = $this->getMockForAbstractClass(
             'Magento\Framework\View\Element\UiComponent\ContextInterface',

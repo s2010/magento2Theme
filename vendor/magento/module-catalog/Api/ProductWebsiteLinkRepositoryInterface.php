@@ -6,10 +6,6 @@
 
 namespace Magento\Catalog\Api;
 
-/**
- * Interface ProductWebsiteLinkRepositoryInterface
- * @api
- */
 interface ProductWebsiteLinkRepositoryInterface
 {
     /**

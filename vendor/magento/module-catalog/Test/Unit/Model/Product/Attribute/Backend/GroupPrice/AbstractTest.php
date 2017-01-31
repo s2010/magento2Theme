@@ -30,7 +30,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
         $configMock = $this->getMock('Magento\Framework\App\Config\ScopeConfigInterface');
         $localeFormatMock = $this->getMock('\Magento\Framework\Locale\FormatInterface', [], [], '', false);
         $groupManagement = $this->getMock('Magento\Customer\Api\GroupManagementInterface', [], [], '', false);
-        $metadataPool = $this->getMock('Magento\Framework\EntityManager\MetadataPool', [], [], '', false);
+
         $this->_model = $this->getMockForAbstractClass(
             'Magento\Catalog\Model\Product\Attribute\Backend\GroupPrice\AbstractGroupPrice',
             [
@@ -40,8 +40,7 @@ class AbstractTest extends \PHPUnit_Framework_TestCase
                 'config' => $configMock,
                 'localeFormat' => $localeFormatMock,
                 'catalogProductType' => $productTypeMock,
-                'groupManagement' => $groupManagement,
-                'metadataPool' => $metadataPool
+                'groupManagement' => $groupManagement
             ]
         );
         $resource = $this->getMock('StdClass', ['getMainTable']);

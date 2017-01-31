@@ -6,15 +6,8 @@
  */
 namespace Magento\Catalog\Controller\Adminhtml\Product;
 
-class SuggestAttributes extends \Magento\Backend\App\Action
+class SuggestAttributes extends \Magento\Catalog\Controller\Adminhtml\Product
 {
-    /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Magento_Catalog::attributes_attributes';
-
     /**
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */
@@ -27,15 +20,17 @@ class SuggestAttributes extends \Magento\Backend\App\Action
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Catalog\Controller\Adminhtml\Product\Builder $productBuilder
      * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
      * @param \Magento\Framework\View\LayoutFactory $layoutFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
+        \Magento\Catalog\Controller\Adminhtml\Product\Builder $productBuilder,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
         \Magento\Framework\View\LayoutFactory $layoutFactory
     ) {
-        parent::__construct($context);
+        parent::__construct($context, $productBuilder);
         $this->resultJsonFactory = $resultJsonFactory;
         $this->layoutFactory = $layoutFactory;
     }
@@ -54,5 +49,13 @@ class SuggestAttributes extends \Magento\Backend\App\Action
                 ->getSuggestedAttributes($this->getRequest()->getParam('label_part'))
         );
         return $resultJson;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Catalog::products');
     }
 }

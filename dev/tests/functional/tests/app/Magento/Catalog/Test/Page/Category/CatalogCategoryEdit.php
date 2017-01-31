@@ -26,7 +26,7 @@ class CatalogCategoryEdit extends Page
      *
      * @var string
      */
-    protected $formBlock = '//div[contains(@data-bind, "category_form")]';
+    protected $formBlock = '#category-edit-container';
 
     /**
      * Categories tree block.

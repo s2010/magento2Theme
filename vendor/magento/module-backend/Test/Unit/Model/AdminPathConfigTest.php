@@ -30,7 +30,7 @@ class AdminPathConfigTest extends \PHPUnit_Framework_TestCase
      */
     protected $adminPathConfig;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->coreConfig = $this->getMockForAbstractClass(
             'Magento\Framework\App\Config\ScopeConfigInterface',

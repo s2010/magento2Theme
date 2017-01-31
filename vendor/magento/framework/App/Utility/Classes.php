@@ -7,7 +7,7 @@
  */
 namespace Magento\Framework\App\Utility;
 
-use Magento\Framework\Component\ComponentRegistrar;
+use Magento\Framework\App\Utility\Files;
 
 class Classes
 {
@@ -186,18 +186,21 @@ class Classes
      */
     public static function collectModuleClasses($subTypePattern = '[A-Za-z]+')
     {
-        $componentRegistrar = new ComponentRegistrar();
+        $pattern = '/^' . preg_quote(
+            Files::init()->getPathToSource(),
+            '/'
+        ) . '\/app\/code\/([A-Za-z]+)\/([A-Za-z]+)\/(' . $subTypePattern . '\/.+)\.php$/';
         $result = [];
-        foreach ($componentRegistrar->getPaths(ComponentRegistrar::MODULE) as $moduleName => $modulePath) {
-            $pattern = '/^' . preg_quote($modulePath, '/') . '\/(' . $subTypePattern . '\/.+)\.php$/';
-            foreach (Files::init()->getFiles([$modulePath], '*.php') as $file) {
-                if (preg_match($pattern, $file)) {
-                    $partialFileName = substr($file, strlen($modulePath) + 1);
-                    $partialFileName = substr($partialFileName, 0, strlen($partialFileName) - strlen('.php'));
-                    $partialClassName = str_replace('/', '\\', $partialFileName);
-                    $className = str_replace('_', '\\', $moduleName) . '\\' . $partialClassName;
-                    $result[$className] = $moduleName;
-                }
+        foreach (Files::init()->getPhpFiles(Files::INCLUDE_APP_CODE | Files::INCLUDE_NON_CLASSES) as $file) {
+            if (preg_match($pattern, $file, $matches)) {
+                $module = "{$matches[1]}_{$matches[2]}";
+                $class = "{$module}" . '\\' . str_replace(
+                    '/',
+                    '\\',
+                    $matches[3]
+                );
+                $key = str_replace('_', '\\', $class);
+                $result[$key] = $module;
             }
         }
         return $result;

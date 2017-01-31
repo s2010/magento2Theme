@@ -43,6 +43,19 @@ class Interceptor extends \Magento\Config\Model\Config\Backend\Encrypted impleme
     /**
      * {@inheritdoc}
      */
+    public function afterLoad()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterLoad');
+        if (!$pluginInfo) {
+            return parent::afterLoad();
+        } else {
+            return $this->___callPlugins('afterLoad', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function isValueChanged()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'isValueChanged');
@@ -89,19 +102,6 @@ class Interceptor extends \Magento\Config\Model\Config\Backend\Encrypted impleme
             return parent::afterSave();
         } else {
             return $this->___callPlugins('afterSave', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterDelete()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterDelete');
-        if (!$pluginInfo) {
-            return parent::afterDelete();
-        } else {
-            return $this->___callPlugins('afterDelete', func_get_args(), $pluginInfo);
         }
     }
 
@@ -316,19 +316,6 @@ class Interceptor extends \Magento\Config\Model\Config\Backend\Encrypted impleme
     /**
      * {@inheritdoc}
      */
-    public function afterLoad()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterLoad');
-        if (!$pluginInfo) {
-            return parent::afterLoad();
-        } else {
-            return $this->___callPlugins('afterLoad', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function isSaveAllowed()
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'isSaveAllowed');
@@ -453,6 +440,19 @@ class Interceptor extends \Magento\Config\Model\Config\Backend\Encrypted impleme
             return parent::beforeDelete();
         } else {
             return $this->___callPlugins('beforeDelete', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function afterDelete()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterDelete');
+        if (!$pluginInfo) {
+            return parent::afterDelete();
+        } else {
+            return $this->___callPlugins('afterDelete', func_get_args(), $pluginInfo);
         }
     }
 

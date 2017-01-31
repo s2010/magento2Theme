@@ -36,7 +36,7 @@ class GridSyncInsertObserverTest extends \PHPUnit_Framework_TestCase
      */
     protected $scopeConfigurationMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->gridAggregatorMock = $this->getMockBuilder('Magento\Sales\Model\ResourceModel\GridInterface')
             ->getMockForAbstractClass();

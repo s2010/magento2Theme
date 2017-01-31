@@ -136,31 +136,15 @@ class StructurePluginTest extends \PHPUnit_Framework_TestCase
         $getElementByPathParts = function ($pathParts) use ($self, $expectedPathParts, $result) {
             $self->assertEquals($expectedPathParts, $pathParts);
             $scope = 'any scope';
-            $sectionMap = [
-                'account' => [],
-                'recommended_solutions' => [],
-                'other_paypal_payment_solutions' => [],
-                'other_payment_methods' => []
-            ];
-            $self->_scopeDefiner->expects($self->any())
+            $self->_scopeDefiner->expects($self->once())
                 ->method('getScope')
                 ->will($self->returnValue($scope));
-            $result->expects($self->at(0))
+            $result->expects($self->once())
                 ->method('getData')
-                ->will($self->returnValue(['children' => []]));
-            $result->expects($self->at(2))
-                ->method('getData')
-                ->will($self->returnValue(['children' => $sectionMap]));
-            $result->expects($self->at(1))
+                ->will($self->returnValue([]));
+            $result->expects($self->once())
                 ->method('setData')
-                ->with(['children' => $sectionMap], $scope)
-                ->will($self->returnSelf());
-            $result->expects($self->at(3))
-                ->method('setData')
-                ->with(['children' => $sectionMap,
-                    'showInDefault' => true,
-                    'showInWebsite' => true,
-                    'showInStore' => true], $scope)
+                ->with(['showInDefault' => true, 'showInWebsite' => true, 'showInStore' => true], $scope)
                 ->will($self->returnSelf());
             return $result;
         };

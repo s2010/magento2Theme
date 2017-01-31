@@ -9,15 +9,15 @@
     <fields>
         <optionsCode>
             <selector>#optionsCode</selector>
-            <input>checkbox</input>
+            <input>checkboxwithlabel</input>
         </optionsCode>
         <optionsMedia>
             <selector>#optionsMedia</selector>
-            <input>checkbox</input>
+            <input>checkboxwithlabel</input>
         </optionsMedia>
         <optionsDb>
             <selector>#optionsDb</selector>
-            <input>checkbox</input>
+            <input>checkboxwithlabel</input>
         </optionsDb>
     </fields>
 </mapping>

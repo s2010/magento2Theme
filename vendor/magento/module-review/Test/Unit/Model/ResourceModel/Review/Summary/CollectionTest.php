@@ -73,13 +73,10 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
-        $selectRenderer = $this->getMockBuilder('Magento\Framework\DB\Select\SelectRenderer')
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->selectMock = $this->getMock(
             'Magento\Framework\DB\Select',
             ['from'],
-            ['adapter' => $this->connectionMock, 'selectRenderer' => $selectRenderer]
+            ['adapter' => $this->connectionMock]
         );
         $this->connectionMock->expects($this->once())
             ->method('select')

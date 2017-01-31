@@ -12,7 +12,7 @@ class BmlPositionTest extends \PHPUnit_Framework_TestCase
     /** @var  BmlPosition */
     protected $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->model = new BmlPosition();
     }

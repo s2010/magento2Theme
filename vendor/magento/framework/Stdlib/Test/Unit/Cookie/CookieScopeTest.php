@@ -30,7 +30,7 @@ class CookieScopeTest extends \PHPUnit_Framework_TestCase
 
     private $requestMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->requestMock = $this->getMockBuilder('Magento\Framework\App\RequestInterface')
             ->getMock();

@@ -6,10 +6,8 @@
  * See COPYING.txt for license details.
  */
 
-$objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-
 /** @var \Magento\SalesRule\Model\Rule $salesRule */
-$salesRule = $objectManager->create('Magento\SalesRule\Model\Rule');
+$salesRule = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\SalesRule\Model\Rule');
 
 $data = [
     'name' => 'Test Coupon for General',
@@ -28,6 +26,3 @@ $data = [
 ];
 
 $salesRule->loadPost($data)->setUseAutoGeneration(false)->save();
-$objectManager->get('Magento\Framework\Registry')->unregister('Magento/Checkout/_file/discount_10percent_generalusers');
-$objectManager->get('Magento\Framework\Registry')
-    ->register('Magento/Checkout/_file/discount_10percent_generalusers', $salesRule->getRuleId());

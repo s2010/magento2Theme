@@ -2,7 +2,8 @@
 namespace Magento\Sales\Api\Data;
 
 /**
- * Factory class for @see \Magento\Sales\Api\Data\InvoiceCommentSearchResultInterface
+ * Factory class for @see
+ * \Magento\Sales\Api\Data\InvoiceCommentSearchResultInterface
  */
 class InvoiceCommentSearchResultInterfaceFactory
 {

@@ -15,7 +15,7 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     /** @var  array */
     protected $_targetArray;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_model = new \Magento\Widget\Model\Config\Converter();
     }

@@ -65,11 +65,7 @@ class Paging extends AbstractComponent
     {
         $this->prepareOptions();
         $paging = $this->getContext()->getRequestParam('paging');
-        if (!isset($paging['notLimits'])) {
-            $this->getContext()
-                ->getDataProvider()
-                ->setLimit($this->getOffset($paging), $this->getSize($paging));
-        }
+        $this->getContext()->getDataProvider()->setLimit($this->getOffset($paging), $this->getSize($paging));
 
         parent::prepare();
     }

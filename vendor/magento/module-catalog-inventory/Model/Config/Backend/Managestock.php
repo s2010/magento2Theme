@@ -20,6 +20,7 @@ class Managestock extends AbstractValue
     public function afterSave()
     {
         if ($this->isValueChanged()) {
+            $this->stockIndex->rebuild();
             $this->_stockIndexerProcessor->markIndexerAsInvalid();
         }
         return parent::afterSave();

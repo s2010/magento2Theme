@@ -13,27 +13,32 @@ define(
         'jquery',
         'Magento_Checkout/js/model/quote',
         'Magento_Checkout/js/model/resource-url-manager',
+        'Magento_Checkout/js/model/payment-service',
         'Magento_Checkout/js/model/error-processor',
         'Magento_SalesRule/js/model/payment/discount-messages',
         'mage/storage',
+        'Magento_Checkout/js/action/get-totals',
         'mage/translate',
-        'Magento_Checkout/js/action/get-payment-information',
-        'Magento_Checkout/js/model/totals',
-        'Magento_Checkout/js/model/full-screen-loader'
+        'Magento_Checkout/js/model/payment/method-list'
     ],
     function (
-        ko, $, quote, urlManager, errorProcessor, messageContainer, storage, $t, getPaymentInformationAction, totals,
-        fullScreenLoader
+        ko,
+        $,
+        quote,
+        urlManager,
+        paymentService,
+        errorProcessor,
+        messageContainer,
+        storage,
+        getTotalsAction,
+        $t,
+        paymentMethodList
     ) {
         'use strict';
-
-        return function (couponCode, isApplied) {
-            var quoteId = quote.getQuoteId(),
-                url = urlManager.getApplyCouponUrl(couponCode, quoteId),
-                message = $t('Your coupon was successfully applied.');
-
-            fullScreenLoader.startLoader();
-
+        return function (couponCode, isApplied, isLoading) {
+            var quoteId = quote.getQuoteId();
+            var url = urlManager.getApplyCouponUrl(couponCode, quoteId);
+            var message = $t('Your coupon was successfully applied');
             return storage.put(
                 url,
                 {},
@@ -42,23 +47,20 @@ define(
                 function (response) {
                     if (response) {
                         var deferred = $.Deferred();
-
+                        isLoading(false);
                         isApplied(true);
-                        totals.isLoading(true);
-                        getPaymentInformationAction(deferred);
-                        $.when(deferred).done(function () {
-                            fullScreenLoader.stopLoader();
-                            totals.isLoading(false);
+                        getTotalsAction([], deferred);
+                        $.when(deferred).done(function() {
+                            paymentService.setPaymentMethods(
+                                paymentMethodList()
+                            );
                         });
-                        messageContainer.addSuccessMessage({
-                            'message': message
-                        });
+                        messageContainer.addSuccessMessage({'message': message});
                     }
                 }
             ).fail(
                 function (response) {
-                    fullScreenLoader.stopLoader();
-                    totals.isLoading(false);
+                    isLoading(false);
                     errorProcessor.process(response, messageContainer);
                 }
             );

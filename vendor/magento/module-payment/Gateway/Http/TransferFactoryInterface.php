@@ -5,11 +5,6 @@
  */
 namespace Magento\Payment\Gateway\Http;
 
-/**
- * Interface TransferFactoryInterface
- * @package Magento\Payment\Gateway\Http
- * @api
- */
 interface TransferFactoryInterface
 {
     /**

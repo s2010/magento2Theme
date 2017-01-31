@@ -50,7 +50,7 @@ class UnitBaseCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     protected $appliedTaxRate;
 
-    protected function setUp()
+    public function setUp()
     {
         /** @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager  $objectManager */
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);

@@ -186,20 +186,7 @@ class Interceptor extends \Magento\Customer\Model\ResourceModel\Visitor implemen
     /**
      * {@inheritdoc}
      */
-    public function getChecksum($table)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getChecksum');
-        if (!$pluginInfo) {
-            return parent::getChecksum($table);
-        } else {
-            return $this->___callPlugins('getChecksum', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterLoad(\Magento\Framework\DataObject $object)
+    public function afterLoad(\Magento\Framework\Model\AbstractModel $object)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterLoad');
         if (!$pluginInfo) {
@@ -212,65 +199,13 @@ class Interceptor extends \Magento\Customer\Model\ResourceModel\Visitor implemen
     /**
      * {@inheritdoc}
      */
-    public function beforeSave(\Magento\Framework\DataObject $object)
+    public function getChecksum($table)
     {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'beforeSave');
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getChecksum');
         if (!$pluginInfo) {
-            return parent::beforeSave($object);
+            return parent::getChecksum($table);
         } else {
-            return $this->___callPlugins('beforeSave', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterSave(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterSave');
-        if (!$pluginInfo) {
-            return parent::afterSave($object);
-        } else {
-            return $this->___callPlugins('afterSave', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeDelete(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'beforeDelete');
-        if (!$pluginInfo) {
-            return parent::beforeDelete($object);
-        } else {
-            return $this->___callPlugins('beforeDelete', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterDelete(\Magento\Framework\DataObject $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterDelete');
-        if (!$pluginInfo) {
-            return parent::afterDelete($object);
-        } else {
-            return $this->___callPlugins('afterDelete', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function serializeFields(\Magento\Framework\Model\AbstractModel $object)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'serializeFields');
-        if (!$pluginInfo) {
-            return parent::serializeFields($object);
-        } else {
-            return $this->___callPlugins('serializeFields', func_get_args(), $pluginInfo);
+            return $this->___callPlugins('getChecksum', func_get_args(), $pluginInfo);
         }
     }
 

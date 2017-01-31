@@ -162,11 +162,6 @@ class TierPrice extends AbstractPrice implements TierPriceInterface, BasePricePr
         $qtyCache = [];
         $allCustomersGroupId = $this->groupManagement->getAllCustomersGroup()->getId();
         foreach ($priceList as $priceKey => &$price) {
-            if ($price['price'] >= $this->priceInfo->getPrice(FinalPrice::PRICE_CODE)->getValue()) {
-                unset($priceList[$priceKey]);
-                continue;
-            }
-
             if (isset($price['price_qty']) && $price['price_qty'] == 1) {
                 unset($priceList[$priceKey]);
                 continue;
@@ -209,7 +204,7 @@ class TierPrice extends AbstractPrice implements TierPriceInterface, BasePricePr
     public function getSavePercent(AmountInterface $amount)
     {
         return ceil(
-            100 - ((100 / $this->priceInfo->getPrice(FinalPrice::PRICE_CODE)->getValue())
+            100 - ((100 / $this->priceInfo->getPrice(RegularPrice::PRICE_CODE)->getAmount()->getBaseAmount())
                 * $amount->getBaseAmount())
         );
     }

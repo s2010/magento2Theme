@@ -25,7 +25,7 @@ class ImportTest extends \PHPUnit_Framework_TestCase
      */
     protected $advancedPricing;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->indexer = $this->getMockForAbstractClass('\Magento\Framework\Indexer\IndexerInterface', [], '', false);
         $this->import = $this->getMock(

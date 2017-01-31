@@ -45,7 +45,7 @@ class CartUpdateBeforeTest extends \PHPUnit_Framework_TestCase
      */
     protected $messageManager;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->helper = $this->getMockBuilder('Magento\Wishlist\Helper\Data')
             ->disableOriginalConstructor()

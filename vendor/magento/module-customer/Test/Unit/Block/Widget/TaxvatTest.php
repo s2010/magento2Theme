@@ -29,7 +29,7 @@ class TaxvatTest extends \PHPUnit_Framework_TestCase
     /** @var Taxvat */
     private $_block;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->attribute = $this->getMockBuilder('\Magento\Customer\Api\Data\AttributeMetadataInterface')
             ->getMockForAbstractClass();
@@ -82,7 +82,7 @@ class TaxvatTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->throwException(new NoSuchEntityException(
                 __(
-                    'No such entity with %fieldName = %fieldValue',
+                    NoSuchEntityException::MESSAGE_SINGLE_FIELD,
                     ['fieldName' => 'field', 'fieldValue' => 'value']
                 )
             ))
@@ -120,7 +120,7 @@ class TaxvatTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->throwException(new NoSuchEntityException(
                 __(
-                    'No such entity with %fieldName = %fieldValue',
+                    NoSuchEntityException::MESSAGE_SINGLE_FIELD,
                     ['fieldName' => 'field', 'fieldValue' => 'value']
                 )
             ))

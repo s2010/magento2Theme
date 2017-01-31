@@ -949,7 +949,5 @@ return [
         'DEFAULT_GLOBAL_MULTI_VALUE_SEPARATOR',
         'Magento\CatalogImportExport\Model\Import\Product',
         'Magento\ImportExport\Model\Import::DEFAULT_GLOBAL_MULTI_VALUE_SEPARATOR'
-    ],
-    ['TAB_GENERAL_CODE', 'Magento\Eav\Model\ResourceModel\Entity\Attribute\Group'],
-    ['TAB_IMAGE_MANAGEMENT_CODE', 'Magento\Eav\Model\ResourceModel\Entity\Attribute\Group'],
+    ]
 ];

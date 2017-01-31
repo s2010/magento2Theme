@@ -91,7 +91,6 @@ class UpdateAdminUserRoleEntityTest extends Injectable
         Role $role,
         User $user
     ) {
-
         // Preconditions
         $roleInit->persist();
         if (!$user->hasData('user_id')) {

@@ -15,10 +15,6 @@ use Magento\UrlRewrite\Model\UrlPersistInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
 /**
- * Plugin which is listening store resource model and on save or on delete replace catalog url rewrites
- *
- * @see \Magento\Store\Model\ResourceModel\Store
- * @package Magento\CatalogUrlRewrite\Model\Category\Plugin\Store
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class View
@@ -37,11 +33,6 @@ class View
 
     /** @var ProductUrlRewriteGenerator */
     protected $productUrlRewriteGenerator;
-
-    /**
-     * @var AbstractModel
-     */
-    private $origStore;
 
     /**
      * @param UrlPersistInterface $urlPersist
@@ -66,47 +57,33 @@ class View
 
     /**
      * @param \Magento\Store\Model\ResourceModel\Store $object
+     * @param callable $proceed
      * @param AbstractModel $store
-     * @return void
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function beforeSave(
-        \Magento\Store\Model\ResourceModel\Store $object,
-        AbstractModel $store
-    ) {
-        $this->origStore = $store;
-    }
-
-    /**
-     * Regenerate urls on store after save
-     *
-     * @param \Magento\Store\Model\ResourceModel\Store $object
-     * @param \Magento\Store\Model\ResourceModel\Store $store
      * @return \Magento\Store\Model\ResourceModel\Store
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function afterSave(
+    public function aroundSave(
         \Magento\Store\Model\ResourceModel\Store $object,
-        \Magento\Store\Model\ResourceModel\Store $store
+        \Closure $proceed,
+        AbstractModel $store
     ) {
-        if ($this->origStore->isObjectNew() || $this->origStore->dataHasChangedFor('group_id')) {
-            if (!$this->origStore->isObjectNew()) {
-                $this->urlPersist->deleteByData([UrlRewrite::STORE_ID => $this->origStore->getId()]);
+        $originStore = $store;
+        $result = $proceed($originStore);
+        if ($store->isObjectNew() || $store->dataHasChangedFor('group_id')) {
+            if (!$store->isObjectNew()) {
+                $this->urlPersist->deleteByData([UrlRewrite::STORE_ID => $store->getId()]);
             }
 
             $this->urlPersist->replace(
-                $this->generateCategoryUrls($this->origStore->getRootCategoryId(), $this->origStore->getId())
+                $this->generateCategoryUrls($store->getRootCategoryId(), $store->getId())
             );
 
             $this->urlPersist->replace(
-                $this->generateProductUrls(
-                    $this->origStore->getWebsiteId(),
-                    $this->origStore->getOrigData('website_id'),
-                    $this->origStore->getId()
-                )
+                $this->generateProductUrls($store->getWebsiteId(), $store->getOrigData('website_id'), $store->getId())
             );
         }
-        return $store;
+
+        return $result;
     }
 
     /**

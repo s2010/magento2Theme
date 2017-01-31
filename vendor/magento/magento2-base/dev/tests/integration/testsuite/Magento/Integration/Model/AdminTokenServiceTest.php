@@ -102,7 +102,7 @@ class AdminTokenServiceTest extends \PHPUnit_Framework_TestCase
      */
     private function assertInputExceptionMessages($e)
     {
-        $this->assertEquals('One or more input exceptions have occurred.', $e->getMessage());
+        $this->assertEquals(InputException::DEFAULT_MESSAGE, $e->getMessage());
         $errors = $e->getErrors();
         $this->assertCount(2, $errors);
         $this->assertEquals('username is a required field.', $errors[0]->getLogMessage());

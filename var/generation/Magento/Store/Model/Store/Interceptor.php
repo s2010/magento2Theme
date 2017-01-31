@@ -420,19 +420,6 @@ class Interceptor extends \Magento\Store\Model\Store implements \Magento\Framewo
     /**
      * {@inheritdoc}
      */
-    public function afterSave()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterSave');
-        if (!$pluginInfo) {
-            return parent::afterSave();
-        } else {
-            return $this->___callPlugins('afterSave', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setWebsiteId($websiteId)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setWebsiteId');
@@ -505,19 +492,6 @@ class Interceptor extends \Magento\Store\Model\Store implements \Magento\Framewo
             return parent::isCanDelete();
         } else {
             return $this->___callPlugins('isCanDelete', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isDefault()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'isDefault');
-        if (!$pluginInfo) {
-            return parent::isDefault();
-        } else {
-            return $this->___callPlugins('isDefault', func_get_args(), $pluginInfo);
         }
     }
 
@@ -648,32 +622,6 @@ class Interceptor extends \Magento\Store\Model\Store implements \Magento\Framewo
             return parent::getStorePath();
         } else {
             return $this->___callPlugins('getStorePath', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getScopeType()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getScopeType');
-        if (!$pluginInfo) {
-            return parent::getScopeType();
-        } else {
-            return $this->___callPlugins('getScopeType', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getScopeTypeName()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getScopeTypeName');
-        if (!$pluginInfo) {
-            return parent::getScopeTypeName();
-        } else {
-            return $this->___callPlugins('getScopeTypeName', func_get_args(), $pluginInfo);
         }
     }
 
@@ -1077,6 +1025,19 @@ class Interceptor extends \Magento\Store\Model\Store implements \Magento\Framewo
             return parent::cleanModelCache();
         } else {
             return $this->___callPlugins('cleanModelCache', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function afterSave()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'afterSave');
+        if (!$pluginInfo) {
+            return parent::afterSave();
+        } else {
+            return $this->___callPlugins('afterSave', func_get_args(), $pluginInfo);
         }
     }
 

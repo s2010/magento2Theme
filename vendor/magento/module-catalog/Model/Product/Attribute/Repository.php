@@ -50,11 +50,6 @@ class Repository implements \Magento\Catalog\Api\ProductAttributeRepositoryInter
     protected $searchCriteriaBuilder;
 
     /**
-     * @var \Magento\Catalog\Api\ProductAttributeOptionManagementInterface
-     */
-    private $optionManagement;
-
-    /**
      * @param \Magento\Catalog\Model\ResourceModel\Attribute $attributeResource
      * @param \Magento\Catalog\Helper\Product $productHelper
      * @param \Magento\Framework\Filter\FilterManager $filterManager
@@ -128,6 +123,10 @@ class Repository implements \Magento\Catalog\Api\ProductAttributeRepositoryInter
                 }
                 $attribute->setDefaultFrontendLabel($frontendLabel);
             }
+            if (!$attribute->getIsUserDefined()) {
+                // Unset attribute field for system attributes
+                $attribute->setApplyTo(null);
+            }
         } else {
             $attribute->setAttributeId(null);
 
@@ -172,10 +171,7 @@ class Repository implements \Magento\Catalog\Api\ProductAttributeRepositoryInter
             $attribute->setIsUserDefined(1);
         }
         $this->attributeResource->save($attribute);
-        foreach ($attribute->getOptions() as $option) {
-            $this->getOptionManagement()->add($attribute->getAttributeCode(), $option);
-        }
-        return $this->get($attribute->getAttributeCode());
+        return $attribute;
     }
 
     /**
@@ -252,17 +248,5 @@ class Repository implements \Magento\Catalog\Api\ProductAttributeRepositoryInter
         if (!$validator->isValid($frontendInput)) {
             throw InputException::invalidFieldValue('frontend_input', $frontendInput);
         }
-    }
-
-    /**
-     * @return \Magento\Catalog\Api\ProductAttributeOptionManagementInterface
-     */
-    private function getOptionManagement()
-    {
-        if (null === $this->optionManagement) {
-            $this->optionManagement = \Magento\Framework\App\ObjectManager::getInstance()
-                ->get('Magento\Catalog\Api\ProductAttributeOptionManagementInterface');
-        }
-        return $this->optionManagement;
     }
 }

@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1485776370;s:6:"expire";i:9999999999;s:4:"tags";s:37:"a49_LAYOUT_GENERAL_CACHE_TAG,a49_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1485849255;s:6:"expire";i:9999999999;s:4:"tags";s:37:"a49_LAYOUT_GENERAL_CACHE_TAG,a49_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><layout id="admin-1column"><container name="root">
    <container name="backend.page">
@@ -98,18 +98,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1485776370;s:6:"expire";i:9999999999;s:4:"t
       <container name="before.body.end" as="before_body_end" after="-" label="Page Bottom"/>
    </container>
 </container>
-</layout><layout id="admin-popup"><container name="backend.session.activity">
-   <container name="after.body.start" as="after.body.start" label="Page Top" before="-"/>
-   <container name="page.wrapper" as="page_wrapper" htmlTag="div" htmlClass="page-wrapper">
-      <container name="page.main.container" as="page_main_container" htmlId="page:main-container" htmlTag="div" htmlClass="page-columns">
-         <container name="main.col" as="main-col" htmlId="container" htmlTag="div" htmlClass="main-col">
-            <container name="content" as="content"/>
-         </container>
-      </container>
-      <container name="js" as="js" label="JavaScript"/>
-   </container>
-   <container name="before.body.end" as="before_body_end" label="Before Body End" after="-"/>
-</container>
 </layout><layout id="admin-1column"><container name="root">
    <container name="backend.page">
       <container name="after.body.start" as="after.body.start" label="Page Top" before="-"/>
@@ -207,17 +195,5 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1485776370;s:6:"expire";i:9999999999;s:4:"t
       <container name="page.bottom.container" as="page_bottom_container" label="Before Page Footer Container" after="main.content" htmlTag="div" htmlClass="page-bottom"/>
       <container name="before.body.end" as="before_body_end" after="-" label="Page Bottom"/>
    </container>
-</container>
-</layout><layout id="admin-popup"><container name="backend.session.activity">
-   <container name="after.body.start" as="after.body.start" label="Page Top" before="-"/>
-   <container name="page.wrapper" as="page_wrapper" htmlTag="div" htmlClass="page-wrapper">
-      <container name="page.main.container" as="page_main_container" htmlId="page:main-container" htmlTag="div" htmlClass="page-columns">
-         <container name="main.col" as="main-col" htmlId="container" htmlTag="div" htmlClass="main-col">
-            <container name="content" as="content"/>
-         </container>
-      </container>
-      <container name="js" as="js" label="JavaScript"/>
-   </container>
-   <container name="before.body.end" as="before_body_end" label="Before Body End" after="-"/>
 </container>
 </layout></layouts>

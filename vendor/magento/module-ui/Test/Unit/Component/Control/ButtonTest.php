@@ -35,7 +35,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
      */
     protected $escaperMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->contextMock = $this->getMock(
             '\Magento\Framework\View\Element\Template\Context',

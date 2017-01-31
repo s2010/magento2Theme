@@ -269,7 +269,7 @@
 }
 
 /* Bugfix for Add To Cart button */
-.swatch-opt-listing {
+div[class^="swatch-opt-"] {
     margin-bottom: 10px;
 }
 

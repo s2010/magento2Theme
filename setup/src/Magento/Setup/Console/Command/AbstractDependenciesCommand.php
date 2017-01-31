@@ -104,8 +104,6 @@ abstract class AbstractDependenciesCommand extends Command
                 '<error>Please check the path you provided. Dependencies report generator failed with error: ' .
                 $e->getMessage() . '</error>'
             );
-            // we must have an exit code higher than zero to indicate something was wrong
-            return \Magento\Framework\Console\Cli::RETURN_FAILURE;
         }
     }
 }

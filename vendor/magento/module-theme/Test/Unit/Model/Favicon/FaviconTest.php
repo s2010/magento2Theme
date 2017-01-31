@@ -41,7 +41,7 @@ class FaviconTest extends \PHPUnit_Framework_TestCase
     /**
      * Initialize testable object
      */
-    protected function setUp()
+    public function setUp()
     {
         $storeManager = $this->getMockBuilder('Magento\Store\Model\StoreManagerInterface')->getMock();
         $this->store = $this->getMockBuilder('Magento\Store\Model\Store')->disableOriginalConstructor()->getMock();

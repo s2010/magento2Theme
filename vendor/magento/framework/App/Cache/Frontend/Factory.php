@@ -20,7 +20,6 @@ class Factory
      * Default cache entry lifetime
      */
     const DEFAULT_LIFETIME = 7200;
-
     /**
      * Caching params, that applied for all cache frontends regardless of type
      */

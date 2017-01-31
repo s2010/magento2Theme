@@ -88,8 +88,9 @@ class CodeSniffer implements ToolInterface, ExtensionInterface
         $settings['files'] = $whiteList;
         $settings['standard'] = [$this->rulesetDir];
         $settings['extensions'] = $this->extensions;
+        $settings['reportFile'] = $this->reportFile;
         $settings['warningSeverity'] = 0;
-        $settings['reports']['full'] = $this->reportFile;
+        $settings['reports']['checkstyle'] = null;
 
         $this->wrapper->setValues($settings);
 

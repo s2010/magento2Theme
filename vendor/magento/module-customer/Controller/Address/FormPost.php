@@ -148,10 +148,12 @@ class FormPost extends \Magento\Customer\Controller\Address
      */
     protected function updateRegionData(&$attributeValues)
     {
-        if (!empty($attributeValues['region_id'])) {
+        if ($this->helperData->isRegionRequired($attributeValues['country_id'])) {
             $newRegion = $this->regionFactory->create()->load($attributeValues['region_id']);
             $attributeValues['region_code'] = $newRegion->getCode();
             $attributeValues['region'] = $newRegion->getDefaultName();
+        } else {
+            $attributeValues['region_id'] = null;
         }
 
         $regionData = [
@@ -225,7 +227,7 @@ class FormPost extends \Magento\Customer\Controller\Address
     private function getCustomerAddressMapper()
     {
         if ($this->customerAddressMapper === null) {
-            $this->customerAddressMapper = ObjectManager::getInstance()->get('Magento\Customer\Model\Address\Mapper');
+            $this->customerAddressMapper = ObjectManager::getInstance()->get(Mapper::class);
         }
         return $this->customerAddressMapper;
     }

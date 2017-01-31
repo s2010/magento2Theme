@@ -53,7 +53,7 @@ class Proxy extends \Magento\Weee\Model\Tax implements \Magento\Framework\Object
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**

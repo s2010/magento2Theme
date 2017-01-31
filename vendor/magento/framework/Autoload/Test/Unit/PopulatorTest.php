@@ -14,7 +14,7 @@ class PopulatorTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Framework\App\Filesystem\DirectoryList | \PHPUnit_Framework_MockObject_MockObject */
     protected $mockDirectoryList;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->mockDirectoryList = $this->getMockBuilder('\Magento\Framework\App\Filesystem\DirectoryList')
             ->disableOriginalConstructor()

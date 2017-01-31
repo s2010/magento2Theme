@@ -36,7 +36,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
      */
     protected $observers;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->events = [
             'eventName1' => 'someEvent1',

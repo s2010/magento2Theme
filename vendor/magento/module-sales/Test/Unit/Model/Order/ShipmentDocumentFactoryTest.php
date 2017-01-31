@@ -5,7 +5,6 @@
  */
 namespace Magento\Sales\Test\Unit\Model\Order;
 
-use Magento\Framework\EntityManager\HydratorPool;
 use Magento\Sales\Api\Data\ShipmentCommentCreationInterface;
 use Magento\Sales\Api\Data\ShipmentItemCreationInterface;
 use Magento\Sales\Api\Data\ShipmentTrackCreationInterface;
@@ -15,7 +14,6 @@ use Magento\Sales\Model\Order;
 use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Model\Order\Shipment\TrackFactory;
 use Magento\Sales\Model\Order\Shipment\Track;
-use Magento\Framework\EntityManager\HydratorInterface;
 
 /**
  * Class ShipmentDocumentFactoryTest
@@ -53,19 +51,9 @@ class ShipmentDocumentFactoryTest extends \PHPUnit_Framework_TestCase
     private $shipmentDocumentFactory;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|HydratorPool
-     */
-    private $hydratorPoolMock;
-
-    /**
      * @var \PHPUnit_Framework_MockObject_MockObject|TrackFactory
      */
     private $trackFactoryMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|HydratorInterface
-     */
-    private $hydratorMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|Track
@@ -95,10 +83,6 @@ class ShipmentDocumentFactoryTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['addComment', 'addTrack'])
             ->getMockForAbstractClass();
 
-        $this->hydratorPoolMock = $this->getMockBuilder(HydratorPool::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->trackFactoryMock = $this->getMockBuilder(TrackFactory::class)
             ->setMethods(['create'])
             ->disableOriginalConstructor()
@@ -108,13 +92,8 @@ class ShipmentDocumentFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->hydratorMock = $this->getMockBuilder(HydratorInterface::class)
-            ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
-
         $this->shipmentDocumentFactory = new ShipmentDocumentFactory(
             $this->shipmentFactoryMock,
-            $this->hydratorPoolMock,
             $this->trackFactoryMock
         );
     }
@@ -122,7 +101,17 @@ class ShipmentDocumentFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $trackNum = "123456789";
-        $trackData = [$trackNum];
+        $carrierCode = "SlowPost";
+        $title = "sample title";
+        $trackData = [
+            \Magento\Sales\Api\Data\ShipmentTrackInterface::CARRIER_CODE => $carrierCode,
+            \Magento\Sales\Api\Data\ShipmentTrackInterface::TITLE => $title,
+            \Magento\Sales\Api\Data\ShipmentTrackInterface::TRACK_NUMBER => $trackNum
+
+        ];
+        $this->trackMock->expects($this->once())->method('getTrackNumber')->willReturn($trackNum);
+        $this->trackMock->expects($this->once())->method('getCarrierCode')->willReturn($carrierCode);
+        $this->trackMock->expects($this->once())->method('getTitle')->willReturn($title);
         $tracks = [$this->trackMock];
         $appendComment = true;
         $packages = [];
@@ -147,16 +136,6 @@ class ShipmentDocumentFactoryTest extends \PHPUnit_Framework_TestCase
         $this->shipmentMock->expects($this->once())
             ->method('addTrack')
             ->willReturnSelf();
-
-        $this->hydratorPoolMock->expects($this->once())
-            ->method('getHydrator')
-            ->with(ShipmentTrackCreationInterface::class)
-            ->willReturn($this->hydratorMock);
-
-        $this->hydratorMock->expects($this->once())
-            ->method('extract')
-            ->with($this->trackMock)
-            ->willReturn($trackData);
 
         $this->trackFactoryMock->expects($this->once())
             ->method('create')

@@ -50,38 +50,21 @@ class Create extends \Magento\Framework\App\Action\Action
      * @throws AlreadyExistsException
      * @throws NoSuchEntityException
      * @throws \Exception
-     * @return \Magento\Framework\Controller\Result\Json
+     * @return void
      */
     public function execute()
     {
-        /** @var \Magento\Framework\Controller\Result\Json $resultJson */
-        $resultJson = $this->_objectManager->get(\Magento\Framework\Controller\Result\JsonFactory::class)->create();
-
         if ($this->customerSession->isLoggedIn()) {
-            return $resultJson->setData(
-                [
-                    'errors' => true,
-                    'message' => __('Customer is already registered')
-                ]
-            );
+            $this->messageManager->addError(__("Customer is already registered"));
+            return;
         }
         $orderId = $this->checkoutSession->getLastOrderId();
         if (!$orderId) {
-            return $resultJson->setData(
-                [
-                    'errors' => true,
-                    'message' => __('Your session has expired')
-                ]
-            );
+            $this->messageManager->addError(__("Your session has expired"));
+            return;
         }
         try {
             $this->orderCustomerService->create($orderId);
-            return $resultJson->setData(
-                [
-                    'errors' => false,
-                    'message' => __('A letter with further instructions will be sent to your email.')
-                ]
-            );
         } catch (\Exception $e) {
             $this->messageManager->addException($e, $e->getMessage());
             throw $e;

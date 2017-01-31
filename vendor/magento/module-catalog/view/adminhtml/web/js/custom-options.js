@@ -339,7 +339,7 @@ define([
                     checkbox: 'input[id$=_price_use_default]',
                     label: 'span'
                 });
-                //not work set default value for second field
+                //@TODO not work set default value for second field
                 priceType.useDefault({
                     field: '.field',
                     useDefault: 'label[for$=_price]',

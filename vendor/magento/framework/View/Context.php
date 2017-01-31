@@ -26,7 +26,6 @@ use Magento\Framework\View\ConfigInterface as ViewConfig;
  *
  * @SuppressWarnings(PHPMD.TooManyFields)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @api
  */
 class Context
 {

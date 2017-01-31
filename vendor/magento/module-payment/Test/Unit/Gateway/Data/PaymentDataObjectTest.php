@@ -29,10 +29,10 @@ class PaymentDataObjectTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->orderMock = $this->getMockBuilder(\Magento\Payment\Gateway\Data\OrderAdapterInterface::class)
+        $this->orderMock = $this->getMockBuilder('Magento\Payment\Gateway\Data\OrderAdapterInterface')
             ->getMockForAbstractClass();
 
-        $this->paymentMock = $this->getMockBuilder(\Magento\Payment\Model\InfoInterface::class)
+        $this->paymentMock = $this->getMockBuilder('Magento\Payment\Model\InfoInterface')
             ->getMockForAbstractClass();
 
         $this->model = new PaymentDataObject($this->orderMock, $this->paymentMock);

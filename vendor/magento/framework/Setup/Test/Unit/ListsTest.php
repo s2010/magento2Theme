@@ -50,7 +50,7 @@ class ListsTest extends \PHPUnit_Framework_TestCase
         'de_DE',
     ];
 
-    protected function setUp()
+    public function setUp()
     {
         $this->mockConfig = $this->getMockBuilder('\Magento\Framework\Locale\ConfigInterface')
             ->disableOriginalConstructor()

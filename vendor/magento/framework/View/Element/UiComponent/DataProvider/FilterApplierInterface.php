@@ -6,8 +6,7 @@
 
 namespace Magento\Framework\View\Element\UiComponent\DataProvider;
 
-use Magento\Framework\Api\Filter;
-use Magento\Framework\Data\Collection;
+use Magento\Framework\Data\Collection\AbstractDb;
 
 /**
  * Interface FilterApplierInterface
@@ -17,9 +16,9 @@ interface FilterApplierInterface
     /**
      * Apply filter
      *
-     * @param Collection $collection
-     * @param Filter $filter
+     * @param AbstractDb $collection
+     * @param array $filters
      * @return void
      */
-    public function apply(Collection $collection, Filter $filter);
+    public function apply(AbstractDb $collection, \Magento\Framework\Api\Filter $filters);
 }

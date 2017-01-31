@@ -91,17 +91,4 @@ class Interceptor extends \Magento\Catalog\Model\ProductRepository implements \M
             return $this->___callPlugins('getList', func_get_args(), $pluginInfo);
         }
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function cleanCache()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'cleanCache');
-        if (!$pluginInfo) {
-            return parent::cleanCache();
-        } else {
-            return $this->___callPlugins('cleanCache', func_get_args(), $pluginInfo);
-        }
-    }
 }

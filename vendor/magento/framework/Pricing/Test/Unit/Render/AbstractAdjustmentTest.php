@@ -27,7 +27,7 @@ class AbstractAdjustmentTest extends \PHPUnit_Framework_TestCase
      */
     protected $data;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->priceCurrency = $this->getMock('Magento\Framework\Pricing\PriceCurrencyInterface');
         $this->data = ['argument_one' => 1];

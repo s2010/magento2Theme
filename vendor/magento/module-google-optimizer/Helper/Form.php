@@ -16,11 +16,10 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      * Prepare form
      *
      * @param DataForm $form
-     * @param ModelCode|null $experimentCodeModel
-     * @param string $formName
+     * @param Code|null $experimentCodeModel
      * @return void
      */
-    public function addGoogleoptimizerFields(DataForm $form, ModelCode $experimentCodeModel = null, $formName = '')
+    public function addGoogleoptimizerFields(DataForm $form, ModelCode $experimentCodeModel = null)
     {
         $fieldset = $form->addFieldset(
             'googleoptimizer_fields',
@@ -36,8 +35,7 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
                 'value' => $experimentCodeModel ? $experimentCodeModel->getExperimentScript() : '',
                 'class' => 'textarea googleoptimizer',
                 'required' => false,
-                'note' => __('Experiment code should be added to the original page only.'),
-                'data-form-part' => $formName
+                'note' => __('Experiment code should be added to the original page only.')
             ]
         );
 
@@ -47,8 +45,7 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
             [
                 'name' => 'code_id',
                 'value' => $experimentCodeModel ? $experimentCodeModel->getCodeId() : '',
-                'required' => false,
-                'data-form-part' => $formName
+                'required' => false
             ]
         );
 

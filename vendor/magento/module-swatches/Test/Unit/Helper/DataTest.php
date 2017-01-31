@@ -43,7 +43,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|\Magento\Catalog\Api\ProductRepositoryInterface */
     protected $productRepoMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 
@@ -105,6 +105,26 @@ class DataTest extends \PHPUnit_Framework_TestCase
                 'imageHelper' => $this->imageHelperMock,
             ]
         );
+    }
+
+    /**
+     * @deprecated
+     *
+     * @dataProvider dataForAdditionalData
+     */
+    public function testPopulateAdditionalDataEavAttribute($data, $count)
+    {
+        $this->attributeMock
+            ->expects($this->exactly($count['getData']))
+            ->method('getData')
+            ->with('additional_data')
+            ->will($this->returnValue($data));
+
+        $this->attributeMock
+            ->expects($this->exactly($count['setData']))
+            ->method('setData');
+
+        $this->swatchHelperObject->populateAdditionalDataEavAttribute($this->attributeMock);
     }
 
     public function dataForAdditionalData()
@@ -188,12 +208,12 @@ class DataTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataForVariationWithSwatchImage
      */
-    public function testLoadFirstVariationWithSwatchImage($imageTypes, $expected, $requiredAttributes)
+    public function testLoadFirstVariationSwatchImage($imageTypes, $expected, $requiredAttributes)
     {
         $this->getSwatchAttributes($this->productMock);
         $this->getUsedProducts($imageTypes + $requiredAttributes);
 
-        $result = $this->swatchHelperObject->loadFirstVariationWithSwatchImage($this->productMock, $requiredAttributes);
+        $result = $this->swatchHelperObject->loadFirstVariationSwatchImage($this->productMock, $requiredAttributes);
 
         if ($expected === false) {
             $this->assertFalse($result);
@@ -247,12 +267,12 @@ class DataTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataForVariationWithImage
      */
-    public function testLoadFirstVariationWithImage($imageTypes, $expected, $requiredAttributes)
+    public function testLoadFirstVariationImage($imageTypes, $expected, $requiredAttributes)
     {
         $this->getSwatchAttributes($this->productMock);
         $this->getUsedProducts($imageTypes + $requiredAttributes);
 
-        $result = $this->swatchHelperObject->loadFirstVariationWithImage($this->productMock, $requiredAttributes);
+        $result = $this->swatchHelperObject->loadFirstVariationImage($this->productMock, $requiredAttributes);
 
         if ($expected === false) {
             $this->assertFalse($result);
@@ -294,7 +314,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadVariationByFallbackWithoutProduct()
     {
-        $result = $this->swatchHelperObject->loadFirstVariationWithImage($this->productMock, ['color' => 31]);
+        $result = $this->swatchHelperObject->loadFirstVariationImage($this->productMock, ['color' => 31]);
         $this->assertFalse($result);
     }
 

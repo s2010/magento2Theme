@@ -39,7 +39,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
      */
     protected $_object;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->scopeConfigMock = $this->getMock('Magento\Framework\App\Config\ScopeConfigInterface');

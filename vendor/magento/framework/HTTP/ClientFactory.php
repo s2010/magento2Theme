@@ -45,7 +45,7 @@ class ClientFactory
      * Create class instance with specified parameters
      *
      * @param array $data
-     * @return ClientInterface
+     * @return \Magento\Framework\Flag
      */
     public function create(array $data = [])
     {

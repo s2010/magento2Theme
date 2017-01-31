@@ -192,9 +192,17 @@ class Uploader
     public function save($destinationFolder, $newFileName = null)
     {
         $this->_validateFile();
-        $this->validateDestination($destinationFolder);
+
+        if ($this->_allowCreateFolders) {
+            $this->_createDestinationFolder($destinationFolder);
+        }
+
+        if (!is_writable($destinationFolder)) {
+            throw new \Exception('Destination folder is not writable or does not exists.');
+        }
 
         $this->_result = false;
+
         $destinationFile = $destinationFolder;
         $fileName = isset($newFileName) ? $newFileName : $this->_file['name'];
         $fileName = self::getCorrectFileName($fileName);
@@ -212,16 +220,7 @@ class Uploader
 
         $destinationFile = self::_addDirSeparator($destinationFile) . $fileName;
 
-        try {
-            $this->_result = $this->_moveFile($this->_file['tmp_name'], $destinationFile);
-        } catch (\Exception $e) {
-            // if the file exists and we had an exception continue anyway
-            if (file_exists($destinationFile)) {
-                $this->_result = true;
-            } else {
-                throw $e;
-            }
-        }
+        $this->_result = $this->_moveFile($this->_file['tmp_name'], $destinationFile);
 
         if ($this->_result) {
             if ($this->_enableFilesDispersion) {
@@ -237,24 +236,6 @@ class Uploader
         }
 
         return $this->_result;
-    }
-
-    /**
-     * Validates destination directory to be writable
-     *
-     * @param string $destinationFolder
-     * @return void
-     * @throws \Exception
-     */
-    private function validateDestination($destinationFolder)
-    {
-        if ($this->_allowCreateFolders) {
-            $this->_createDestinationFolder($destinationFolder);
-        }
-
-        if (!is_writable($destinationFolder)) {
-            throw new \Exception('Destination folder is not writable or does not exists.');
-        }
     }
 
     /**

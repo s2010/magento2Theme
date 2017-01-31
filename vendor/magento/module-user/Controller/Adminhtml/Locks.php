@@ -12,9 +12,12 @@ namespace Magento\User\Controller\Adminhtml;
 abstract class Locks extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
+     * Check whether access is allowed for current admin session
      *
-     * @see _isAllowed()
+     * @return bool
      */
-    const ADMIN_RESOURCE = 'Magento_User::locks';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_User::locks');
+    }
 }

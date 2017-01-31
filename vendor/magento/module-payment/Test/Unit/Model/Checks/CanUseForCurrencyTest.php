@@ -20,7 +20,7 @@ class CanUseForCurrencyTest extends \PHPUnit_Framework_TestCase
      */
     protected $_model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_model = new CanUseForCurrency();
     }
@@ -32,17 +32,17 @@ class CanUseForCurrencyTest extends \PHPUnit_Framework_TestCase
     public function testIsApplicable($expectation)
     {
         $paymentMethod = $this->getMockBuilder(
-            \Magento\Payment\Model\MethodInterface::class
+            '\Magento\Payment\Model\MethodInterface'
         )->disableOriginalConstructor()->setMethods([])->getMock();
         $paymentMethod->expects($this->once())->method('canUseForCurrency')->with(
             self::EXPECTED_CURRENCY_CODE
         )->will($this->returnValue($expectation));
 
-        $quoteMock = $this->getMockBuilder(\Magento\Quote\Model\Quote::class)->disableOriginalConstructor()->setMethods(
+        $quoteMock = $this->getMockBuilder('Magento\Quote\Model\Quote')->disableOriginalConstructor()->setMethods(
             []
         )->getMock();
         $store = $this->getMockBuilder(
-            \Magento\Store\Model\Store::class
+            'Magento\Store\Model\Store'
         )->disableOriginalConstructor()->setMethods([])->getMock();
         $store->expects($this->once())->method('getBaseCurrencyCode')->will(
             $this->returnValue(self::EXPECTED_CURRENCY_CODE)

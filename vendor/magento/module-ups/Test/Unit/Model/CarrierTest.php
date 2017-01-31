@@ -10,6 +10,9 @@ use Magento\Ups\Model\Carrier;
 use Magento\Directory\Model\Country;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class CarrierTest extends \PHPUnit_Framework_TestCase
 {
     const FREE_METHOD_NAME = 'free_method';
@@ -75,7 +78,7 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
         $this->helper = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 
         $this->scope = $this->getMockBuilder(
-            '\Magento\Framework\App\Config\ScopeConfigInterface'
+            \Magento\Framework\App\Config\ScopeConfigInterface::class
         )->disableOriginalConstructor()->getMock();
 
         $this->scope->expects(
@@ -86,35 +89,35 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
             $this->returnCallback([$this, 'scopeConfiggetValue'])
         );
 
-        $this->error = $this->getMockBuilder('\Magento\Quote\Model\Quote\Address\RateResult\Error')
+        $this->error = $this->getMockBuilder(\Magento\Quote\Model\Quote\Address\RateResult\Error::class)
             ->setMethods(['setCarrier', 'setCarrierTitle', 'setErrorMessage'])
             ->getMock();
 
-        $this->errorFactory = $this->getMockBuilder('Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory')
+        $this->errorFactory = $this->getMockBuilder(\Magento\Quote\Model\Quote\Address\RateResult\ErrorFactory::class)
             ->disableOriginalConstructor()
             ->setMethods(['create'])
             ->getMock();
 
         $this->errorFactory->expects($this->any())->method('create')->willReturn($this->error);
 
-        $this->rate = $this->getMock('Magento\Shipping\Model\Rate\Result', ['getError'], [], '', false);
-        $rateFactory = $this->getMock('Magento\Shipping\Model\Rate\ResultFactory', ['create'], [], '', false);
+        $this->rate = $this->getMock(\Magento\Shipping\Model\Rate\Result::class, ['getError'], [], '', false);
+        $rateFactory = $this->getMock(\Magento\Shipping\Model\Rate\ResultFactory::class, ['create'], [], '', false);
 
         $rateFactory->expects($this->any())->method('create')->willReturn($this->rate);
 
-        $this->country = $this->getMockBuilder('\Magento\Directory\Model\Country')
+        $this->country = $this->getMockBuilder(\Magento\Directory\Model\Country::class)
             ->disableOriginalConstructor()
             ->setMethods(['load'])
             ->getMock();
 
-        $this->abstractModel = $this->getMockBuilder('Magento\Framework\Model\AbstractModel')
+        $this->abstractModel = $this->getMockBuilder(\Magento\Framework\Model\AbstractModel::class)
             ->disableOriginalConstructor()
             ->setMethods(['getData'])
             ->getMock();
 
         $this->country->expects($this->any())->method('load')->willReturn($this->abstractModel);
 
-        $this->countryFactory = $this->getMockBuilder('\Magento\Directory\Model\CountryFactory')
+        $this->countryFactory = $this->getMockBuilder(\Magento\Directory\Model\CountryFactory::class)
             ->disableOriginalConstructor()
             ->setMethods(['create'])
             ->getMock();
@@ -122,7 +125,7 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
         $this->countryFactory->expects($this->any())->method('create')->willReturn($this->country);
 
         $this->model = $this->helper->getObject(
-            'Magento\Ups\Model\Carrier',
+            \Magento\Ups\Model\Carrier::class,
             [
                 'scopeConfig' => $this->scope,
                 'rateErrorFactory' => $this->errorFactory,
@@ -237,76 +240,6 @@ class CarrierTest extends \PHPUnit_Framework_TestCase
         $request->setPackageWeight(1);
 
         $this->assertSame($this->rate, $this->model->collectRates($request));
-    }
-
-    /**
-     * @param string $data
-     * @param array $maskFields
-     * @param string $expected
-     * @dataProvider logDataProvider
-     */
-    public function testFilterDebugData($data, array $maskFields, $expected)
-    {
-        $refClass = new \ReflectionClass(Carrier::class);
-        $property = $refClass->getProperty('_debugReplacePrivateDataKeys');
-        $property->setAccessible(true);
-        $property->setValue($this->model, $maskFields);
-
-        $refMethod = $refClass->getMethod('filterDebugData');
-        $refMethod->setAccessible(true);
-        $result = $refMethod->invoke($this->model, $data);
-        $expectedXml = new \SimpleXMLElement($expected);
-        $resultXml = new \SimpleXMLElement($result);
-        static::assertEquals($expectedXml->asXML(), $resultXml->asXML());
-    }
-
-    /**
-     * Get list of variations
-     */
-    public function logDataProvider()
-    {
-        return [
-            [
-                '<?xml version="1.0" encoding="UTF-8"?>
-                <RateRequest>
-                    <UserId>42121</UserId>
-                    <Password>TestPassword</Password>
-                    <Package ID="0">
-                        <Service>ALL</Service>
-                    </Package>
-                </RateRequest>',
-                ['UserId', 'Password'],
-                '<?xml version="1.0" encoding="UTF-8"?>
-                <RateRequest>
-                    <UserId>****</UserId>
-                    <Password>****</Password>
-                    <Package ID="0">
-                        <Service>ALL</Service>
-                    </Package>
-                </RateRequest>',
-            ],
-            [
-                '<?xml version="1.0" encoding="UTF-8"?>
-                <RateRequest>
-                    <Auth>
-                        <UserId>1231</UserId>
-                    </Auth>
-                    <Package ID="0">
-                        <Service>ALL</Service>
-                    </Package>
-                </RateRequest>',
-                ['UserId'],
-                '<?xml version="1.0" encoding="UTF-8"?>
-                <RateRequest>
-                    <Auth>
-                        <UserId>****</UserId>
-                    </Auth>
-                    <Package ID="0">
-                        <Service>ALL</Service>
-                    </Package>
-                </RateRequest>',
-            ]
-        ];
     }
 
     /**

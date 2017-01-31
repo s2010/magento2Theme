@@ -32,7 +32,7 @@ class EventTest extends \PHPUnit_Framework_TestCase
      */
     protected $observer;
 
-    protected function setUp()
+    public function setUp()
     {
         $data = [
             'name' => 'ObserverName',

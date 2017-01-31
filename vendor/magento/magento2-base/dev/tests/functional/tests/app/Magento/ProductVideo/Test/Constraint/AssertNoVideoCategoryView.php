@@ -22,16 +22,17 @@ class AssertNoVideoCategoryView extends AbstractConstraint
      *
      * @param CmsIndex $cmsIndex
      * @param CatalogCategoryView $catalogCategoryView
-     * @param InjectableFixture $product
+     * @param InjectableFixture $initialProduct
+     * @return void
      */
     public function processAssert(
         CmsIndex $cmsIndex,
         CatalogCategoryView $catalogCategoryView,
-        InjectableFixture $product
+        InjectableFixture $initialProduct
     ) {
         $cmsIndex->open();
-        $cmsIndex->getTopmenu()->selectCategoryByName($product->getCategoryIds()[0]);
-        $src = $catalogCategoryView->getListProductBlock()->getProductItem($product)->getBaseImageSource();
+        $cmsIndex->getTopmenu()->selectCategoryByName($initialProduct->getCategoryIds()[0]);
+        $src = $catalogCategoryView->getListProductBlock()->getProductItem($initialProduct)->getBaseImageSource();
         \PHPUnit_Framework_Assert::assertTrue(
             strpos($src, '/placeholder/') !== false,
             'Product image is displayed on category view when it should not.'

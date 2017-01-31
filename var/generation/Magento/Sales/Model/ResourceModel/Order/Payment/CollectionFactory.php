@@ -2,7 +2,8 @@
 namespace Magento\Sales\Model\ResourceModel\Order\Payment;
 
 /**
- * Factory class for @see \Magento\Sales\Model\ResourceModel\Order\Payment\Collection
+ * Factory class for @see
+ * \Magento\Sales\Model\ResourceModel\Order\Payment\Collection
  */
 class CollectionFactory
 {

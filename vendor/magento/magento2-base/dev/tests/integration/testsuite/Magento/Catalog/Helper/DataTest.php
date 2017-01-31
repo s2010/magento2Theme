@@ -83,8 +83,6 @@ class DataTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @magentoDataFixture Magento/Catalog/_files/categories.php
-     * @magentoDbIsolation enabled
-     * @magentoAppIsolation enabled
      */
     public function testGetBreadcrumbPath()
     {
@@ -257,10 +255,9 @@ class DataTest extends \PHPUnit_Framework_TestCase
         $productClassName = 'DefaultProductClass'
     ) {
         $this->setUpDefaultRules();
-        /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-        $productRepository = $this->objectManager->get('Magento\Catalog\Api\ProductRepositoryInterface');
+        $fixtureProductId = 1;
         /** @var \Magento\Catalog\Model\Product $product */
-        $product = $productRepository->get('simple');
+        $product = $this->objectManager->create('Magento\Catalog\Model\Product')->load($fixtureProductId);
         $product->setTaxClassId($this->taxClasses[$productClassName]);
         $shippingAddress = $this->getCustomerAddress();
         $billingAddress = $shippingAddress;
@@ -397,7 +394,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
             ],
             'price include tax, display excluding tax, high rate product tax class, round' => [
                 (new \Magento\Framework\DataObject())->setPrice(3.256)->setRoundPrice(true),
-                '2.97',
+                '2.67',
                 [
                     [
                         'path' => Config::CONFIG_XML_PATH_PRICE_INCLUDES_TAX,

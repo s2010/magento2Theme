@@ -19,7 +19,6 @@ return [
             'title' => __('Indexer public name'),
             'description' => __('Indexer public description'),
             'primary' => null,
-            'shared_index' => null,
             'fieldsets' => []
         ],
         'test_indexer' => [
@@ -29,7 +28,6 @@ return [
             'title' => '',
             'description' => '',
             'primary' => null,
-            'shared_index' => null,
         ],
     ]
 ];

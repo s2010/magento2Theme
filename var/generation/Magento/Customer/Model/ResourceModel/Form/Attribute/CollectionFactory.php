@@ -2,7 +2,8 @@
 namespace Magento\Customer\Model\ResourceModel\Form\Attribute;
 
 /**
- * Factory class for @see \Magento\Customer\Model\ResourceModel\Form\Attribute\Collection
+ * Factory class for @see
+ * \Magento\Customer\Model\ResourceModel\Form\Attribute\Collection
  */
 class CollectionFactory
 {

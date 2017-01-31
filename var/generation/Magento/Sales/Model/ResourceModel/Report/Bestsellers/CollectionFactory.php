@@ -2,7 +2,8 @@
 namespace Magento\Sales\Model\ResourceModel\Report\Bestsellers;
 
 /**
- * Factory class for @see \Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection
+ * Factory class for @see
+ * \Magento\Sales\Model\ResourceModel\Report\Bestsellers\Collection
  */
 class CollectionFactory
 {

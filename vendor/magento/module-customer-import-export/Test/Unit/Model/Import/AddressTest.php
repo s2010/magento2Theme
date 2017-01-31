@@ -472,7 +472,6 @@ class AddressTest extends \PHPUnit_Framework_TestCase
                 false
             ),
             new \Magento\Framework\Stdlib\DateTime(),
-            $this->getMock('Magento\Customer\Model\Address\Validator\Postcode', [], [], '', false),
             $this->_getModelDependencies()
         );
 

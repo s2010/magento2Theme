@@ -2,7 +2,8 @@
 namespace Magento\Eav\Model\Adminhtml\System\Config\Source;
 
 /**
- * Factory class for @see \Magento\Eav\Model\Adminhtml\System\Config\Source\Inputtype
+ * Factory class for @see
+ * \Magento\Eav\Model\Adminhtml\System\Config\Source\Inputtype
  */
 class InputtypeFactory
 {

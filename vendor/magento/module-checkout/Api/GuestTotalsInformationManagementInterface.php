@@ -7,7 +7,6 @@ namespace Magento\Checkout\Api;
 
 /**
  * Interface for guest quote totals calculation
- * @api
  */
 interface GuestTotalsInformationManagementInterface
 {

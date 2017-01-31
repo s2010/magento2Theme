@@ -7,10 +7,9 @@ define(
     [
         'Magento_Checkout/js/model/address-converter'
     ],
-    function (addressConverter) {
-        'use strict';
-
-        return function (addressData) {
+    function(addressConverter) {
+        "use strict";
+        return function(addressData) {
             return addressConverter.formAddressDataToQuoteAddress(addressData);
         };
     }

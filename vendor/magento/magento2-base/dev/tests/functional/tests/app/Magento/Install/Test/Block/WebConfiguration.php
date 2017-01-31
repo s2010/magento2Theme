@@ -38,13 +38,6 @@ class WebConfiguration extends Form
     protected $adminUriCheck = '#admin';
 
     /**
-     * 'Advanced Options' block locator.
-     *
-     * @var string
-     */
-    protected $extendedConfig = '[ng-show="config.advanced.expanded"]';
-
-    /**
      * Fill web configuration form.
      *
      * @param FixtureInterface $fixture
@@ -83,9 +76,7 @@ class WebConfiguration extends Form
      */
     public function clickAdvancedOptions()
     {
-        if (!$this->_rootElement->find($this->extendedConfig)->isVisible()) {
-            $this->_rootElement->find($this->advancedOptions)->click();
-        }
+        $this->_rootElement->find($this->advancedOptions)->click();
     }
 
     public function getAdminUriCheck()

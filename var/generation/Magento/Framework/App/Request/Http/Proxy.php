@@ -53,7 +53,7 @@ class Proxy extends \Magento\Framework\App\Request\Http implements \Magento\Fram
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**
@@ -197,6 +197,14 @@ class Proxy extends \Magento\Framework\App\Request\Http implements \Magento\Fram
     public function getFullActionName($delimiter = '_')
     {
         return $this->_getSubject()->getFullActionName($delimiter);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isSecure()
+    {
+        return $this->_getSubject()->isSecure();
     }
 
     /**
@@ -349,14 +357,6 @@ class Proxy extends \Magento\Framework\App\Request\Http implements \Magento\Fram
     public function isDispatched()
     {
         return $this->_getSubject()->isDispatched();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isSecure()
-    {
-        return $this->_getSubject()->isSecure();
     }
 
     /**

@@ -35,7 +35,7 @@ class ResultTest extends \PHPUnit_Framework_TestCase
      */
     protected $childBlockMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->contextMock = $this->getMock('Magento\Framework\View\Element\Template\Context', [], [], '', false);
         $this->layerMock = $this->getMock('Magento\Catalog\Model\Layer\Search', [], [], '', false);

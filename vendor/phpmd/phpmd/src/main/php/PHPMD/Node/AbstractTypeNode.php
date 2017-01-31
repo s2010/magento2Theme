@@ -129,8 +129,10 @@ abstract class AbstractTypeNode extends AbstractNode
      *
      * @return string
      */
-    public function getFullQualifiedName()
+    public function getQName()
     {
         return sprintf('%s\\%s', $this->getNamespaceName(), $this->getName());
     }
+
+
 }

@@ -6,11 +6,5 @@
  */
 -->
 <ruleset name="Magento">
-    <description>Custom Magento coding standard.</description>
-    <rule ref="Magento.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="120"/>
-            <property name="absoluteLineLimit" value="120"/>
-        </properties>
-    </rule>
+    <description>A custom coding standard.</description>
 </ruleset>

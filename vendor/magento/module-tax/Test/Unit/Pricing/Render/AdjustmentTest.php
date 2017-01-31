@@ -39,7 +39,7 @@ class AdjustmentTest extends \PHPUnit_Framework_TestCase
     /**
      * Init mocks and model
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->contextMock = $this->getMock(
             'Magento\Framework\View\Element\Template\Context',

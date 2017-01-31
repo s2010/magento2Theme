@@ -11,8 +11,6 @@ namespace Magento\Framework\View\Element\UiComponent\Control;
 interface ButtonProviderInterface
 {
     /**
-     * Retrieve button-specified settings
-     *
      * @return array
      */
     public function getButtonData();

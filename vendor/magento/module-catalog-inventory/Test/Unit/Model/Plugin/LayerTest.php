@@ -22,7 +22,7 @@ class LayerTest extends \PHPUnit_Framework_TestCase
      */
     protected $_stockHelperMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_scopeConfigMock = $this->getMock('\Magento\Framework\App\Config\ScopeConfigInterface');
         $this->_stockHelperMock = $this->getMock(

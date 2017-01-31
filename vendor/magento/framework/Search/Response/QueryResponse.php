@@ -6,13 +6,13 @@
 namespace Magento\Framework\Search\Response;
 
 use Magento\Framework\Api\Search\AggregationInterface;
-use Magento\Framework\Api\Search\Document;
+use Magento\Framework\Search\Document;
 use Magento\Framework\Search\ResponseInterface;
 
 /**
  * Search Response
  */
-class QueryResponse implements ResponseInterface
+class QueryResponse implements ResponseInterface, \IteratorAggregate, \Countable
 {
     /**
      * Document Collection

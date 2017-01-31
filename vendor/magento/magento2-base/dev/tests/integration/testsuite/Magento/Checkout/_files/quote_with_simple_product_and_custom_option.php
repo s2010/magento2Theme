@@ -6,12 +6,12 @@
 
 require __DIR__ . '/../../../Magento/Catalog/_files/product_simple.php';
 
-/** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-$productRepository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-    ->create('Magento\Catalog\Api\ProductRepositoryInterface');
-$product = $productRepository->get('simple');
+/** @var $product \Magento\Catalog\Model\Product */
+$product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Product');
+$product->load(1);
 
 $options = [];
+
 /** @var $option \Magento\Catalog\Model\Product\Option */
 foreach ($product->getOptions() as $option) {
     switch ($option->getGroupByType()) {

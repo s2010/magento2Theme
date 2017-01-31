@@ -31,7 +31,7 @@ class ProductImageTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Swatches\Model\Plugin\ProductImage|\Magento\Framework\TestFramework\Unit\Helper\ObjectManager */
     protected $pluginModel;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->swatchesHelperMock = $this->getMock(
             '\Magento\Swatches\Helper\Data',

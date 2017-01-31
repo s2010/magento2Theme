@@ -35,20 +35,10 @@ class AjaxTest extends \PHPUnit_Framework_TestCase
      */
     public function testToHtml()
     {
-        /** @var \Magento\TestFramework\ObjectManager $objectManager */
+        /** @var $objectManager \Magento\TestFramework\ObjectManager */
         $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-
-        /** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-        $productRepository = $objectManager->create('Magento\Catalog\Api\ProductRepositoryInterface');
-
-        $objectManager->get('Magento\Framework\Registry')
-            ->register(
-                'import_option_products',
-                [$productRepository->get('simple')->getId()]
-            );
-
+        $objectManager->get('Magento\Framework\Registry')->register('import_option_products', [1]);
         $result = json_decode($this->_block->toHtml(), true);
-
         $this->assertEquals('test_option_code_1', $result[0]['title']);
     }
 }

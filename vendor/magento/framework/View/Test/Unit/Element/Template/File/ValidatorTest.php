@@ -60,7 +60,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->_fileSystemMock = $this->getMock('\Magento\Framework\Filesystem', [], [], '', false);
         $this->_scopeConfigMock = $this->getMock('\Magento\Framework\App\Config\ScopeConfigInterface');

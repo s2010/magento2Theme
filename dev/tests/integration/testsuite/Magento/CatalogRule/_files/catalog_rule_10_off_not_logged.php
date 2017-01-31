@@ -19,10 +19,6 @@ $catalogRule
     ->setDiscountAmount(10)
     ->setWebsiteIds([0 => 1])
     ->setSimpleAction('by_percent')
-    ->setStopRulesProcessing(false)
-    ->setSortOrder(0)
-    ->setSubIsEnable(0)
-    ->setSubDiscountAmount(0)
     ->save();
 
 /** @var \Magento\CatalogRule\Model\Indexer\IndexBuilder $indexBuilder */

@@ -37,7 +37,7 @@ class RendererPoolTest extends \PHPUnit_Framework_TestCase
      */
     protected $contextMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->layoutMock = $this->getMockBuilder('Magento\Framework\View\Layout')
             ->disableOriginalConstructor()

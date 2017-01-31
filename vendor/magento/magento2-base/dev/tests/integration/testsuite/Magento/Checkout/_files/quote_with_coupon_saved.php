@@ -12,12 +12,8 @@ require __DIR__ . '/../../Checkout/_files/discount_10percent.php';
 
 require 'quote_with_address_saved.php';
 
-$objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-$salesRuleFactory = $objectManager->get('Magento\SalesRule\Model\RuleFactory');
-$salesRule = $salesRuleFactory->create();
-$salesRuleId = $objectManager->get('Magento\Framework\Registry')
-    ->registry('Magento/Checkout/_file/discount_10percent');
-$salesRule->load($salesRuleId);
+$salesRule = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\SalesRule\Model\Rule');
+$salesRule->load('Test Coupon', 'name');
 $couponCode = $salesRule->getPrimaryCoupon()->getCode();
 
 $quote->setCouponCode(trim($couponCode));

@@ -43,7 +43,7 @@ class GuestCartTotalRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     protected $cartId;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 

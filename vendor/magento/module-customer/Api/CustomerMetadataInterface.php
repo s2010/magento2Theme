@@ -8,7 +8,6 @@ namespace Magento\Customer\Api;
 
 /**
  * Interface for retrieval information about customer attributes metadata.
- * @api
  */
 interface CustomerMetadataInterface extends MetadataInterface
 {

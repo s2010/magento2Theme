@@ -134,7 +134,9 @@ class Resolver implements ResolverInterface
     {
         $dirs = [];
         foreach ($this->componentRegistrar->getPaths($componentType) as $componentDir) {
-            $dirs[] = $componentDir . '/';
+            if (strstr($componentDir, $this->directory)) {
+                $dirs[] = $componentDir . '/';
+            }
         }
         return $dirs;
     }

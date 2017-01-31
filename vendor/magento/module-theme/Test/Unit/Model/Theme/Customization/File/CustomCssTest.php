@@ -32,7 +32,7 @@ class CustomCssTest extends \PHPUnit_Framework_TestCase
     /**
      * Initialize testable object
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->customizationPath = $this->getMockBuilder('Magento\Framework\View\Design\Theme\Customization\Path')
             ->disableOriginalConstructor()

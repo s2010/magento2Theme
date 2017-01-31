@@ -19,7 +19,7 @@ class UserValidationRulesTest extends \PHPUnit_Framework_TestCase
      */
     private $rules;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->validator = $this->getMock('Magento\Framework\Validator\DataObject', [], [], '', false);
         $this->rules = new UserValidationRules();

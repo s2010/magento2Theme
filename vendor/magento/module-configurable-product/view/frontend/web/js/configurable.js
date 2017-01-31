@@ -23,13 +23,12 @@ define([
             state: {},
             priceFormat: {},
             optionTemplate: '<%- data.label %>' +
-            "<% if (typeof data.finalPrice.value !== 'undefined') { %>" +
+            '<% if (data.finalPrice.value) { %>' +
             ' <%- data.finalPrice.formatted %>' +
             '<% } %>',
             mediaGallerySelector: '[data-gallery-role=gallery-placeholder]',
             mediaGalleryInitial: null,
-            slyOldPriceSelector: '.sly-old-price',
-            onlyMainImg: false
+            slyOldPriceSelector: '.sly-old-price'
         },
 
         /**
@@ -54,6 +53,8 @@ define([
 
             // Setup/configure values to inputs
             this._configureForValues();
+
+            $(this.element).trigger('configurable.initialized');
         },
 
         /**
@@ -256,45 +257,14 @@ define([
          * @private
          */
         _changeProductImage: function () {
-            var images,
-                initialImages = $.extend(true, [], this.options.mediaGalleryInitial),
+            var images = this.options.spConfig.images[this.simpleProduct],
                 galleryObject = $(this.options.mediaGallerySelector).data('gallery');
-
-            if (this.options.spConfig.images[this.simpleProduct]) {
-                images = $.extend(true, [], this.options.spConfig.images[this.simpleProduct]);
-            }
-
-            function updateGallery(imagesArr) {
-                var imgToUpdate,
-                    mainImg;
-
-                mainImg = imagesArr.filter(function (img) {
-                    return img.isMain;
-                });
-
-                imgToUpdate = mainImg.length ? mainImg[0] : imagesArr[0];
-                galleryObject.updateDataByIndex(0, imgToUpdate);
-                galleryObject.seek(1);
-            }
 
             if (galleryObject) {
                 if (images) {
-                    images.map(function (img) {
-                        img.type = 'image';
-                    });
-
-                    if (this.options.onlyMainImg) {
-                        updateGallery(images);
-                    } else {
-                        galleryObject.updateData(images)
-                    }
+                    galleryObject.updateData(images);
                 } else {
-                    if (this.options.onlyMainImg) {
-                        updateGallery(initialImages);
-                    } else {
-                        galleryObject.updateData(this.options.mediaGalleryInitial);
-                        $(this.options.mediaGallerySelector).AddFotoramaVideoEvents();
-                    }
+                    galleryObject.updateData(this.options.mediaGalleryInitial);
                 }
             }
         },

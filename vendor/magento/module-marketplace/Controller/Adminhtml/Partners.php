@@ -10,9 +10,12 @@ namespace Magento\Marketplace\Controller\Adminhtml;
 abstract class Partners extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
+     * Check for is allowed
      *
-     * @see _isAllowed()
+     * @return boolean
      */
-    const ADMIN_RESOURCE = 'Magento_Marketplace::partners';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Marketplace::partners');
+    }
 }

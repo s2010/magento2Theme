@@ -8,13 +8,11 @@ namespace Magento\Framework\App\DeploymentConfig;
 
 use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Config\File\ConfigFilePool;
-use Magento\Framework\Phrase;
 
 /**
- * Deployment configuration writer to files: env.php, config.php (config.local.php, config.dist.php)
+ * Deployment configuration writer
  */
 class Writer
 {
@@ -93,19 +91,17 @@ class Writer
      *
      * @param array $data
      * @param bool $override
-     * @param string $pool
-     * @param array $comments
      * @return void
-     * @throws FileSystemException
      */
-    public function saveConfig(array $data, $override = false, $pool = null, array $comments = [])
+    public function saveConfig(array $data, $override = false)
     {
-        foreach ($data as $fileKey => $config) {
-            $paths = $pool ? $this->configFilePool->getPathsByPool($pool) : $this->configFilePool->getPaths();
+        $paths = $this->configFilePool->getPaths();
 
+        foreach ($data as $fileKey => $config) {
             if (isset($paths[$fileKey])) {
-                $currentData = $this->reader->loadConfigFile($fileKey, $paths[$fileKey], true);
-                if ($currentData) {
+
+                if ($this->filesystem->getDirectoryWrite(DirectoryList::CONFIG)->isExist($paths[$fileKey])) {
+                    $currentData = $this->reader->load($fileKey);
                     if ($override) {
                         $config = array_merge($currentData, $config);
                     } else {
@@ -113,15 +109,8 @@ class Writer
                     }
                 }
 
-                $contents = $this->formatter->format($config, $comments);
-                try {
-                    $writeFilePath = $paths[$fileKey];
-                    $this->filesystem->getDirectoryWrite(DirectoryList::CONFIG)->writeFile($writeFilePath, $contents);
-                } catch (FileSystemException $e) {
-                    throw new FileSystemException(
-                        new Phrase('Deployment config file %1 is not writable.', [$paths[$fileKey]])
-                    );
-                }
+                $contents = $this->formatter->format($config);
+                $this->filesystem->getDirectoryWrite(DirectoryList::CONFIG)->writeFile($paths[$fileKey], $contents);
                 if (function_exists('opcache_invalidate')) {
                     opcache_invalidate(
                         $this->filesystem->getDirectoryRead(DirectoryList::CONFIG)->getAbsolutePath($paths[$fileKey])

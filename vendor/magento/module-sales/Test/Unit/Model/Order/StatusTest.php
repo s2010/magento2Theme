@@ -35,7 +35,7 @@ class StatusTest extends \PHPUnit_Framework_TestCase
     /**
      * SetUp test
      */
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->resourceMock = $this->getMock(

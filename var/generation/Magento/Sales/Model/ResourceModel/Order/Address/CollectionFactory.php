@@ -2,7 +2,8 @@
 namespace Magento\Sales\Model\ResourceModel\Order\Address;
 
 /**
- * Factory class for @see \Magento\Sales\Model\ResourceModel\Order\Address\Collection
+ * Factory class for @see
+ * \Magento\Sales\Model\ResourceModel\Order\Address\Collection
  */
 class CollectionFactory
 {

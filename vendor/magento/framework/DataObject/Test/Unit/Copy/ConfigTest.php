@@ -19,7 +19,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     protected $_model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_storageMock = $this->getMock(
             'Magento\Framework\DataObject\Copy\Config\Data',

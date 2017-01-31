@@ -561,10 +561,8 @@ class Item extends \Magento\Quote\Model\Quote\Item\AbstractItem implements \Mage
      */
     public function setOptions($options)
     {
-        if (is_array($options)) {
-            foreach ($options as $option) {
-                $this->addOption($option);
-            }
+        foreach ($options as $option) {
+            $this->addOption($option);
         }
         return $this;
     }

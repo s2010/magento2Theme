@@ -61,7 +61,7 @@ class CodeMessDetector implements ToolInterface
         $commandLineArguments = [
             'run_file_mock', //emulate script name in console arguments
             implode(',', $whiteList),
-            'text', //report format
+            'xml', //report format
             $this->rulesetFile,
             '--reportfile',
             $this->reportFile,

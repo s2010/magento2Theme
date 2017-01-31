@@ -30,7 +30,7 @@ class TrackAdminNewPasswordObserverTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\User\Observer\Backend\TrackAdminNewPasswordObserver */
     protected $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->configInterfaceMock = $this->getMockBuilder('Magento\Backend\App\ConfigInterface')
             ->disableOriginalConstructor()

@@ -31,10 +31,9 @@ class SelectAttributes extends \Magento\Ui\Block\Component\StepsWizard\StepAbstr
     /**
      * Get Add new Attribute button
      *
-     * @param string $dataProvider
      * @return string
      */
-    public function getAddNewAttributeButton($dataProvider = '')
+    public function getAddNewAttributeButton()
     {
         /** @var \Magento\Backend\Block\Widget\Button $attributeCreate */
         $attributeCreate = $this->getLayout()->createBlock(
@@ -44,7 +43,6 @@ class SelectAttributes extends \Magento\Ui\Block\Component\StepsWizard\StepAbstr
             [
                 'mage-init' => [
                     'productAttributes' => [
-                        'dataProvider' => $dataProvider,
                         'url' => $this->getUrl('catalog/product_attribute/new', [
                             'store' => $this->registry->registry('current_product')->getStoreId(),
                             'product_tab' => 'variations',

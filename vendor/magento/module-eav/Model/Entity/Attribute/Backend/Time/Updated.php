@@ -18,7 +18,6 @@ class Updated extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBacken
     /**
      * @param \Magento\Framework\Stdlib\DateTime $dateTime
      * @codeCoverageIgnore
-     * @deprecated Remove unused dependency
      */
     public function __construct(\Magento\Framework\Stdlib\DateTime $dateTime)
     {

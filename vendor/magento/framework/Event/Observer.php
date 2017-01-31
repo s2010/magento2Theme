@@ -7,9 +7,6 @@ namespace Magento\Framework\Event;
 
 use Magento\Framework\Event;
 
-/**
- * @api
- */
 class Observer extends \Magento\Framework\DataObject
 {
     /**

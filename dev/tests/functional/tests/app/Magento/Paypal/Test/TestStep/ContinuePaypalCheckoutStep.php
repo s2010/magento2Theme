@@ -31,18 +31,11 @@ class ContinuePaypalCheckoutStep implements TestStepInterface
     protected $expressReview;
 
     /**
-     * Assert that Order Grand Total is correct on PayPal page.
-     *
-     * @var AssertTotalPaypalReview
-     */
-    private $assertTotalPaypalReview;
-
-    /**
-     * Prices on PayPal Sandbox side from dataset.
+     * Order total on PayPal side.
      *
      * @var array
      */
-    private $paypalPrices;
+    protected $total;
 
     /**
      * @constructor
@@ -70,7 +63,7 @@ class ContinuePaypalCheckoutStep implements TestStepInterface
      */
     public function run()
     {
-        $this->expressReview->getExpressMainLoginBlock()->waitForFormLoaded();
+        $this->expressReview->getExpressLoginBlock()->waitForFormLoaded();
         if ($this->expressReview->getExpressMainLoginBlock()->isVisible()) {
             $this->expressReview->getExpressMainLoginBlock()->getLoginBlock()->fill($this->sandboxCustomer);
             $this->expressReview->getExpressMainLoginBlock()->getLoginBlock()->sandboxLogin();

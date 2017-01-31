@@ -6,10 +6,10 @@
 namespace Magento\Setup\Test\Unit\Model\DateTime;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Setup\Model\DateTime\TimeZoneProvider;
+use Magento\Setup\Model\DateTime\TimezoneProvider;
 use Magento\Setup\Model\ObjectManagerProvider;
 
-class TimeZoneProviderTest extends \PHPUnit_Framework_TestCase
+class TimezoneProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGet()
     {
@@ -27,7 +27,7 @@ class TimeZoneProviderTest extends \PHPUnit_Framework_TestCase
         $objectManagerProvider->expects($this->any())
             ->method('get')
             ->willReturn($objectManager);
-        $object = new TimeZoneProvider($objectManagerProvider);
+        $object = new TimezoneProvider($objectManagerProvider);
         $this->assertSame($timeZone, $object->get());
         // Assert that the provider always returns the same object
         $this->assertSame($timeZone, $object->get());

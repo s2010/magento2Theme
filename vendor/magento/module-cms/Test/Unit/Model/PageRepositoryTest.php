@@ -61,7 +61,7 @@ class PageRepositoryTest extends \PHPUnit_Framework_TestCase
     /**
      * Initialize repository
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->pageResource = $this->getMockBuilder('Magento\Cms\Model\ResourceModel\Page')
             ->disableOriginalConstructor()

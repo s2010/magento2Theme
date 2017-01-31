@@ -8,7 +8,7 @@
 
 namespace Magento\Theme\Test\Unit\Model\View;
 
-use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Theme\Model\View\Design;
 
 class DesignTest extends \PHPUnit_Framework_TestCase
@@ -108,8 +108,8 @@ class DesignTest extends \PHPUnit_Framework_TestCase
     public function designThemeDataProvider()
     {
         return [
-            'single' => [true, ScopeInterface::SCOPE_WEBSITES],
-            'multi'  => [false, ScopeInterface::SCOPE_STORE],
+            'single' => [true, ScopeConfigInterface::SCOPE_TYPE_DEFAULT],
+            'multi'  => [false, \Magento\Store\Model\ScopeInterface::SCOPE_STORE],
         ];
     }
 

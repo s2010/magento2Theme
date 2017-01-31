@@ -41,7 +41,7 @@ class RelationTest extends \PHPUnit_Framework_TestCase
      */
     protected $commentResourceMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->itemResourceMock = $this->getMockBuilder('Magento\Sales\Model\ResourceModel\Order\Creditmemo\Item')
             ->disableOriginalConstructor()

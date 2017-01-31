@@ -14,7 +14,7 @@ class FullModuleListTest extends \PHPUnit_Framework_TestCase
      */
     private $moduleList;
 
-    protected function setUp()
+    public function setUp()
     {
         $loaderMock = $this->getMock('Magento\Framework\Module\ModuleList\Loader', [], [], '', false);
         $modules = [

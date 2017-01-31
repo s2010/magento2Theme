@@ -36,7 +36,8 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     protected $resource;
 
-    protected function setUp()
+
+    public function setUp()
     {
         $this->objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 

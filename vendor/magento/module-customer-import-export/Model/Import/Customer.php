@@ -154,9 +154,6 @@ class Customer extends AbstractCustomer
         CustomerInterface::GENDER,
         'rp_token',
         'rp_token_created_at',
-        'failures_num',
-        'first_failure',
-        'lock_expires',
     ];
 
     /**
@@ -365,7 +362,7 @@ class Customer extends AbstractCustomer
 
         // password change/set
         if (isset($rowData['password']) && strlen($rowData['password'])) {
-            $rowData['password_hash'] = $this->_customerModel->hashPassword($rowData['password']);
+            $entityRow['password_hash'] = $this->_customerModel->hashPassword($rowData['password']);
         }
 
         // attribute values

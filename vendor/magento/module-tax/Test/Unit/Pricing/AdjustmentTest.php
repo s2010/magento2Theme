@@ -32,7 +32,7 @@ class AdjustmentTest extends \PHPUnit_Framework_TestCase
      */
     protected $sortOrder = 5;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->taxHelper = $this->getMock('Magento\Tax\Helper\Data', [], [], '', false);
         $this->catalogHelper = $this->getMock('Magento\Catalog\Helper\Data', [], [], '', false);

@@ -875,13 +875,13 @@ class Interceptor extends \Magento\Catalog\Model\Product implements \Magento\Fra
     /**
      * {@inheritdoc}
      */
-    public function hasGalleryAttribute()
+    public function getGalleryAttributeBackend()
     {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'hasGalleryAttribute');
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getGalleryAttributeBackend');
         if (!$pluginInfo) {
-            return parent::hasGalleryAttribute();
+            return parent::getGalleryAttributeBackend();
         } else {
-            return $this->___callPlugins('hasGalleryAttribute', func_get_args(), $pluginInfo);
+            return $this->___callPlugins('getGalleryAttributeBackend', func_get_args(), $pluginInfo);
         }
     }
 
@@ -1278,6 +1278,19 @@ class Interceptor extends \Magento\Catalog\Model\Product implements \Magento\Fra
     /**
      * {@inheritdoc}
      */
+    public function getProductOptionsCollection()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getProductOptionsCollection');
+        if (!$pluginInfo) {
+            return parent::getProductOptionsCollection();
+        } else {
+            return $this->___callPlugins('getProductOptionsCollection', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function addOption(\Magento\Catalog\Model\Product\Option $option)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'addOption');
@@ -1298,19 +1311,6 @@ class Interceptor extends \Magento\Catalog\Model\Product implements \Magento\Fra
             return parent::getOptionById($optionId);
         } else {
             return $this->___callPlugins('getOptionById', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getProductOptionsCollection()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getProductOptionsCollection');
-        if (!$pluginInfo) {
-            return parent::getProductOptionsCollection();
-        } else {
-            return $this->___callPlugins('getProductOptionsCollection', func_get_args(), $pluginInfo);
         }
     }
 
@@ -1824,45 +1824,6 @@ class Interceptor extends \Magento\Catalog\Model\Product implements \Magento\Fra
     /**
      * {@inheritdoc}
      */
-    public function getId()
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getId');
-        if (!$pluginInfo) {
-            return parent::getId();
-        } else {
-            return $this->___callPlugins('getId', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setId($value)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setId');
-        if (!$pluginInfo) {
-            return parent::setId($value);
-        } else {
-            return $this->___callPlugins('setId', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setAssociatedProductIds(array $productIds)
-    {
-        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setAssociatedProductIds');
-        if (!$pluginInfo) {
-            return parent::setAssociatedProductIds($productIds);
-        } else {
-            return $this->___callPlugins('setAssociatedProductIds', func_get_args(), $pluginInfo);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function lockAttribute($attributeCode)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'lockAttribute');
@@ -2175,6 +2136,19 @@ class Interceptor extends \Magento\Catalog\Model\Product implements \Magento\Fra
     /**
      * {@inheritdoc}
      */
+    public function setId($value)
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setId');
+        if (!$pluginInfo) {
+            return parent::setId($value);
+        } else {
+            return $this->___callPlugins('setId', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setIdFieldName($name)
     {
         $pluginInfo = $this->pluginList->getNext($this->subjectType, 'setIdFieldName');
@@ -2195,6 +2169,19 @@ class Interceptor extends \Magento\Catalog\Model\Product implements \Magento\Fra
             return parent::getIdFieldName();
         } else {
             return $this->___callPlugins('getIdFieldName', func_get_args(), $pluginInfo);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
+    {
+        $pluginInfo = $this->pluginList->getNext($this->subjectType, 'getId');
+        if (!$pluginInfo) {
+            return parent::getId();
+        } else {
+            return $this->___callPlugins('getId', func_get_args(), $pluginInfo);
         }
     }
 

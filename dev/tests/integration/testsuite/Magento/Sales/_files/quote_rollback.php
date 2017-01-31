@@ -16,15 +16,11 @@ if ($quote->getId()) {
     $quote->delete();
 }
 
-/** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-$productRepository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-    ->create('Magento\Catalog\Api\ProductRepositoryInterface');
-
-try {
-    $product = $productRepository->get('simple', false, null, true);
-    $productRepository->delete($product);
-} catch (\Magento\Framework\Exception\NoSuchEntityException $exception) {
-    //Product already removed
+/** @var $product \Magento\Catalog\Model\Product */
+$product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Product');
+$product->load(1);
+if ($product->getId()) {
+    $product->delete();
 }
 
 $registry->unregister('isSecureArea');

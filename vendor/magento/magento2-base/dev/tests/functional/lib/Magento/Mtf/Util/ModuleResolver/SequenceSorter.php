@@ -16,7 +16,6 @@ class SequenceSorter implements SequenceSorterInterface
      * @var \Magento\Framework\ObjectManagerInterface
      */
     protected $magentoObjectManager;
-
     /**
      * @constructor
      */
@@ -24,7 +23,6 @@ class SequenceSorter implements SequenceSorterInterface
     {
         $this->initObjectManager();
     }
-
     /**
      * Initialize Magento ObjectManager.
      *
@@ -40,7 +38,6 @@ class SequenceSorter implements SequenceSorterInterface
             $this->magentoObjectManager = $objectManagerFactory->create($_SERVER);
         }
     }
-
     /**
      * Get Magento module sequence load.
      *
@@ -48,9 +45,8 @@ class SequenceSorter implements SequenceSorterInterface
      */
     protected function getModuleSequence()
     {
-        return $this->magentoObjectManager->create('\Magento\Framework\Module\ModuleList\Loader')->load();
+        return $this->magentoObjectManager->create(\Magento\Framework\Module\ModuleList\Loader::class)->load();
     }
-
     /**
      * Sort files according to specified sequence.
      *
@@ -72,7 +68,6 @@ class SequenceSorter implements SequenceSorterInterface
             }
         }
         $sortedPaths = array_merge($sortedPaths, $paths);
-
         return $sortedPaths;
     }
 }

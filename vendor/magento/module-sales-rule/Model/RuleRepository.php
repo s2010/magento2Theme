@@ -134,6 +134,7 @@ class RuleRepository implements \Magento\SalesRule\Api\RuleRepositoryInterface
         $ruleInterfaceName = 'Magento\SalesRule\Api\Data\RuleInterface';
         $this->extensionAttributesJoinProcessor->process($collection, $ruleInterfaceName);
 
+        $collection->addWebsitesToResult();
         //Add filters from root filter group to the collection
         /** @var FilterGroup $group */
         foreach ($searchCriteria->getFilterGroups() as $group) {
@@ -159,7 +160,7 @@ class RuleRepository implements \Magento\SalesRule\Api\RuleRepositoryInterface
         $rules = [];
         /** @var \Magento\SalesRule\Model\Rule $ruleModel */
         foreach ($collection->getItems() as $ruleModel) {
-            $ruleModel->load($ruleModel->getId());
+            $ruleModel->getCustomerGroupIds();
             $ruleModel->getStoreLabels();
             $rules[] = $this->toDataModelConverter->toDataModel($ruleModel);
         }

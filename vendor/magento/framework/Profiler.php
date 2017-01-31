@@ -10,9 +10,6 @@ namespace Magento\Framework;
 use Magento\Framework\Profiler\Driver\Factory;
 use Magento\Framework\Profiler\DriverInterface;
 
-/**
- * @api
- */
 class Profiler
 {
     /**

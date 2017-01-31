@@ -7,9 +7,6 @@
  */
 namespace Magento\Framework\App;
 
-/**
- * @api
- */
 interface ActionInterface
 {
     const FLAG_NO_DISPATCH = 'no-dispatch';

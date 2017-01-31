@@ -8,13 +8,6 @@ namespace Magento\Sales\Controller\Adminhtml\Order;
 class Hold extends \Magento\Sales\Controller\Adminhtml\Order
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Magento_Sales::hold';
-
-    /**
      * Hold order
      *
      * @return \Magento\Backend\Model\View\Result\Redirect
@@ -41,5 +34,13 @@ class Hold extends \Magento\Sales\Controller\Adminhtml\Order
         }
         $resultRedirect->setPath('sales/*/');
         return $resultRedirect;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Sales::hold');
     }
 }

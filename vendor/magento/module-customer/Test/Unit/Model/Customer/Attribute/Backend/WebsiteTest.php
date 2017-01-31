@@ -20,7 +20,7 @@ class WebsiteTest extends \PHPUnit_Framework_TestCase
      */
     protected $storeManager;
 
-    protected function setUp()
+    public function setUp()
     {
         $storeManager = $this->storeManager = $this->getMockBuilder('Magento\Store\Model\StoreManagerInterface')
             ->getMock();

@@ -9,11 +9,6 @@ use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\ObjectManager\TMap;
 use Magento\Framework\ObjectManager\TMapFactory;
 
-/**
- * Class ValidatorPool
- * @package Magento\Payment\Gateway\Validator
- * @api
- */
 class ValidatorPool implements \Magento\Payment\Gateway\Validator\ValidatorPoolInterface
 {
     /**

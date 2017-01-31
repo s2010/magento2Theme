@@ -25,7 +25,7 @@ class TranslationFiles extends \PHPUnit_Framework_TestCase
      */
     public function getLocalePlacePath()
     {
-        $pathToSource = BP;
+        $pathToSource = \Magento\Framework\App\Utility\Files::init()->getPathToSource();
         $places = [];
         $componentRegistrar = new ComponentRegistrar();
         foreach ($componentRegistrar->getPaths(ComponentRegistrar::MODULE) as $modulePath) {

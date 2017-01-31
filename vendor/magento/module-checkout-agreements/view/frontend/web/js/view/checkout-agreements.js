@@ -11,9 +11,8 @@ define(
     ],
     function (ko, $, Component, agreementsModal) {
         'use strict';
-        var checkoutConfig = window.checkoutConfig,
-            agreementManualMode = 1,
-            agreementsConfig = checkoutConfig ? checkoutConfig.checkoutAgreements : {};
+        var agreementsConfig = window.checkoutConfig.checkoutAgreements,
+            agreementManualMode = 1;
 
         return Component.extend({
             defaults: {

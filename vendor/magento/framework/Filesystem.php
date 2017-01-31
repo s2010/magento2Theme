@@ -9,9 +9,6 @@ namespace Magento\Framework;
 
 use Magento\Framework\Filesystem\DriverPool;
 
-/**
- * @api
- */
 class Filesystem
 {
     /**

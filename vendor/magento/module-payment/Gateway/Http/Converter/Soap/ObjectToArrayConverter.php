@@ -7,11 +7,6 @@ namespace Magento\Payment\Gateway\Http\Converter\Soap;
 
 use Magento\Payment\Gateway\Http\ConverterInterface;
 
-/**
- * Class ObjectToArrayConverter
- * @package Magento\Payment\Gateway\Http\Converter\Soap
- * @api
- */
 class ObjectToArrayConverter implements ConverterInterface
 {
     /**

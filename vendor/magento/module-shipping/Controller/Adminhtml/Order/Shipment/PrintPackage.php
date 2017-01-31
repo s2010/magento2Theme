@@ -13,13 +13,6 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 class PrintPackage extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Magento_Sales::shipment';
-
-    /**
      * @var \Magento\Shipping\Controller\Adminhtml\Order\ShipmentLoader
      */
     protected $shipmentLoader;
@@ -42,6 +35,14 @@ class PrintPackage extends \Magento\Backend\App\Action
         $this->shipmentLoader = $shipmentLoader;
         $this->_fileFactory = $fileFactory;
         parent::__construct($context);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Sales::shipment');
     }
 
     /**

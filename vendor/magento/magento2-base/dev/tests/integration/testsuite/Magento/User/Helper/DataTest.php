@@ -40,10 +40,10 @@ class DataTest extends \PHPUnit_Framework_TestCase
     {
         /** @var $configModel \Magento\Backend\App\ConfigInterface */
         $configModel = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Framework\App\Config\MutableScopeConfigInterface'
+            'Magento\Backend\App\ConfigInterface'
         );
         $this->assertEquals(
-            2,
+            1,
             (int)$configModel->getValue(
                 \Magento\User\Helper\Data::XML_PATH_ADMIN_RESET_PASSWORD_LINK_EXPIRATION_PERIOD
             )

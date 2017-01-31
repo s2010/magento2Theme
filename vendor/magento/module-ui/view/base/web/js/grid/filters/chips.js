@@ -11,7 +11,7 @@ define([
     return Collection.extend({
         defaults: {
             template: 'ui/grid/filters/chips',
-            componentType: 'filtersChips'
+            stickyTmpl: 'ui/grid/sticky/chips'
         },
 
         /**

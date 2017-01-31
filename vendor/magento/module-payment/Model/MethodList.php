@@ -6,14 +6,13 @@
 
 namespace Magento\Payment\Model;
 
-use Magento\Framework\App\ObjectManager;
 use Magento\Payment\Model\Method\AbstractMethod;
+use Magento\Payment\Model\Method\Free;
 
 class MethodList
 {
     /**
      * @var \Magento\Payment\Helper\Data
-     * @deprecated
      */
     protected $paymentHelper;
 
@@ -21,16 +20,6 @@ class MethodList
      * @var \Magento\Payment\Model\Checks\SpecificationFactory
      */
     protected $methodSpecificationFactory;
-
-    /**
-     * @var \Magento\Payment\Api\PaymentMethodListInterface
-     */
-    private $paymentMethodList;
-
-    /**
-     * @var \Magento\Payment\Model\Method\InstanceFactory
-     */
-    private $paymentMethodInstanceFactory;
 
     /**
      * @param \Magento\Payment\Helper\Data $paymentHelper
@@ -52,16 +41,26 @@ class MethodList
     public function getAvailableMethods(\Magento\Quote\Api\Data\CartInterface $quote = null)
     {
         $store = $quote ? $quote->getStoreId() : null;
-        $availableMethods = [];
-
-        foreach ($this->getPaymentMethodList()->getActiveList($store) as $method) {
-            $methodInstance = $this->getPaymentMethodInstanceFactory()->create($method);
-            if ($methodInstance->isAvailable($quote) && $this->_canUseMethod($methodInstance, $quote)) {
-                $methodInstance->setInfoInstance($quote->getPayment());
-                $availableMethods[] = $methodInstance;
+        $methods = [];
+        $isFreeAdded = false;
+        foreach ($this->paymentHelper->getStoreMethods($store, $quote) as $method) {
+            if ($this->_canUseMethod($method, $quote)) {
+                $method->setInfoInstance($quote->getPayment());
+                $methods[] = $method;
+                if ($method->getCode() == Free::PAYMENT_METHOD_FREE_CODE) {
+                    $isFreeAdded = true;
+                }
             }
         }
-        return $availableMethods;
+        if (!$isFreeAdded) {
+            /** @var \Magento\Payment\Model\Method\Free $freeMethod */
+            $freeMethod = $this->paymentHelper->getMethodInstance(Free::PAYMENT_METHOD_FREE_CODE);
+            if ($freeMethod->isAvailableInConfig()) {
+                $freeMethod->setInfoInstance($quote->getPayment());
+                $methods[] = $freeMethod;
+            }
+        }
+        return $methods;
     }
 
     /**
@@ -75,7 +74,6 @@ class MethodList
     {
         return $this->methodSpecificationFactory->create(
             [
-                AbstractMethod::CHECK_USE_CHECKOUT,
                 AbstractMethod::CHECK_USE_FOR_COUNTRY,
                 AbstractMethod::CHECK_USE_FOR_CURRENCY,
                 AbstractMethod::CHECK_ORDER_TOTAL_MIN_MAX,
@@ -84,37 +82,5 @@ class MethodList
             $method,
             $quote
         );
-    }
-
-    /**
-     * Get payment method list.
-     *
-     * @return \Magento\Payment\Api\PaymentMethodListInterface
-     * @deprecated
-     */
-    private function getPaymentMethodList()
-    {
-        if ($this->paymentMethodList === null) {
-            $this->paymentMethodList = ObjectManager::getInstance()->get(
-                \Magento\Payment\Api\PaymentMethodListInterface::class
-            );
-        }
-        return $this->paymentMethodList;
-    }
-
-    /**
-     * Get payment method instance factory.
-     *
-     * @return \Magento\Payment\Model\Method\InstanceFactory
-     * @deprecated
-     */
-    private function getPaymentMethodInstanceFactory()
-    {
-        if ($this->paymentMethodInstanceFactory === null) {
-            $this->paymentMethodInstanceFactory = ObjectManager::getInstance()->get(
-                \Magento\Payment\Model\Method\InstanceFactory::class
-            );
-        }
-        return $this->paymentMethodInstanceFactory;
     }
 }

@@ -5,10 +5,6 @@
  */
 namespace Magento\Checkout\Api\Data;
 
-/**
- * Interface PaymentDetailsInterface
- * @api
- */
 interface PaymentDetailsInterface
 {
     /**#@+

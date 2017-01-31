@@ -58,7 +58,7 @@ class CounterTest extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->productManagement = $this->getMockBuilder('Magento\Catalog\Api\ProductManagementInterface')
             ->disableOriginalConstructor()

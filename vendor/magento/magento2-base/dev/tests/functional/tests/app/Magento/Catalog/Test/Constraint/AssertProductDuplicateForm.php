@@ -92,7 +92,7 @@ class AssertProductDuplicateForm extends AssertProductForm
         );
 
         if (isset($compareData['status'])) {
-            $compareData['status'] = 'No';
+            $compareData['status'] = 'Product offline';
         }
         if (isset($compareData['quantity_and_stock_status']['qty'])) {
             $compareData['quantity_and_stock_status']['qty'] = '';

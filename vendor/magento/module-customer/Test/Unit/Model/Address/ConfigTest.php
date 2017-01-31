@@ -47,7 +47,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     protected $_cacheId = 'cache_id';
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_storeMock = $this->getMock('Magento\Store\Model\Store', [], [], '', false);
         $this->_scopeConfigMock = $this->getMock('\Magento\Framework\App\Config\ScopeConfigInterface');

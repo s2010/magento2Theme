@@ -32,9 +32,8 @@ class CommandRendererBackground extends CommandRenderer
     public function render($command, array $arguments = [])
     {
         $command = parent::render($command, $arguments);
-
         return $this->osInfo->isWindows() ?
             'start /B "magento background task" ' . $command
-            : str_replace('2>&1', '> /dev/null &', $command);
+            : $command . ' > /dev/null &';
     }
 }

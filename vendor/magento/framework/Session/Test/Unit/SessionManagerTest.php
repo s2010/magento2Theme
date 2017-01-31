@@ -50,7 +50,7 @@ namespace Magento\Framework\Session\Test\Unit {
          */
         public static $isIniSetInvoked;
 
-        protected function setUp()
+        public function setUp()
         {
             $this->markTestSkipped('To be fixed in MAGETWO-34751');
             global $mockPHPFunctions;

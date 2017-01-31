@@ -193,7 +193,6 @@ class Repository implements TransactionRepositoryInterface
                 $collection->addFieldToFilter($filter->getField(), [$condition => $filter->getValue()]);
             }
         }
-        $collection->setSearchCriteria($searchCriteria);
         $collection->setCurPage($searchCriteria->getCurrentPage());
         $collection->setPageSize($searchCriteria->getPageSize());
         $collection->addPaymentInformation(['method']);

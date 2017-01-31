@@ -18,7 +18,7 @@ class FileResolverTest extends \PHPUnit_Framework_TestCase
      */
     protected $model;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->model = (new ObjectManager($this))->getObject('Magento\Framework\Filesystem\FileResolver');
     }

@@ -81,7 +81,7 @@ foreach ($selectOptions as $option) {
     )->setSku(
         'simple_product_' . $option->getId()
     )->setPrice(
-        99
+        10
     )->setCategoryIds(
         [2]
     )->setVisibility(

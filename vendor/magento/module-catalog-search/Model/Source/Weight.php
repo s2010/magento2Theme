@@ -8,14 +8,14 @@ namespace Magento\CatalogSearch\Model\Source;
 /**
  * Attribute weight options
  */
-class Weight implements \Magento\Framework\Data\OptionSourceInterface
+class Weight
 {
     /**
      * Quick search weights
      *
      * @var int[]
      */
-    protected $weights = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+    protected $_weights = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     /**
      * Retrieve search weights as options array
@@ -38,16 +38,6 @@ class Weight implements \Magento\Framework\Data\OptionSourceInterface
      */
     public function getValues()
     {
-        return $this->weights;
-    }
-
-    /**
-     * Return array of options as value-label pairs
-     *
-     * @return array Format: array(array('value' => '<value>', 'label' => '<label>'), ...)
-     */
-    public function toOptionArray()
-    {
-        return $this->getOptions();
+        return $this->_weights;
     }
 }

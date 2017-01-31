@@ -57,7 +57,7 @@ class ConfigureTest extends \PHPUnit_Framework_TestCase
      */
     protected $cartMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->contextMock = $this->getMock('Magento\Framework\App\Action\Context', [], [], '', false);
         $this->objectManagerMock = $this->getMock('Magento\Framework\ObjectManagerInterface');

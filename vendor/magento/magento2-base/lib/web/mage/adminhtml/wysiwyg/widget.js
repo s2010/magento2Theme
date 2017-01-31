@@ -58,7 +58,7 @@ define([
                 type: 'slide',
                 buttons: [],
                 opened: function () {
-                    var dialog = jQuery(this).addClass('loading magento-message')
+                    var dialog = jQuery(this).addClass('loading magento_message')
                     new Ajax.Updater($(this), widgetUrl, {evalScripts: true, onComplete: function () {
                             dialog.removeClass('loading');
                         }
@@ -273,7 +273,6 @@ define([
                 var textarea = document.getElementById(this.widgetTargetId);
                 updateElementAtCursor(textarea, content);
                 varienGlobalEvents.fireEvent('tinymceChange');
-                jQuery(textarea).change();
             }
         },
 
@@ -376,7 +375,7 @@ define([
                 type: 'slide',
                 buttons: [],
                 opened: function () {
-                    jQuery(this).addClass('magento-message');
+                    jQuery(this).addClass('magento_message');
                 },
                 closed: function (e, modal) {
                     modal.modal.remove();

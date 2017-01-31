@@ -9,6 +9,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Config\ConfigOptionsListConstants;
 use Magento\Framework\Config\Data\ConfigData;
 use Magento\Framework\Config\File\ConfigFilePool;
+use Magento\Framework\App\ObjectManager;
 
 /**
  * Encryption key changer resource model
@@ -57,7 +58,6 @@ class Change extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      * @param \Magento\Config\Model\Config\Structure $structure
      * @param \Magento\Framework\Encryption\EncryptorInterface $encryptor
      * @param \Magento\Framework\App\DeploymentConfig\Writer $writer
-     * @param \Magento\Framework\Math\Random $random
      * @param string $connectionName
      */
     public function __construct(
@@ -66,7 +66,6 @@ class Change extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         \Magento\Config\Model\Config\Structure $structure,
         \Magento\Framework\Encryption\EncryptorInterface $encryptor,
         \Magento\Framework\App\DeploymentConfig\Writer $writer,
-        \Magento\Framework\Math\Random $random,
         $connectionName = null
     ) {
         $this->encryptor = clone $encryptor;
@@ -74,7 +73,6 @@ class Change extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         $this->directory = $filesystem->getDirectoryWrite(DirectoryList::CONFIG);
         $this->structure = $structure;
         $this->writer = $writer;
-        $this->random = $random;
     }
 
     /**
@@ -102,7 +100,7 @@ class Change extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         }
 
         if (null === $key) {
-            $key = md5($this->random->getRandomString(ConfigOptionsListConstants::STORE_KEY_RANDOM_STRING_SIZE));
+            $key = md5($this->getRandom()->getRandomString(ConfigOptionsListConstants::STORE_KEY_RANDOM_STRING_SIZE));
         }
         $this->encryptor->setNewKey($key);
 
@@ -123,6 +121,29 @@ class Change extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
             $this->rollBack();
             throw $e;
         }
+    }
+
+    /**
+     * Get Math Random
+     *
+     * @return \Magento\Framework\Math\Random
+     */
+    public function getRandom()
+    {
+        if (!$this->random) {
+            $this->random = ObjectManager::getInstance()->get('\Magento\Framework\Math\Random');
+        }
+        return $this->random;
+    }
+
+    /**
+     * Set Random
+     *
+     * @param \Magento\Framework\Math\Random $random
+     */
+    public function setRandom(\Magento\Framework\Math\Random $random)
+    {
+        $this->random = $random;
     }
 
     /**

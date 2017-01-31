@@ -9,7 +9,6 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
  * Product option interface
- * @api
  */
 interface ProductOptionInterface extends ExtensibleDataInterface
 {

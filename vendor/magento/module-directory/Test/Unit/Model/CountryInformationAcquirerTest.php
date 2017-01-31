@@ -129,7 +129,9 @@ class CountryInformationAcquirerTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
+        $countryCollection->expects($this->once())->method('addCountryIdFilter')->willReturnSelf();
         $countryCollection->expects($this->once())->method('load')->willReturnSelf();
+        $countryCollection->expects($this->once())->method('count')->willReturn(1);
         $countryCollection->expects($this->once())->method('getItemById')->with('AE')->willReturn($testCountryInfo);
 
         $this->directoryHelper->expects($this->once())->method('getCountryCollection')->willReturn($countryCollection);
@@ -172,10 +174,11 @@ class CountryInformationAcquirerTest extends \PHPUnit_Framework_TestCase
             '',
             false
         );
+        $countryCollection->expects($this->once())->method('addCountryIdFilter')->willReturnSelf();
         $countryCollection->expects($this->once())->method('load')->willReturnSelf();
+        $countryCollection->expects($this->once())->method('count')->willReturn(0);
 
         $this->directoryHelper->expects($this->once())->method('getCountryCollection')->willReturn($countryCollection);
-        $countryCollection->expects($this->once())->method('getItemById')->willReturn(null);
         $this->model->getCountryInfo('AE');
     }
 }

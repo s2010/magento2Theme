@@ -60,7 +60,7 @@ class CommonTaxCollectorTest extends \PHPUnit_Framework_TestCase
      */
     protected $taxClassKeyDataObject;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new ObjectManager($this);
 

@@ -20,7 +20,7 @@ class PoolTest extends \PHPUnit_Framework_TestCase
      */
     protected $validators = [];
 
-    protected function setUp()
+    public function setUp()
     {
         $this->validators = ['discount' => ['validator1', 'validator2']];
         $this->pool = new \Magento\SalesRule\Model\Validator\Pool($this->validators);

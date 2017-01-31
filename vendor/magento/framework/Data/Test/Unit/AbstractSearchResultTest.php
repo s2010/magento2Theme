@@ -42,7 +42,7 @@ class AbstractSearchResultTest extends \PHPUnit_Framework_TestCase
      */
     protected $searchResultIteratorMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 

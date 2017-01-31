@@ -7,7 +7,6 @@ namespace Magento\Backend\Controller\Adminhtml;
 
 /**
  * @magentoAppArea adminhtml
- * @magentoDbIsolation enabled
  */
 class IndexTest extends \Magento\TestFramework\TestCase\AbstractBackendController
 {
@@ -31,7 +30,7 @@ class IndexTest extends \Magento\TestFramework\TestCase\AbstractBackendControlle
     /**
      * Check logged state
      * @covers \Magento\Backend\Controller\Adminhtml\Index\Index::execute
-     *
+     * @magentoDbIsolation enabled
      */
     public function testLoggedIndexAction()
     {

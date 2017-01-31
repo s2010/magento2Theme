@@ -17,7 +17,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Framework\TestFramework\Unit\Helper\ObjectManager  */
     protected $objectManagerHelper;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->reader = $this->getMockBuilder('Magento\\Framework\\Config\\ReaderInterface')
             ->disableOriginalConstructor()

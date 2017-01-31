@@ -20,14 +20,14 @@ class Options extends SimpleElement
      *
      * @var string
      */
-    protected $addOption = 'button[data-action="add_new_row"]';
+    protected $addOption = '#add_new_option_button';
 
     /**
      * Option form selector.
      *
      * @var string
      */
-    protected $option = '[data-index="attribute_options_select"] tbody tr';
+    protected $option = '.ui-sortable tr';
 
     /**
      * Set value.

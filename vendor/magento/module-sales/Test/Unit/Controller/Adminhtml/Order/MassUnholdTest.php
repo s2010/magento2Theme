@@ -85,7 +85,7 @@ class MassUnholdTest extends \PHPUnit_Framework_TestCase
      */
     protected $filterMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManagerHelper = new ObjectManagerHelper($this);
         $this->contextMock = $this->getMock('Magento\Backend\App\Action\Context', [], [], '', false);

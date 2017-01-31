@@ -2,7 +2,8 @@
 namespace Magento\Catalog\Api\Data;
 
 /**
- * Factory class for @see \Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryExtension
+ * Factory class for @see
+ * \Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryExtension
  */
 class ProductAttributeMediaGalleryEntryExtensionFactory
 {

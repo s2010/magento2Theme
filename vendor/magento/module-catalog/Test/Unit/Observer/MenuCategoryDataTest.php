@@ -37,7 +37,7 @@ class MenuCategoryDataTest extends \PHPUnit_Framework_TestCase
      */
     protected $_categoryFlatState;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_catalogCategory = $this->getMock(
             '\Magento\Catalog\Helper\Category',

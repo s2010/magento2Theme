@@ -15,7 +15,7 @@ class DateTimeProvider
     /**
      * Timezone provider
      *
-     * @var TimeZoneProvider
+     * @var TimezoneProvider
      */
     private $tzProvider;
 
@@ -36,10 +36,10 @@ class DateTimeProvider
     /**
      * Init
      *
-     * @param TimeZoneProvider $tzProvider
+     * @param TimezoneProvider $tzProvider
      * @param ObjectManagerProvider $objectManagerProvider
      */
-    public function __construct(TimeZoneProvider $tzProvider, ObjectManagerProvider $objectManagerProvider)
+    public function __construct(TimezoneProvider $tzProvider, ObjectManagerProvider $objectManagerProvider)
     {
         $this->tzProvider = $tzProvider;
         $this->objectManagerProvider = $objectManagerProvider;

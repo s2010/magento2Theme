@@ -18,7 +18,7 @@ class DataTest extends \PHPUnit_Framework_TestCase
     /** @var \Magento\Framework\Json\DecoderInterface | \PHPUnit_Framework_MockObject_MockObject  */
     protected $jsonDecoderMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->jsonEncoderMock = $this->getMockBuilder('Magento\Framework\Json\EncoderInterface')

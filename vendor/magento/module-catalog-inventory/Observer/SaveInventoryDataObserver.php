@@ -17,7 +17,6 @@ class SaveInventoryDataObserver implements ObserverInterface
 {
     /**
      * @var StockIndexInterface
-     * @deprecated
      */
     protected $stockIndex;
 
@@ -97,7 +96,14 @@ class SaveInventoryDataObserver implements ObserverInterface
     public function execute(EventObserver $observer)
     {
         $product = $observer->getEvent()->getProduct();
+
         if ($product->getStockData() === null) {
+            if ($product->getIsChangedWebsites() || $product->dataHasChangedFor('status')) {
+                $this->stockIndex->rebuild(
+                    $product->getId(),
+                    $product->getStore()->getWebsiteId()
+                );
+            }
             return $this;
         }
 

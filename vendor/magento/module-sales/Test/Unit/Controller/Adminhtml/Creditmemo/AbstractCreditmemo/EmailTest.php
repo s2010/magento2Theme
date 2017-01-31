@@ -73,7 +73,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
      */
     protected $resultRedirectMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManagerHelper = new ObjectManagerHelper($this);
         $this->context = $this->getMock(

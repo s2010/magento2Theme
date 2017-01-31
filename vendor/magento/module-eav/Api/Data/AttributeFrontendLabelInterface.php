@@ -6,10 +6,6 @@
  */
 namespace Magento\Eav\Api\Data;
 
-/**
- * Interface AttributeFrontendLabelInterface
- * @api
- */
 interface AttributeFrontendLabelInterface extends AttributeOptionLabelInterface
 {
 }

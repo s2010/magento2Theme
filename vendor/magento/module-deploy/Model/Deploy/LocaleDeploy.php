@@ -6,13 +6,11 @@
 
 namespace Magento\Deploy\Model\Deploy;
 
-use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\Utility\Files;
 use Magento\Framework\App\View\Asset\Publisher;
 use Magento\Framework\View\Asset\ContentProcessorException;
 use Magento\Framework\View\Asset\PreProcessor\AlternativeSourceInterface;
 use Magento\Framework\View\Design\Theme\ThemeProviderInterface;
-use Magento\Framework\View\Design\Theme\ListInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Magento\Framework\Config\Theme;
 use Magento\Deploy\Console\Command\DeployStaticOptionsInterface as Options;
@@ -22,8 +20,6 @@ use Psr\Log\LoggerInterface;
 use Magento\Framework\Console\Cli;
 
 /**
- * Class which allows deploy by locales
- *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
@@ -118,11 +114,6 @@ class LocaleDeploy implements DeployInterface
      * @var \Magento\Framework\View\Asset\PreProcessor\AlternativeSourceInterface[]
      */
     private $alternativeSources;
-
-    /**
-     * @var ListInterface
-     */
-    private $themeList;
 
     /**
      * @var array
@@ -251,10 +242,7 @@ class LocaleDeploy implements DeployInterface
     private function deployRequireJsConfig($area, $themePath)
     {
         if (!$this->getOption(Options::DRY_RUN) && !$this->getOption(Options::NO_JAVASCRIPT)) {
-
-            /** @var \Magento\Framework\View\Design\ThemeInterface $theme */
-            $theme = $this->getThemeList()->getThemeByFullPath($area . '/' . $themePath);
-            $design = $this->designFactory->create()->setDesignTheme($theme, $area);
+            $design = $this->designFactory->create()->setDesignTheme($themePath, $area);
             $assetRepo = $this->assetRepoFactory->create(['design' => $design]);
             /** @var \Magento\RequireJs\Model\FileManager $fileManager */
             $fileManager = $this->fileManagerFactory->create(
@@ -316,12 +304,12 @@ class LocaleDeploy implements DeployInterface
     private function isCanBeDeployed($fileArea, $fileTheme, $area, $themePath)
     {
         return ($fileArea == $area || $fileArea == 'base')
-        && ($fileTheme == '' || $fileTheme == $themePath
-            || in_array(
-                $fileArea . Theme::THEME_PATH_SEPARATOR . $fileTheme,
-                $this->findAncestors($area . Theme::THEME_PATH_SEPARATOR . $themePath)
-            )
-        );
+            && ($fileTheme == '' || $fileTheme == $themePath
+                || in_array(
+                    $fileArea . Theme::THEME_PATH_SEPARATOR . $fileTheme,
+                    $this->findAncestors($area . Theme::THEME_PATH_SEPARATOR . $themePath)
+                )
+            );
     }
 
     /**
@@ -461,17 +449,5 @@ class LocaleDeploy implements DeployInterface
             $ancestorThemeFullPath[] = $ancestor->getFullPath();
         }
         return $ancestorThemeFullPath;
-    }
-
-    /**
-     * @deprecated
-     * @return ListInterface
-     */
-    private function getThemeList()
-    {
-        if ($this->themeList === null) {
-            $this->themeList = ObjectManager::getInstance()->get(ListInterface::class);
-        }
-        return $this->themeList;
     }
 }

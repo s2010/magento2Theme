@@ -18,7 +18,7 @@ define([
         defaults: {
             template: 'ui/grid/actions',
             stickyTmpl: 'ui/grid/sticky/actions',
-            selectProvider: 'ns = ${ $.ns }, index = ids',
+            selectProvider: '',
             actions: [],
             noItemsMsg: $t('You haven\'t selected any items!'),
             modules: {

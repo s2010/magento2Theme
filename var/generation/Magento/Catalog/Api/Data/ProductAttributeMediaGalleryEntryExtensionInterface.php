@@ -2,7 +2,8 @@
 namespace Magento\Catalog\Api\Data;
 
 /**
- * ExtensionInterface class for @see \Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface
+ * ExtensionInterface class for @see
+ * \Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface
  */
 interface ProductAttributeMediaGalleryEntryExtensionInterface extends \Magento\Framework\Api\ExtensionAttributesInterface
 {
@@ -15,5 +16,5 @@ interface ProductAttributeMediaGalleryEntryExtensionInterface extends \Magento\F
      * @param \Magento\Framework\Api\Data\VideoContentInterface $videoContent
      * @return $this
      */
-    public function setVideoContent(\Magento\Framework\Api\Data\VideoContentInterface $videoContent);
+    public function setVideoContent($videoContent);
 }

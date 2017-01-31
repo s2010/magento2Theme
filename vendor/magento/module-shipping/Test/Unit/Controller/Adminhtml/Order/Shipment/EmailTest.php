@@ -79,7 +79,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
      */
     protected $shipmentLoader;
 
-    protected function setUp()
+    public function setUp()
     {
         $objectManagerHelper = new ObjectManagerHelper($this);
         $this->shipmentLoader = $this->getMock(

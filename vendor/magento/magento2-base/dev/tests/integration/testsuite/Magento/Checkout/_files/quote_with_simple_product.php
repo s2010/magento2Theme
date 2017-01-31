@@ -6,11 +6,9 @@
 
 require __DIR__ . '/../../../Magento/Catalog/_files/products.php';
 
-/** @var \Magento\Catalog\Api\ProductRepositoryInterface $productRepository */
-$productRepository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
-    ->create('Magento\Catalog\Api\ProductRepositoryInterface');
 /** @var $product \Magento\Catalog\Model\Product */
-$product = $productRepository->get('simple');
+$product = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create('Magento\Catalog\Model\Product');
+$product->load(1);
 
 $requestInfo = new \Magento\Framework\DataObject(['qty' => 1]);
 

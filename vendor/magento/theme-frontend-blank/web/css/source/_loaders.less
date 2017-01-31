@@ -4,15 +4,14 @@
 //  */
 
 //
-//  Common
-//  _____________________________________________
+//    Common
+//--------------------------------------
 
 & when (@media-common = true) {
 
     .load.indicator {
         .lib-loader();
         position: absolute;
-
         > span {
             display: none;
         }
@@ -21,12 +20,10 @@
     .loading-mask {
         .lib-loading-mask();
         background: rgba(255, 255, 255, .5);
-
         .loader {
             > img {
                 .lib-loading-mask();
             }
-
             > p {
                 display: none;
             }

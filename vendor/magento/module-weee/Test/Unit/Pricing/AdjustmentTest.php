@@ -35,7 +35,7 @@ class AdjustmentTest extends \PHPUnit_Framework_TestCase
      */
     protected $sortOrder = 5;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->weeeHelper = $this->getMock('Magento\Weee\Helper\Data', [], [], '', false);
         $this->priceCurrencyMock = $this->getMock('\Magento\Framework\Pricing\PriceCurrencyInterface');

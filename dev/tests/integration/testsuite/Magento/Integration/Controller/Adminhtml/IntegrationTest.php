@@ -6,8 +6,6 @@
  */
 namespace Magento\Integration\Controller\Adminhtml;
 
-use Magento\TestFramework\Bootstrap;
-
 /**
  * \Magento\Integration\Controller\Adminhtml\Integration
  *
@@ -76,7 +74,6 @@ class IntegrationTest extends \Magento\TestFramework\TestCase\AbstractBackendCon
                 'email' => 'test@magento.com',
                 'authentication' => '1',
                 'endpoint' => $url,
-                'current_password' => Bootstrap::ADMIN_PASSWORD,
             ]
         );
         $this->dispatch('backend/admin/integration/save');
@@ -97,7 +94,6 @@ class IntegrationTest extends \Magento\TestFramework\TestCase\AbstractBackendCon
                 'email' => 'test@magento.com',
                 'authentication' => '1',
                 'endpoint' => $url,
-                'current_password' => Bootstrap::ADMIN_PASSWORD,
             ]
         );
         $this->dispatch('backend/admin/integration/save');

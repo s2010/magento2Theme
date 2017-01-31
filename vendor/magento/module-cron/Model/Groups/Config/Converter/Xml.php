@@ -36,10 +36,7 @@ class Xml implements \Magento\Framework\Config\ConverterInterface
                     continue;
                 }
                 /** @var $group \DOMElement */
-                $output[$group->getAttribute('id')][$child->nodeName]['value'] = $child->nodeValue;
-                if ($child->hasAttribute('tooltip')) {
-                    $output[$group->getAttribute('id')][$child->nodeName]['tooltip'] = $child->getAttribute('tooltip');
-                }
+                $output[$group->getAttribute('id')][$child->nodeName] = $child->nodeValue;
             }
         }
         return $output;

@@ -69,7 +69,7 @@ class NameTest extends \PHPUnit_Framework_TestCase
      */
     protected $_objectManager;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->_escaper = $this->getMock('Magento\Framework\Escaper', [], [], '', false);
@@ -128,7 +128,7 @@ class NameTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->throwException(new NoSuchEntityException(
                 __(
-                    'No such entity with %fieldName = %fieldValue',
+                    NoSuchEntityException::MESSAGE_SINGLE_FIELD,
                     ['fieldName' => 'field', 'fieldValue' => 'value']
                 )
             ))
@@ -149,7 +149,7 @@ class NameTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->throwException(new NoSuchEntityException(
                 __(
-                    'No such entity with %fieldName = %fieldValue',
+                    NoSuchEntityException::MESSAGE_SINGLE_FIELD,
                     ['fieldName' => 'field', 'fieldValue' => 'value']
                 )
             ))
@@ -398,7 +398,7 @@ class NameTest extends \PHPUnit_Framework_TestCase
         )->will(
             $this->throwException(new NoSuchEntityException(
                 __(
-                    'No such entity with %fieldName = %fieldValue',
+                    NoSuchEntityException::MESSAGE_SINGLE_FIELD,
                     ['fieldName' => 'field', 'fieldValue' => 'value']
                 )
             ))

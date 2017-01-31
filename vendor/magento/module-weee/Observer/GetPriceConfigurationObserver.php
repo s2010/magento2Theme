@@ -124,8 +124,8 @@ class GetPriceConfigurationObserver implements ObserverInterface
                 $weeeSum = 0;
                 foreach ($weeeAttributesForBundle[$holder['optionId']] as $weeeAttribute) {
                     $holder[$key]['weeePrice' . $weeeAttribute->getCode()] =
-                        ['amount' => (float)$weeeAttribute->getAmount()];
-                    $weeeSum += (float)$weeeAttribute->getAmount();
+                        ['amount' => (float)$weeeAttribute->getAmountExclTax()];
+                    $weeeSum += (float)$weeeAttribute->getAmountExclTax();
                 }
                 $holder[$key]['weeePrice']['amount'] += (float)$weeeSum;
             } else {

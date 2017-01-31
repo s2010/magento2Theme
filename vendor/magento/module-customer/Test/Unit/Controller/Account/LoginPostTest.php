@@ -72,6 +72,11 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
     protected $redirectFactory;
 
     /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface | \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $scopeConfig;
+
+    /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $redirect;
@@ -80,11 +85,6 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
      * @var \Magento\Framework\Message\ManagerInterface | \PHPUnit_Framework_MockObject_MockObject
      */
     protected $messageManager;
-
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface | \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $scopeConfig;
 
     protected function setUp()
     {
@@ -126,10 +126,7 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
             $this->formkeyValidator,
             $this->accountRedirect
         );
-        $reflection = new \ReflectionClass(get_class($this->controller));
-        $reflectionProperty = $reflection->getProperty('scopeConfig');
-        $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($this->controller, $this->scopeConfig);
+        $this->controller->setScopeConfig($this->scopeConfig);
     }
 
     /**
@@ -299,18 +296,6 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
             ->method('getRedirect')
             ->willReturn($this->resultRedirect);
 
-        $cookieMetadataManager = $this->getMockBuilder(\Magento\Framework\Stdlib\Cookie\PhpCookieManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cookieMetadataManager->expects($this->once())
-            ->method('getCookie')
-            ->with('mage-cache-sessid')
-            ->willReturn(false);
-        $refClass = new \ReflectionClass(LoginPost::class);
-        $refProperty = $refClass->getProperty('cookieMetadataManager');
-        $refProperty->setAccessible(true);
-        $refProperty->setValue($this->controller, $cookieMetadataManager);
-
         $this->assertSame($this->resultRedirect, $this->controller->execute());
     }
 
@@ -364,38 +349,6 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
             ->method('getRedirect')
             ->willReturn($this->resultRedirect);
 
-        $cookieMetadataManager = $this->getMockBuilder(\Magento\Framework\Stdlib\Cookie\PhpCookieManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cookieMetadataManager->expects($this->once())
-            ->method('getCookie')
-            ->with('mage-cache-sessid')
-            ->willReturn(true);
-        $cookieMetadataFactory = $this->getMockBuilder(\Magento\Framework\Stdlib\Cookie\CookieMetadataFactory::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cookieMetadata = $this->getMockBuilder(\Magento\Framework\Stdlib\Cookie\CookieMetadata::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $cookieMetadataFactory->expects($this->once())
-            ->method('createCookieMetadata')
-            ->willReturn($cookieMetadata);
-        $cookieMetadata->expects($this->once())
-            ->method('setPath')
-            ->with('/');
-        $cookieMetadataManager->expects($this->once())
-            ->method('deleteCookie')
-            ->with('mage-cache-sessid', $cookieMetadata);
-
-        $refClass = new \ReflectionClass(LoginPost::class);
-        $cookieMetadataManagerProperty = $refClass->getProperty('cookieMetadataManager');
-        $cookieMetadataManagerProperty->setAccessible(true);
-        $cookieMetadataManagerProperty->setValue($this->controller, $cookieMetadataManager);
-
-        $cookieMetadataFactoryProperty = $refClass->getProperty('cookieMetadataFactory');
-        $cookieMetadataFactoryProperty->setAccessible(true);
-        $cookieMetadataFactoryProperty->setValue($this->controller, $cookieMetadataFactory);
-
         $this->assertSame($this->resultRedirect, $this->controller->execute());
     }
 
@@ -409,6 +362,7 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
     ) {
         $username = 'user1';
         $password = 'pass1';
+
 
         $this->session->expects($this->once())
             ->method('isLoggedIn')
@@ -468,12 +422,6 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
                 [
                     'message' => 'Exception',
                     'exception' => '\Exception',
-                ],
-            ],
-            [
-                [
-                    'message' => 'UserLockedException',
-                    'exception' => '\Magento\Framework\Exception\State\UserLockedException',
                 ],
             ],
         ];
@@ -536,7 +484,6 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
     protected function mockExceptions($exception, $username)
     {
         $url = 'url1';
-        $email = 'hello@example.com';
 
         switch ($exception) {
             case '\Magento\Framework\Exception\EmailNotConfirmedException':
@@ -576,23 +523,7 @@ class LoginPostTest extends \PHPUnit_Framework_TestCase
             case '\Exception':
                 $this->messageManager->expects($this->once())
                     ->method('addError')
-                    ->with(__('An unspecified error occurred. Please contact us for assistance.'))
-                    ->willReturnSelf();
-                break;
-
-            case '\Magento\Framework\Exception\State\UserLockedException':
-                $this->scopeConfig->expects($this->once())->method('getValue')->willReturn($email);
-                $message = __(
-                    'The account is locked. Please wait and try again or contact %1.',
-                    $email
-                );
-                $this->messageManager->expects($this->once())
-                    ->method('addError')
-                    ->with($message)
-                    ->willReturnSelf();
-                $this->session->expects($this->once())
-                    ->method('setUsername')
-                    ->with($username)
+                    ->with(__('Invalid login or password.'))
                     ->willReturnSelf();
                 break;
         }

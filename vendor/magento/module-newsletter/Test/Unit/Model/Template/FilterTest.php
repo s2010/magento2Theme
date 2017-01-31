@@ -22,7 +22,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     protected $appState;
 
-    protected function setUp()
+    public function setUp()
     {
         $scopeConfig = $this->getMockForAbstractClass(
             '\Magento\Framework\App\Config\ScopeConfigInterface',

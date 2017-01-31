@@ -34,7 +34,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
      */
     protected $product;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->objectManager = new ObjectManager($this);
 
@@ -162,6 +162,7 @@ class ProductTest extends \PHPUnit_Framework_TestCase
             ->method('getList')
             ->with($searchCriteriaMock)
             ->willReturn($searchResultsMock);
+
 
         $taxClassMock->expects($this->once())
             ->method('getClassId')

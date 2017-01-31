@@ -11,7 +11,6 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\App\Action\Context;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Customer\Helper\Address;
@@ -30,6 +29,7 @@ use Magento\Framework\Exception\InputException;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class CreatePost extends \Magento\Customer\Controller\AbstractAccount
 {
@@ -83,14 +83,9 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
     private $accountRedirect;
 
     /**
-     * @var \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory
+     * @var ScopeConfigInterface
      */
-    private $cookieMetadataFactory;
-
-    /**
-     * @var \Magento\Framework\Stdlib\Cookie\PhpCookieManager
-     */
-    private $cookieMetadataManager;
+    private $scopeConfig;
 
     /**
      * @param Context $context
@@ -152,38 +147,6 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
         $this->dataObjectHelper = $dataObjectHelper;
         $this->accountRedirect = $accountRedirect;
         parent::__construct($context);
-    }
-
-    /**
-     * Retrieve cookie manager
-     *
-     * @deprecated
-     * @return \Magento\Framework\Stdlib\Cookie\PhpCookieManager
-     */
-    private function getCookieManager()
-    {
-        if (!$this->cookieMetadataManager) {
-            $this->cookieMetadataManager = \Magento\Framework\App\ObjectManager::getInstance()->get(
-                \Magento\Framework\Stdlib\Cookie\PhpCookieManager::class
-            );
-        }
-        return $this->cookieMetadataManager;
-    }
-
-    /**
-     * Retrieve cookie metadata factory
-     *
-     * @deprecated
-     * @return \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory
-     */
-    private function getCookieMetadataFactory()
-    {
-        if (!$this->cookieMetadataFactory) {
-            $this->cookieMetadataFactory = \Magento\Framework\App\ObjectManager::getInstance()->get(
-                \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory::class
-            );
-        }
-        return $this->cookieMetadataFactory;
     }
 
     /**
@@ -309,12 +272,6 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
                 }
                 $resultRedirect = $this->accountRedirect->getRedirect();
             }
-            if ($this->getCookieManager()->getCookie('mage-cache-sessid')) {
-                $metadata = $this->getCookieMetadataFactory()->createCookieMetadata();
-                $metadata->setPath('/');
-                $this->getCookieManager()->deleteCookie('mage-cache-sessid', $metadata);
-            }
-
             return $resultRedirect;
         } catch (StateException $e) {
             $url = $this->urlModel->getUrl('customer/account/forgotpassword');
@@ -330,8 +287,6 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
             foreach ($e->getErrors() as $error) {
                 $this->messageManager->addError($this->escaper->escapeHtml($error->getMessage()));
             }
-        } catch (LocalizedException $e) {
-            $this->messageManager->addError($this->escaper->escapeHtml($e->getMessage()));
         } catch (\Exception $e) {
             $this->messageManager->addException($e, __('We can\'t save the customer.'));
         }

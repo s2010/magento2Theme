@@ -1,1 +1,0 @@
-/Applications/MAMP/htdocs/magento2Theme/lib/web/moment.js

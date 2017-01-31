@@ -136,6 +136,7 @@ class DeployManager
         }
 
         $this->minifyTemplates();
+
         if (!$this->idDryRun) {
             $this->output->writeln("New version of deployed files: {$version}");
         }

@@ -73,7 +73,7 @@ class Compiled extends AbstractEnvironment implements EnvironmentInterface
      */
     protected function getConfigData()
     {
-        return $this->getObjectManagerConfigLoader()->load(Area::AREA_GLOBAL);
+        $this->getObjectManagerConfigLoader()->load(Area::AREA_GLOBAL);
     }
 
     /**

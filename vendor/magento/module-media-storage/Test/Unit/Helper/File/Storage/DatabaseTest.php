@@ -30,7 +30,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
     /** @var Database */
     protected $helper;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->dbStorageFactoryMock = $this->getMockBuilder('Magento\MediaStorage\Model\File\Storage\DatabaseFactory')
             ->disableOriginalConstructor()

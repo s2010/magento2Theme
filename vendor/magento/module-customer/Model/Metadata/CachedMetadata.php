@@ -33,6 +33,30 @@ class CachedMetadata implements MetadataInterface
     protected $metadata;
 
     /**
+     * @deprecated
+     * @var array
+     */
+    protected $attributeMetadataCache = [];
+
+    /**
+     * @deprecated
+     * @var array
+     */
+    protected $attributesCache = [];
+
+    /**
+     * @deprecated
+     * @var \Magento\Customer\Api\Data\AttributeMetadataInterface[]
+     */
+    protected $allAttributeMetadataCache = null;
+
+    /**
+     * @deprecated
+     * @var \Magento\Customer\Api\Data\AttributeMetadataInterface[]
+     */
+    protected $customAttributesMetadataCache = null;
+
+    /**
      * Initialize dependencies.
      *
      * @param MetadataInterface $metadata
@@ -107,7 +131,6 @@ class CachedMetadata implements MetadataInterface
         if (!$this->cache) {
             $this->cache = ObjectManager::getInstance()->get(AttributeCache::class);
         }
-        
         return $this->cache;
     }
 }

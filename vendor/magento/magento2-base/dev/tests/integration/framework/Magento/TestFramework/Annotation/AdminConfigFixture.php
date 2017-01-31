@@ -9,11 +9,6 @@
  */
 namespace Magento\TestFramework\Annotation;
 
-/**
- * Handler for applying magentoAdminConfig annotation
- *
- * @package Magento\TestFramework\Annotation
- */
 class AdminConfigFixture
 {
     /**
@@ -39,7 +34,7 @@ class AdminConfigFixture
     protected function _getConfigValue($configPath)
     {
         return \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Framework\App\Config\MutableScopeConfigInterface'
+            'Magento\Backend\App\ConfigInterface'
         )->getValue(
             $configPath
         );
@@ -54,7 +49,7 @@ class AdminConfigFixture
     protected function _setConfigValue($configPath, $value)
     {
         \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->get(
-            'Magento\Framework\App\Config\MutableScopeConfigInterface'
+            'Magento\Backend\App\ConfigInterface'
         )->setValue(
             $configPath,
             $value

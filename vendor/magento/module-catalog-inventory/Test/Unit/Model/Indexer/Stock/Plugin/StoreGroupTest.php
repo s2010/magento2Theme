@@ -21,7 +21,7 @@ class StoreGroupTest extends \PHPUnit_Framework_TestCase
      */
     protected $_indexerMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_indexerMock = $this->getMock(
             '\Magento\CatalogInventory\Model\Indexer\Stock\Processor',

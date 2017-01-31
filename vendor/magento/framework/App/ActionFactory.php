@@ -7,9 +7,6 @@
  */
 namespace Magento\Framework\App;
 
-/**
- * @api
- */
 class ActionFactory
 {
     /**

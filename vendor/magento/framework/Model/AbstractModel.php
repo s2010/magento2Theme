@@ -523,7 +523,6 @@ abstract class AbstractModel extends \Magento\Framework\DataObject
      * @param integer $modelId
      * @param null|string $field
      * @return $this
-     * @deprecated
      */
     public function load($modelId, $field = null)
     {
@@ -624,7 +623,6 @@ abstract class AbstractModel extends \Magento\Framework\DataObject
      *
      * @return $this
      * @throws \Exception
-     * @deprecated
      */
     public function save()
     {
@@ -809,7 +807,6 @@ abstract class AbstractModel extends \Magento\Framework\DataObject
      *
      * @return $this
      * @throws \Exception
-     * @deprecated
      */
     public function delete()
     {

@@ -544,12 +544,4 @@ abstract class AbstractEntity
 
         return $this;
     }
-
-    /**
-     * Clean cached values
-     */
-    public function __destruct()
-    {
-        self::$attrCodes = null;
-    }
 }

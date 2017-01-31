@@ -27,7 +27,7 @@ class ImportTest extends \PHPUnit_Framework_TestCase
      */
     protected $indexerRegistryMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->_objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
 

@@ -22,10 +22,10 @@ interface StockItemRepositoryInterface
     /**
      * Load Stock Item data by given stockId and parameters
      *
-     * @param int $stockItemId
+     * @param int $stockId
      * @return \Magento\CatalogInventory\Api\Data\StockItemInterface
      */
-    public function get($stockItemId);
+    public function get($stockId);
 
     /**
      * Load Stock Item data collection by given search criteria

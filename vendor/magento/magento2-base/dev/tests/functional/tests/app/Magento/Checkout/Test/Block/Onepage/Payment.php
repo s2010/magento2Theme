@@ -7,7 +7,6 @@
 namespace Magento\Checkout\Test\Block\Onepage;
 
 use Magento\Mtf\Block\Block;
-use Magento\Mtf\Fixture\InjectableFixture;
 use Magento\Payment\Test\Fixture\CreditCard;
 
 /**
@@ -20,7 +19,7 @@ class Payment extends Block
      *
      * @var string
      */
-    protected $paymentMethodInput = '[id*="%s"]';
+    protected $paymentMethodInput = '#%s';
 
     /**
      * Labels for payment methods.
@@ -34,7 +33,7 @@ class Payment extends Block
      *
      * @var string
      */
-    protected $paymentMethodLabel = '[for*="%s"]';
+    protected $paymentMethodLabel = '[for="%s"]';
 
     /**
      * Continue checkout button.
@@ -71,21 +70,21 @@ class Payment extends Block
      */
     protected $activePaymentMethodSelector = '.payment-method._active';
 
+
     /**
      * Select payment method.
      *
      * @param array $payment
-     * @param InjectableFixture|null $creditCard
+     * @param CreditCard|null $creditCard
      * @throws \Exception
      * @return void
      */
-    public function selectPaymentMethod(array $payment, InjectableFixture $creditCard = null)
+    public function selectPaymentMethod(array $payment, CreditCard $creditCard = null)
     {
         $paymentSelector = sprintf($this->paymentMethodInput, $payment['method']);
         $paymentLabelSelector = sprintf($this->paymentMethodLabel, $payment['method']);
 
         try {
-            $this->waitForElementNotVisible($this->waitElement);
             $this->waitForElementVisible($paymentLabelSelector);
         } catch (\Exception $exception) {
             throw new \Exception('Such payment method is absent.');
@@ -100,11 +99,9 @@ class Payment extends Block
             $this->_rootElement->find($this->purchaseOrderNumber)->setValue($payment['po_number']);
         }
         if ($creditCard !== null) {
-            $class = explode('\\', get_class($creditCard));
-            $module = $class[1];
             /** @var \Magento\Payment\Test\Block\Form\Cc $formBlock */
             $formBlock = $this->blockFactory->create(
-                "\\Magento\\{$module}\\Test\\Block\\Form\\Cc",
+                '\\Magento\\Payment\\Test\\Block\\Form\\Cc',
                 ['element' => $this->_rootElement->find('#payment_form_' . $payment['method'])]
             );
             $formBlock->fill($creditCard);
@@ -121,7 +118,7 @@ class Payment extends Block
         $element = $this->_rootElement->find($this->activePaymentMethodSelector);
 
         return $this->blockFactory->create(
-            \Magento\Checkout\Test\Block\Onepage\Payment\Method::class,
+            '\Magento\Checkout\Test\Block\Onepage\Payment\Method',
             ['element' => $element]
         );
     }

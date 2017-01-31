@@ -53,7 +53,7 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Url implements \Magento
      */
     public function __sleep()
     {
-        return ['_subject', '_isShared', '_instanceName'];
+        return array('_subject', '_isShared');
     }
 
     /**
@@ -242,15 +242,7 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Url implements \Magento
     /**
      * {@inheritdoc}
      */
-    public function getChecksum($table)
-    {
-        return $this->_getSubject()->getChecksum($table);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterLoad(\Magento\Framework\DataObject $object)
+    public function afterLoad(\Magento\Framework\Model\AbstractModel $object)
     {
         return $this->_getSubject()->afterLoad($object);
     }
@@ -258,41 +250,9 @@ class Proxy extends \Magento\Catalog\Model\ResourceModel\Url implements \Magento
     /**
      * {@inheritdoc}
      */
-    public function beforeSave(\Magento\Framework\DataObject $object)
+    public function getChecksum($table)
     {
-        return $this->_getSubject()->beforeSave($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterSave(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->afterSave($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeDelete(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->beforeDelete($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterDelete(\Magento\Framework\DataObject $object)
-    {
-        return $this->_getSubject()->afterDelete($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function serializeFields(\Magento\Framework\Model\AbstractModel $object)
-    {
-        return $this->_getSubject()->serializeFields($object);
+        return $this->_getSubject()->getChecksum($table);
     }
 
     /**

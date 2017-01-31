@@ -23,7 +23,7 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
      */
     protected $urlBuilder;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->urlBuilder = $this->getMock(
             '\Magento\Framework\UrlInterface',

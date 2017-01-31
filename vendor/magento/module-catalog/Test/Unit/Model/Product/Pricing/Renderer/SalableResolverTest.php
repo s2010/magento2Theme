@@ -21,7 +21,7 @@ class SalableResolverTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->product = $this->getMock(
-            \Magento\Catalog\Model\Product::class,
+            'Magento\Catalog\Model\Product',
             ['__wakeup', 'getCanShowPrice', 'isSalable'],
             [],
             '',
@@ -30,7 +30,7 @@ class SalableResolverTest extends \PHPUnit_Framework_TestCase
 
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         $this->object = $objectManager->getObject(
-            \Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolver::class
+            'Magento\Catalog\Model\Product\Pricing\Renderer\SalableResolver'
         );
     }
 

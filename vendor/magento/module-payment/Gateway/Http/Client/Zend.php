@@ -12,11 +12,6 @@ use Magento\Payment\Gateway\Http\ConverterInterface;
 use Magento\Payment\Gateway\Http\TransferInterface;
 use Magento\Payment\Model\Method\Logger;
 
-/**
- * Class Zend
- * @package Magento\Payment\Gateway\Http\Client
- * @api
- */
 class Zend implements ClientInterface
 {
     /**

@@ -80,9 +80,6 @@ var catalogWysiwygEditor = {
                 }
             }
             tinyMCE.editors[dialogWindow.options.firedElementId].load();
-            if (typeof varienGlobalEvents != undefined) {
-                varienGlobalEvents.fireEvent('tinymceChange');
-            }
         }
         this.closeDialogWindow(dialogWindow);
     },

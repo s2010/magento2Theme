@@ -135,12 +135,11 @@ class Group extends \Magento\Backend\Block\System\Store\Edit\AbstractForm
                 'disabled' => $groupModel->isReadOnly()
             ]
         );
+
         if ($this->_coreRegistry->registry('store_action') == 'edit') {
-            $storeActive = 1;
-            $stores = $this->_storeFactory->create()->getCollection()
-                ->addGroupFilter($groupModel->getId())
-                ->addStatusFilter($storeActive)
-                ->toOptionArray();
+            $stores = $this->_storeFactory->create()->getCollection()->addGroupFilter(
+                $groupModel->getId()
+            )->toOptionArray();
             $fieldset->addField(
                 'group_default_store_id',
                 'select',

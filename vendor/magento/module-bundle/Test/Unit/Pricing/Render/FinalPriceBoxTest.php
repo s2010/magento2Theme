@@ -21,7 +21,7 @@ class FinalPriceBoxTest extends \PHPUnit_Framework_TestCase
      */
     protected $saleableItem;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->saleableItem = $this->getMock('Magento\Framework\Pricing\SaleableInterface');
 

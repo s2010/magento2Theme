@@ -27,7 +27,6 @@ class SignupAddCard extends Form
      */
     public function linkCardToAccount()
     {
-        $this->browser->selectWindow();
         $this->_rootElement->find($this->linkCard)->click();
     }
 }

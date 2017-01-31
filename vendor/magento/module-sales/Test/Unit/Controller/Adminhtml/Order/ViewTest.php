@@ -97,7 +97,7 @@ class ViewTest extends \PHPUnit_Framework_TestCase
      */
     protected $orderRepositoryMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->orderManagementMock = $this->getMockBuilder('Magento\Sales\Api\OrderManagementInterface')
             ->getMockForAbstractClass();

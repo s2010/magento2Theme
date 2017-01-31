@@ -79,7 +79,6 @@ class Version
             $publicCookieMetadata = $this->cookieMetadataFactory->createPublicCookieMetadata()
                 ->setDuration(self::COOKIE_PERIOD)
                 ->setPath('/')
-                ->setSecure($this->request->isSecure())
                 ->setHttpOnly(false);
             $this->cookieManager->setPublicCookie(self::COOKIE_NAME, $this->generateValue(), $publicCookieMetadata);
         }

@@ -7,8 +7,6 @@ namespace Magento\Framework\View\Design\Theme\Label;
 
 /**
  * Label list interface
- *
- * @api
  */
 interface ListInterface
 {

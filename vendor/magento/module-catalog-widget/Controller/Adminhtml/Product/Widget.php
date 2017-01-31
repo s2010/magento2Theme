@@ -13,9 +13,10 @@ use Magento\Backend\App\Action;
 abstract class Widget extends Action
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
+     * @return bool
      */
-    const ADMIN_RESOURCE = 'Magento_Widget::widget_instance';
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_Widget::widget_instance');
+    }
 }

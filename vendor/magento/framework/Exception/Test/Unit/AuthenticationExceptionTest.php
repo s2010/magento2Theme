@@ -11,6 +11,8 @@ use Magento\Framework\Phrase;
 
 /**
  * Class AuthenticationExceptionTest
+ *
+ * @package Magento\Framework\Exception
  */
 class AuthenticationExceptionTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,7 +23,7 @@ class AuthenticationExceptionTest extends \PHPUnit_Framework_TestCase
     {
         $authenticationException = new AuthenticationException(
             new Phrase(
-                'An authentication error occurred.',
+                AuthenticationException::AUTHENTICATION_ERROR,
                 ['consumer_id' => 1, 'resources' => 'record2']
             )
         );

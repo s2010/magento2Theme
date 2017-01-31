@@ -2,7 +2,8 @@
 namespace Magento\Customer\Model\ResourceModel\CustomerRepository;
 
 /**
- * Interceptor class for @see \Magento\Customer\Model\ResourceModel\CustomerRepository
+ * Interceptor class for @see
+ * \Magento\Customer\Model\ResourceModel\CustomerRepository
  */
 class Interceptor extends \Magento\Customer\Model\ResourceModel\CustomerRepository implements \Magento\Framework\Interception\InterceptorInterface
 {

@@ -15,8 +15,6 @@
 namespace Magento\Config\Block\System\Config\Form;
 
 /**
- * Render field html element in Stores Configuration
- *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
@@ -49,16 +47,17 @@ class Field extends \Magento\Backend\Block\Template implements \Magento\Framewor
         }
 
         $html = '<td class="label"><label for="' .
-            $element->getHtmlId() . '"><span' .
-            $this->_renderScopeLabel($element) . '>' .
+            $element->getHtmlId() .
+            '">' .
             $element->getLabel() .
-            '</span></label></td>';
+            '</label></td>';
         $html .= $this->_renderValue($element);
 
         if ($isCheckboxRequired) {
             $html .= $this->_renderInheritCheckbox($element);
         }
 
+        $html .= $this->_renderScopeLabel($element);
         $html .= $this->_renderHint($element);
 
         return $this->_decorateRowHtml($element, $html);
@@ -99,7 +98,6 @@ class Field extends \Magento\Backend\Block\Template implements \Magento\Framewor
         $htmlId = $element->getHtmlId();
         $namePrefix = preg_replace('#\[value\](\[\])?$#', '', $element->getName());
         $checkedHtml = $element->getInherit() == 1 ? 'checked="checked"' : '';
-        $disabled = $element->getIsDisableInheritance() == true ? ' disabled="disabled"' : '';
 
         $html = '<td class="use-default">';
         $html .= '<input id="' .
@@ -108,7 +106,7 @@ class Field extends \Magento\Backend\Block\Template implements \Magento\Framewor
             $namePrefix .
             '[inherit]" type="checkbox" value="1"' .
             ' class="checkbox config-inherit" ' .
-            $checkedHtml . $disabled .
+            $checkedHtml .
             ' onclick="toggleValueElements(this, Element.previous(this.parentNode))" /> ';
         $html .= '<label for="' . $htmlId . '_inherit" class="inherit">' . $this->_getInheritCheckboxLabel(
             $element
@@ -126,9 +124,7 @@ class Field extends \Magento\Backend\Block\Template implements \Magento\Framewor
      */
     protected function _isInheritCheckboxRequired(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        return $element->getCanUseWebsiteValue()
-            || $element->getCanUseDefaultValue()
-            || $element->getCanRestoreToDefault();
+        return $element->getCanUseWebsiteValue() || $element->getCanUseDefaultValue();
     }
 
     /**
@@ -139,10 +135,7 @@ class Field extends \Magento\Backend\Block\Template implements \Magento\Framewor
      */
     protected function _getInheritCheckboxLabel(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        $checkboxLabel = __('Use system value');
-        if ($element->getCanUseDefaultValue()) {
-            $checkboxLabel = __('Use Default');
-        }
+        $checkboxLabel = __('Use Default');
         if ($element->getCanUseWebsiteValue()) {
             $checkboxLabel = __('Use Website');
         }
@@ -157,12 +150,12 @@ class Field extends \Magento\Backend\Block\Template implements \Magento\Framewor
      */
     protected function _renderScopeLabel(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        $scopeString = '';
+        $html = '<td class="scope-label">';
         if ($element->getScope() && false == $this->_storeManager->isSingleStoreMode()) {
-            $scopeString .= ' data-config-scope="' . $element->getScopeLabel() . '"';
+            $html .= $element->getScopeLabel();
         }
-
-        return $scopeString;
+        $html .= '</td>';
+        return $html;
     }
 
     /**
@@ -188,7 +181,7 @@ class Field extends \Magento\Backend\Block\Template implements \Magento\Framewor
      * @param string $html
      * @return string
      */
-    protected function _decorateRowHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element, $html)
+    protected function _decorateRowHtml($element, $html)
     {
         return '<tr id="row_' . $element->getHtmlId() . '">' . $html . '</tr>';
     }

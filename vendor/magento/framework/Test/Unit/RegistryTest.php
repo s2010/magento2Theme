@@ -22,7 +22,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     protected $data;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->registry = new Registry();
         $this->data = [

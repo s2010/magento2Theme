@@ -194,7 +194,7 @@ class WishlistTest extends \PHPUnit_Framework_TestCase
             ->method('getProductPriceHtml')
             ->with(
                 $productMock,
-                'wishlist_configured_price',
+                ConfiguredPriceInterface::CONFIGURED_PRICE_CODE,
                 Render::ZONE_ITEM_LIST,
                 ['item' => $itemMock]
             )
@@ -379,7 +379,7 @@ class WishlistTest extends \PHPUnit_Framework_TestCase
             ->method('getProductPriceHtml')
             ->with(
                 $productMock,
-                'wishlist_configured_price',
+                ConfiguredPriceInterface::CONFIGURED_PRICE_CODE,
                 Render::ZONE_ITEM_LIST,
                 ['item' => $itemMock]
             )

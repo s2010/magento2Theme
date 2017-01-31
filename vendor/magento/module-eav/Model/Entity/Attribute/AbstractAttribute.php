@@ -6,8 +6,8 @@
 
 namespace Magento\Eav\Model\Entity\Attribute;
 
-use Magento\Framework\Api\AttributeValueFactory;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Api\AttributeValueFactory;
 
 /**
  * Entity/Attribute/Model - attribute abstract
@@ -584,7 +584,7 @@ abstract class AbstractAttribute extends \Magento\Framework\Model\AbstractExtens
      */
     protected function _getDefaultSourceModel()
     {
-        return $this->getEntityType()->getEntity()->getDefaultAttributeSourceModel();
+        return $this->getEntity()->getDefaultAttributeSourceModel();
     }
 
     /**
@@ -593,12 +593,15 @@ abstract class AbstractAttribute extends \Magento\Framework\Model\AbstractExtens
      */
     public function isValueEmpty($value)
     {
-        /** @var array $emptyStringTypes list of attribute types that treat empty string as a possible value */
-        $emptyStringTypes = ['int', 'decimal', 'datetime', 'varchar', 'text', 'static'];
-        return (is_array($value) && count($value) == 0)
-            || $value === null
-            || ($value === false && $this->getBackend()->getType() != 'int')
-            || ($value === '' && in_array($this->getBackend()->getType(), $emptyStringTypes));
+        $attrType = $this->getBackend()->getType();
+        $isEmpty = (is_array($value) && count($value) == 0) ||
+            $value === null ||
+            $value === false && $attrType != 'int' ||
+            $value === '' && ($attrType == 'int' ||
+            $attrType == 'decimal' ||
+            $attrType == 'datetime');
+
+        return $isEmpty;
     }
 
     /**

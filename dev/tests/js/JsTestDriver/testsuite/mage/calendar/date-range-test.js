@@ -30,8 +30,8 @@ DaterangeTest.prototype.testInitDateRangeDatepickers = function() {
         from = $('#'+options.from.id),
         to = $('#'+options.to.id);
 
-    assertEquals(true, from.hasClass('_has-datepicker'));
-    assertEquals(true, to.hasClass('_has-datepicker'));
+    assertEquals(true, from.hasClass('hasDatepicker'));
+    assertEquals(true, to.hasClass('hasDatepicker'));
     dateRange.dateRange('destroy');
 };
 DaterangeTest.prototype.testDestroy = function() {
@@ -53,11 +53,11 @@ DaterangeTest.prototype.testDestroy = function() {
         from = $('#'+options.from.id),
         to = $('#'+options.to.id),
         dateRangeExist = dateRange.is(':mage-dateRange'),
-        fromExist = from.hasClass('_has-datepicker'),
-        toExist = to.hasClass('_has-datepicker');
+        fromExist = from.hasClass('hasDatepicker'),
+        toExist = to.hasClass('hasDatepicker');
 
     dateRange.dateRange('destroy');
     assertEquals(true, dateRangeExist != dateRange.is(':mage-dateRange'));
-    assertEquals(true, fromExist != from.hasClass('_has-datepicker'));
-    assertEquals(true, toExist != to.hasClass('_has-datepicker'));
+    assertEquals(true, fromExist != from.hasClass('hasDatepicker'));
+    assertEquals(true, toExist != to.hasClass('hasDatepicker'));
 };

@@ -39,9 +39,12 @@ class Repository implements \Magento\Sales\Api\InvoiceCommentRepositoryInterface
     /**
      * Repository constructor
      *
-     * @param \Magento\Sales\Api\Data\InvoiceCommentInterface $invoiceCommentInterfacePersistor
-     * @param \Magento\Sales\Api\Data\InvoiceCommentSearchResultInterfaceFactory $invoiceCommentInterfaceSearchResultFactory
-     * @param \Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface $extensionAttributesJoinProcessor
+     * @param \Magento\Sales\Api\Data\InvoiceCommentInterface
+     * $invoiceCommentInterfacePersistor
+     * @param \Magento\Sales\Api\Data\InvoiceCommentSearchResultInterfaceFactory
+     * $invoiceCommentInterfaceSearchResultFactory
+     * @param \Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface
+     * $extensionAttributesJoinProcessor
      */
     public function __construct(\Magento\Sales\Api\Data\InvoiceCommentInterfacePersistor $invoiceCommentInterfacePersistor, \Magento\Sales\Api\Data\InvoiceCommentSearchResultInterfaceFactory $invoiceCommentInterfaceSearchResultFactory, \Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface $extensionAttributesJoinProcessor)
     {

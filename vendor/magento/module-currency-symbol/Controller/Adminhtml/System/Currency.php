@@ -14,13 +14,6 @@ namespace Magento\CurrencySymbol\Controller\Adminhtml\System;
 abstract class Currency extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'Magento_CurrencySymbol::currency_rates';
-
-    /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
@@ -35,5 +28,15 @@ abstract class Currency extends \Magento\Backend\App\Action
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
+    }
+
+    /**
+     * Check if allowed
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Magento_CurrencySymbol::currency_rates');
     }
 }

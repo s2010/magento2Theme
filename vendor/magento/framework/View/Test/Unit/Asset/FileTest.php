@@ -30,7 +30,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
      */
     private $object;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->source = $this->getMock('Magento\Framework\View\Asset\Source', [], [], '', false);
         $this->context = $this->getMockForAbstractClass('\Magento\Framework\View\Asset\ContextInterface');

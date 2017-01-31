@@ -17,7 +17,7 @@ class CountryTest extends \PHPUnit_Framework_TestCase
      */
     protected $localeListsMock;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->localeListsMock = $this->getMock('Magento\Framework\Locale\ListsInterface');
 

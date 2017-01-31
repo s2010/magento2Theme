@@ -53,7 +53,6 @@ class InstallData implements InstallDataInterface
             'special_to_date',
             'tier_price',
             'weight',
-            'color'
         ];
         foreach ($attributes as $attributeCode) {
             $relatedProductTypes = explode(
