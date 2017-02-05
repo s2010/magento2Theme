@@ -1,0 +1,639 @@
+{
+    "packages": {
+        "magento/module-security": {
+            "name": "magento/module-security",
+            "description": "Security management module",
+            "keywords": [],
+            "homepage": "",
+            "version": "100.1.0",
+            "version_normalized": "100.1.0.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/magento/module-security/magento-module-security-100.1.0.0.zip",
+                "reference": null,
+                "shasum": "ce156b5ded036189306f97e2d82954d52d76436b"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Magento\\Security\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.6.0|7.0.2|~7.0.6",
+                "magento/module-backend": "100.1.*",
+                "magento/module-store": "100.1.*",
+                "magento/framework": "100.1.*"
+            },
+            "suggest": {
+                "magento/module-customer": "100.1.*"
+            },
+            "versions": [
+                "100.1.1",
+                "100.1.0-rc3",
+                "100.1.0-rc2",
+                "100.1.0-rc1",
+                "100.1.0"
+            ],
+            "vendor": "magento"
+        },
+        "magento/module-swatches-layered-navigation": {
+            "name": "magento/module-swatches-layered-navigation",
+            "description": "N/A",
+            "keywords": [],
+            "homepage": "",
+            "version": "100.1.0",
+            "version_normalized": "100.1.0.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/magento/module-swatches-layered-navigation/magento-module-swatches-layered-navigation-100.1.0.0.zip",
+                "reference": null,
+                "shasum": "ea15dd664fb7c8e3874bf8b38f402c3736920877"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Magento\\SwatchesLayeredNavigation\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.6.0|7.0.2|~7.0.6",
+                "magento/framework": "100.1.*",
+                "magento/magento-composer-installer": "*"
+            },
+            "versions": [
+                "100.1.1",
+                "100.1.0-rc3",
+                "100.1.0-rc2",
+                "100.1.0-rc1",
+                "100.1.0"
+            ],
+            "vendor": "magento"
+        },
+        "magento/module-vault": {
+            "name": "magento/module-vault",
+            "description": "",
+            "keywords": [],
+            "homepage": "",
+            "version": "100.1.0",
+            "version_normalized": "100.1.0.0",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/magento/module-vault/magento-module-vault-100.1.0.0.zip",
+                "reference": null,
+                "shasum": "b1457df001ff41347abfc28afe1340f655bcb06e"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Magento\\Vault\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.6.0|7.0.2|~7.0.6",
+                "magento/framework": "100.1.*",
+                "magento/module-sales": "100.1.*",
+                "magento/module-store": "100.1.*",
+                "magento/module-checkout": "100.1.*",
+                "magento/module-payment": "100.1.*",
+                "magento/module-customer": "100.1.*",
+                "magento/module-quote": "100.1.*",
+                "magento/module-theme": "100.1.*"
+            },
+            "versions": [
+                "100.2.0",
+                "100.1.1",
+                "100.1.0-rc3",
+                "100.1.0-rc2",
+                "100.1.0-rc1",
+                "100.1.0"
+            ],
+            "vendor": "magento"
+        },
+        "algolia/algoliasearch-magento-2": {
+            "name": "algolia/algoliasearch-magento-2",
+            "description": "Algolia Search Magento",
+            "keywords": [],
+            "homepage": "",
+            "version": "0.8.3",
+            "version_normalized": "0.8.3.0",
+            "license": [
+                "MIT"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/algolia/algoliasearch-magento-2/algolia-algoliasearch-magento-2-0.8.3.0.zip",
+                "reference": null,
+                "shasum": "efdcdf59f7edb193dd3c2fcf159b35275657837c"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Algolia\\AlgoliaSearch\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0|~7.0.0",
+                "magento/framework": "~100.0",
+                "algolia/algoliasearch-client-php": ">=1.10.2 <2.0"
+            },
+            "extra": {
+                "x-magento-ext-title": "Algolia Instant Search",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/algolia-algoliasearch-magento-2.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "1.0.4",
+                "1.0.3",
+                "1.0.1",
+                "1.0.0",
+                "0.8.3"
+            ],
+            "vendor": "algolia"
+        },
+        "celebros/module-conversionpro": {
+            "name": "celebros/module-conversionpro",
+            "description": "Celebros ConversionPro Include",
+            "keywords": [],
+            "homepage": "",
+            "version": "1.0.1",
+            "version_normalized": "1.0.1.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/celebros/module-conversionpro/celebros-module-conversionpro-1.0.1.0.zip",
+                "reference": null,
+                "shasum": "331394a8865b8b62ddf8e138198178d15c52a22d"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Celebros\\ConversionPro\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0|~7.0.0",
+                "celebros/module-celexport": ">=1.0.0",
+                "celebros/module-autocomplete": ">=1.0.0"
+            },
+            "extra": {
+                "x-magento-ext-title": "Conversion Pro",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/celebros-module-conversionpro.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "1.0.1"
+            ],
+            "vendor": "celebros"
+        },
+        "clicksend/sms": {
+            "name": "clicksend/sms",
+            "description": "ClickSend for Magento 2",
+            "keywords": [],
+            "homepage": "",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/clicksend/sms/clicksend-sms-1.0.0.0.zip",
+                "reference": null,
+                "shasum": "daa114fc543c37739cbac2569db3bc659cc8efb9"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Clicksend\\Sms\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~7.0.0",
+                "magento/framework": "~100.0.4"
+            },
+            "extra": {
+                "x-magento-ext-title": "ClickSend SMS",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/clicksend-sms.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "1.0.0"
+            ],
+            "vendor": "clicksend"
+        },
+        "exto/analytics": {
+            "name": "exto/analytics",
+            "description": "Exto.io Analytics helps you to stay informed about your ecommerce performance and make data-driven decisions.",
+            "keywords": [],
+            "homepage": "",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/exto/analytics/exto-analytics-1.0.0.0.zip",
+                "reference": null,
+                "shasum": "6f67668ce134908467ed94214590e76c88d1959c"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Exto\\Analytics\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0|~7.0.0"
+            },
+            "extra": {
+                "x-magento-ext-title": "Analytics",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/exto-analytics.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "1.0.7",
+                "1.0.5",
+                "1.0.3",
+                "1.0.0"
+            ],
+            "vendor": "exto"
+        },
+        "exto/analytics-package": {
+            "name": "exto/analytics-package",
+            "description": "Exto Analytics helps you to stay informed about your ecommerce performance and make data-driven decisions.",
+            "keywords": [],
+            "homepage": "",
+            "version": "1.0.3",
+            "version_normalized": "1.0.3.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/exto/analytics-package/exto-analytics-package-1.0.3.0.zip",
+                "reference": null,
+                "shasum": "d0772739eb820fede04766e1ec19781d55b8a199"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Exto\\Analytics\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0|~7.0.0"
+            },
+            "extra": {
+                "x-magento-ext-title": "Exto Analytics Package",
+                "x-magento-ext-type": "Package"
+            },
+            "versions": [
+                "1.0.7",
+                "1.0.3"
+            ],
+            "vendor": "exto"
+        },
+        "exto/base-package": {
+            "name": "exto/base-package",
+            "description": "Exto.io Base module",
+            "keywords": [],
+            "homepage": "",
+            "version": "1.0.2",
+            "version_normalized": "1.0.2.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/exto/base-package/exto-base-package-1.0.2.0.zip",
+                "reference": null,
+                "shasum": "9920bc4b2baa2fbc9f8954c66eb4947e714424b9"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Exto\\Base\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0|~7.0.0",
+                "magento/module-ui": "self.version"
+            },
+            "extra": {
+                "x-magento-ext-title": "Exto Base Package",
+                "x-magento-ext-type": "Package"
+            },
+            "versions": [
+                "1.1.0",
+                "1.0.2"
+            ],
+            "vendor": "exto"
+        },
+        "fme/banners": {
+            "name": "fme/banners",
+            "description": "sliding rotating banners",
+            "keywords": [],
+            "homepage": "",
+            "version": "1.0.0-beta",
+            "version_normalized": "1.0.0.0-beta",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/fme/banners/fme-banners-1.0.0.0-beta.zip",
+                "reference": null,
+                "shasum": "054851ac9919c629cbe791c995e66fc2921282cc"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "FME\\Banners\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0|~7.0.0",
+                "magento/module-config": "100.0.*",
+                "magento/module-store": "100.0.*",
+                "magento/module-backend": "100.0.*",
+                "magento/framework": "100.0.*"
+            },
+            "extra": {
+                "x-magento-ext-title": "Free Banners Slideshow, Flash Banners & Image Slider ",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/fme-banners.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "1.0.0-beta"
+            ],
+            "vendor": "fme"
+        },
+        "iwd/opc": {
+            "name": "iwd/opc",
+            "description": "One Step Checkout",
+            "keywords": [],
+            "homepage": "",
+            "version": "2.0.0.1",
+            "version_normalized": "2.0.0.1",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/iwd/opc/iwd-opc-2.0.0.1.zip",
+                "reference": null,
+                "shasum": "ff93621ede329426efefc561c3799108a5974a09"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "IWD\\Opc\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0|~7.0.0"
+            },
+            "extra": {
+                "x-magento-ext-title": "Checkout Suite (One Page Checkout)",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/iwd-opc.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "2.0.0.1"
+            ],
+            "vendor": "iwd"
+        },
+        "livechat/module-magento-livechat": {
+            "name": "livechat/module-magento-livechat",
+            "description": "",
+            "keywords": [],
+            "homepage": "",
+            "version": "2.0.0",
+            "version_normalized": "2.0.0.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/livechat/module-magento-livechat/livechat-module-magento-livechat-2.0.0.0.zip",
+                "reference": null,
+                "shasum": "f2b0b5be0292ffac68e539c80ea545cd2496d9f1"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "LiveChat\\LiveChat\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0|~7.0.0",
+                "magento/module-store": "100.*",
+                "magento/module-customer": "100.*",
+                "magento/module-checkout": "100.*",
+                "magento/module-sales": "100.*",
+                "magento/module-config": "100.*",
+                "magento/module-backend": "100.*",
+                "magento/framework": "100.*"
+            },
+            "extra": {
+                "x-magento-ext-title": "LiveChat",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/livechat-module-magento-livechat.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "2.0.0"
+            ],
+            "vendor": "livechat"
+        },
+        "nextopia/core": {
+            "name": "nextopia/core",
+            "description": "Nextopia Search module",
+            "keywords": [],
+            "homepage": "",
+            "version": "0.0.1",
+            "version_normalized": "0.0.1.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/nextopia/core/nextopia-core-0.0.1.0.zip",
+                "reference": null,
+                "shasum": "5a4fbf053f873b6733e8c73b76da686076b70e91"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Nextopia\\Core\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0"
+            },
+            "extra": {
+                "x-magento-ext-title": "Nextopia Core Extension (Support for Nextopia search extension.)",
+                "x-magento-ext-type": "Package"
+            },
+            "versions": [
+                "0.0.1"
+            ],
+            "vendor": "nextopia"
+        },
+        "nextopia/search": {
+            "name": "nextopia/search",
+            "description": "Nextopia Search module",
+            "keywords": [],
+            "homepage": "",
+            "version": "0.0.2",
+            "version_normalized": "0.0.2.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/nextopia/search/nextopia-search-0.0.2.0.zip",
+                "reference": null,
+                "shasum": "3bc73f8aecd1721219fee311b208ff78243f3f86"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Nextopia\\Search\\": ""
+                }
+            },
+            "require": {
+                "php": "~5.5.0|~5.6.0",
+                "magento/module-store": "*",
+                "nextopia/core": "0.0.1"
+            },
+            "extra": {
+                "x-magento-ext-title": "Nextopia Site Search",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/nextopia-search.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "1.1.0",
+                "1.0.0",
+                "0.0.2"
+            ],
+            "vendor": "nextopia"
+        },
+        "tgm/voodoo": {
+            "name": "tgm/voodoo",
+            "description": "SMS Sending module for magento 2",
+            "keywords": [],
+            "homepage": "",
+            "version": "100.0.2",
+            "version_normalized": "100.0.2.0",
+            "license": [
+                "OSL-3.0",
+                "AFL-3.0"
+            ],
+            "authors": [],
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.magento.com/archives/tgm/voodoo/tgm-voodoo-100.0.2.0.zip",
+                "reference": null,
+                "shasum": "260cb5dcb7c2fb16cf83e2fca022a24fcf9fd9e9"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "TGM\\Voodoo\\": ""
+                }
+            },
+            "extra": {
+                "x-magento-ext-title": "Voodoo SMS \u2013 Notify Customers &amp; Admin by Text Message",
+                "x-magento-ext-package-link": "https://marketplace.magento.com/tgm-voodoo.html",
+                "x-magento-ext-type": "Extension"
+            },
+            "versions": [
+                "100.0.2"
+            ],
+            "vendor": "tgm"
+        }
+    }
+}

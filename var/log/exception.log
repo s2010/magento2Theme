@@ -1,0 +1,50 @@
+[2017-02-01 09:06:12] main.CRITICAL: ReflectionException: Class Magento\Catalog\Model\Basic does not exist in /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php:19
+Stack trace:
+#0 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php(19): ReflectionClass->__construct('Magento\\Catalog...')
+#1 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Definition/Runtime.php(44): Magento\Framework\Code\Reader\ClassReader->getConstructor('Magento\\Catalog...')
+#2 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Factory/Dynamic/Developer.php(71): Magento\Framework\ObjectManager\Definition\Runtime->getParameters('Magento\\Catalog...')
+#3 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/ObjectManager.php(57): Magento\Framework\ObjectManager\Factory\Dynamic\Developer->create('Magento\\Catalog...', Array)
+#4 /Applications/MAMP/htdocs/magento2Theme/test.php(9): Magento\Framework\ObjectManager\ObjectManager->create('Magento\\Catalog...')
+#5 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/App/Bootstrap.php(258): TestApp->launch()
+#6 /Applications/MAMP/htdocs/magento2Theme/test.php(24): Magento\Framework\App\Bootstrap->run(Object(TestApp))
+#7 {main} [] []
+[2017-02-01 09:07:27] main.CRITICAL: ReflectionException: Class Magento\Calculator\Model\Basic does not exist in /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php:19
+Stack trace:
+#0 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php(19): ReflectionClass->__construct('Magento\\Calcula...')
+#1 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Definition/Runtime.php(44): Magento\Framework\Code\Reader\ClassReader->getConstructor('Magento\\Calcula...')
+#2 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Factory/Dynamic/Developer.php(71): Magento\Framework\ObjectManager\Definition\Runtime->getParameters('Magento\\Calcula...')
+#3 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/ObjectManager.php(57): Magento\Framework\ObjectManager\Factory\Dynamic\Developer->create('Magento\\Calcula...', Array)
+#4 /Applications/MAMP/htdocs/magento2Theme/test.php(9): Magento\Framework\ObjectManager\ObjectManager->create('Magento\\Calcula...')
+#5 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/App/Bootstrap.php(258): TestApp->launch()
+#6 /Applications/MAMP/htdocs/magento2Theme/test.php(24): Magento\Framework\App\Bootstrap->run(Object(TestApp))
+#7 {main} [] []
+[2017-02-01 09:07:29] main.CRITICAL: ReflectionException: Class Magento\Calculator\Model\Basic does not exist in /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php:19
+Stack trace:
+#0 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php(19): ReflectionClass->__construct('Magento\\Calcula...')
+#1 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Definition/Runtime.php(44): Magento\Framework\Code\Reader\ClassReader->getConstructor('Magento\\Calcula...')
+#2 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Factory/Dynamic/Developer.php(71): Magento\Framework\ObjectManager\Definition\Runtime->getParameters('Magento\\Calcula...')
+#3 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/ObjectManager.php(57): Magento\Framework\ObjectManager\Factory\Dynamic\Developer->create('Magento\\Calcula...', Array)
+#4 /Applications/MAMP/htdocs/magento2Theme/test.php(9): Magento\Framework\ObjectManager\ObjectManager->create('Magento\\Calcula...')
+#5 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/App/Bootstrap.php(258): TestApp->launch()
+#6 /Applications/MAMP/htdocs/magento2Theme/test.php(24): Magento\Framework\App\Bootstrap->run(Object(TestApp))
+#7 {main} [] []
+[2017-02-01 09:07:30] main.CRITICAL: ReflectionException: Class Magento\Calculator\Model\Basic does not exist in /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php:19
+Stack trace:
+#0 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php(19): ReflectionClass->__construct('Magento\\Calcula...')
+#1 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Definition/Runtime.php(44): Magento\Framework\Code\Reader\ClassReader->getConstructor('Magento\\Calcula...')
+#2 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Factory/Dynamic/Developer.php(71): Magento\Framework\ObjectManager\Definition\Runtime->getParameters('Magento\\Calcula...')
+#3 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/ObjectManager.php(57): Magento\Framework\ObjectManager\Factory\Dynamic\Developer->create('Magento\\Calcula...', Array)
+#4 /Applications/MAMP/htdocs/magento2Theme/test.php(9): Magento\Framework\ObjectManager\ObjectManager->create('Magento\\Calcula...')
+#5 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/App/Bootstrap.php(258): TestApp->launch()
+#6 /Applications/MAMP/htdocs/magento2Theme/test.php(24): Magento\Framework\App\Bootstrap->run(Object(TestApp))
+#7 {main} [] []
+[2017-02-01 09:08:08] main.CRITICAL: ReflectionException: Class Magento\Calculator\Model\Basic does not exist in /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php:19
+Stack trace:
+#0 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/Code/Reader/ClassReader.php(19): ReflectionClass->__construct('Magento\\Calcula...')
+#1 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Definition/Runtime.php(44): Magento\Framework\Code\Reader\ClassReader->getConstructor('Magento\\Calcula...')
+#2 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/Factory/Dynamic/Developer.php(71): Magento\Framework\ObjectManager\Definition\Runtime->getParameters('Magento\\Calcula...')
+#3 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/ObjectManager/ObjectManager.php(57): Magento\Framework\ObjectManager\Factory\Dynamic\Developer->create('Magento\\Calcula...', Array)
+#4 /Applications/MAMP/htdocs/magento2Theme/test.php(9): Magento\Framework\ObjectManager\ObjectManager->create('Magento\\Calcula...')
+#5 /Applications/MAMP/htdocs/magento2Theme/vendor/magento/framework/App/Bootstrap.php(258): TestApp->launch()
+#6 /Applications/MAMP/htdocs/magento2Theme/test.php(24): Magento\Framework\App\Bootstrap->run(Object(TestApp))
+#7 {main} [] []

@@ -1,0 +1,1 @@
+/Applications/MAMP/htdocs/magento2Theme/vendor/magento/module-sales/view/frontend/web/js/view/last-ordered-items.js

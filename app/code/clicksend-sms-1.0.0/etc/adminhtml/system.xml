@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="clicksendsms_tab" translate="label" sortOrder="1000">
+            <label>ClickSend</label>
+        </tab>
+        <section id="clicksendsms" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Configuration</label>
+            <tab>clicksendsms_tab</tab>
+            <resource>Clicksend_Sms::config</resource>
+            <group id="settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Settings</label>
+				 <field id="username" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>ClickSend Username</label>
+					<validate>required-entry</validate>
+                </field>
+				 <field id="password" translate="label" type="password" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>ClickSend Password</label>
+					<validate>required-entry</validate>
+                </field>
+				 <field id="sender" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sender Number/Name</label>
+					<validate>required-entry</validate>
+                </field>
+				 <field id="adminphone" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Phone Number</label>
+					<validate>required-entry</validate>
+                </field>
+                <field id="debug" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+			<group id="messages" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Messages</label>
+				 <field id="sendsmsonneworder" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send SMS to admin on New Order</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="sendsmsonnewordermessage" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>New Order Notification Message</label>
+					<validate>required-entry</validate>
+					<depends><field id="*/*/sendsmsonneworder">1</field></depends>
+					<comment>The following variables can be mixed with your message: {ORDER-NUMBER},{ORDER-TOTAL},{ORDER-STATUS},{CARRIER-NAME},{PAYMENT-NAME},{CUSTOMER-NAME}, and {CUSTOMER-EMAIL}</comment>
+                </field>
+				 <field id="sendsmsonship" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send SMS to customer on status change to SHIPPED</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+				<field id="sendsmsonshipmessage" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Status Change Notification Message</label>
+					<validate>required-entry</validate>
+					<depends><field id="*/*/sendsmsonship">1</field></depends>
+					<comment>The following variables can be mixed with your message: {ORDER-NUMBER},{ORDER-TOTAL},{ORDER-STATUS},{CARRIER-NAME},{PAYMENT-NAME},{CUSTOMER-NAME}, and {CUSTOMER-EMAIL}</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

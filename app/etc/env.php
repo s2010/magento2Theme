@@ -6,7 +6,7 @@ return array (
   ),
   'crypt' => 
   array (
-    'key' => 'b3c0367c7d43b429a023c136b5f58a40',
+    'key' => 'ea570fa1da49aeb15306102f2e93d8db',
   ),
   'session' => 
   array (
@@ -53,6 +53,6 @@ return array (
   ),
   'install' => 
   array (
-    'date' => 'Tue, 31 Jan 2017 07:53:42 +0000',
+    'date' => 'Wed, 01 Feb 2017 08:58:25 +0000',
   ),
 );
